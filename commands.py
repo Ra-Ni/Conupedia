@@ -5,6 +5,8 @@ from fastapi import FastAPI, Form, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 import uuid
 
+import virtuoso
+
 app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 

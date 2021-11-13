@@ -31,6 +31,32 @@ def get(session: core.Session, **kwargs) -> list:
     raise NotImplemented
 
 
+def seen(session: core.Session, user: str) -> set:
+    query = """
+    with <http://www.securesea.ca/conupedia/user/>
+    select ?course where {
+        ssu:%s sso:saw ?course . 
+    }
+    """ % user
+
+    courses = session.post(query=query)
+    if not courses:
+        return set()
+
+    courses = set([result['course'] for result in courses])
+    return courses
+
+
+def unseen(session: core.Session, user: str) -> list:
+    query = """
+    select ?course where {
+        ?course a schema:Course .
+        FILTER NOT EXISTS { ssu:%s sso:saw ?course . }
+        } 
+    }
+    """
+    return session.post(query=query)
+
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
     s = core.Session(u)
