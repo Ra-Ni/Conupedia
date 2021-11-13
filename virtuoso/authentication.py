@@ -4,7 +4,7 @@ import datetime
 from virtuoso import core
 
 
-def create(session: core.Session, user: str) -> list:
+def create(session: core.Session, user: str) -> tuple:
     uid = uuid.uuid4()
     expiry_date = datetime.datetime.now().replace(microsecond=0) + datetime.timedelta(days=1)
 
@@ -15,7 +15,8 @@ def create(session: core.Session, user: str) -> list:
             rdfs:seeAlso ssu:%s .
     }
     """ % (uid, expiry_date, user)
-    return session.post(query=query)
+    retval = session.post(query=query)
+    return retval != [], {'token': uuid, 'expiry_date': expiry_date}
 
 
 def delete(session: core.Session, **kwargs) -> list:

@@ -6,6 +6,7 @@ from fastapi.security import OAuth2PasswordBearer
 import uuid
 
 import virtuoso
+import virtuoso
 
 app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -132,41 +133,15 @@ async def register(username: str = Form(...),
                    fName: str = Form(...),
                    lName: str = Form(...),
                    email: str = Form(...)):
-    query = """
-    select ?user where {
-        ?user rdfs:subClassOf foaf:Person .
-        FILTER(?user = ssu:%s) .
-    }
-    """ % username
-    with virtuoso.session() as session:
-        response = virtuoso.post(URI, query, session)
 
-    if not response:
-        raise HTTPException(status_code=503, detail="Server Unavailable")
+    with virtuoso.Session(URI) as session:
 
-    if response['results']['bindings']:
-        raise HTTPException(status_code=406, detail="Username already exists")
+        if virtuoso.user.exists(session, username):
+            raise HTTPException(status_code=406, detail="Username already exists")
 
-    queries = ["""
-        insert in graph <http://www.securesea.ca/conupedia/user/> {
-        ssu:%s a rdfs:Class ;
-            rdfs:subClassOf foaf:Person ;
-            foaf:firstName "%s" ;
-            foaf:lastName "%s" ;
-            foaf:mbox "%s" ;
-            schema:accessCode "%s" .
-        } 
-        """ % (username, fName, lName, email, password), """
-        insert in graph <http://www.securesea.ca/conupedia/token/> {
-        sst:%s a sso:Token ;
-            sso:expires "%s" ;
-            rdfs:seeAlso ssu:%s .
-        }
-        """ % (f'{uuid.uuid4()}', f'{datetime.datetime.now().replace(microsecond=0)}', username)]
-
-    with virtuoso.session() as session:
-        for query in queries:
-            virtuoso.post(URI, query, session)
+        reply, _ = virtuoso.user.create(session, username, password, fName, lName, email)
+        _, token = virtuoso.authentication.create(session, username)
+        return token
 
 
 @app.post('/login/')

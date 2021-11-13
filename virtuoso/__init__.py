@@ -1,3 +1,8 @@
-from virtuoso.core import *
+from core import *
+import user
+import authentication
+import course
 
-__all__ = ['get', 'post', 'session']
+__all__ = ['Session', course.create, user.create, user.get, authentication.get, authentication.create]
+
+

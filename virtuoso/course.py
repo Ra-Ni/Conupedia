@@ -51,15 +51,18 @@ def unseen(session: core.Session, user: str) -> list:
     query = """
     select ?course where {
         ?course a schema:Course .
-        FILTER NOT EXISTS { ssu:%s sso:saw ?course . }
-        } 
+        filter not exists { ssu:%s sso:saw ?course . }
     }
-    """
-    return session.post(query=query)
+    """ % user
+    courses = session.post(query=query)
+    courses = [course['course'] for course in courses]
+    return courses
+
 
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
     s = core.Session(u)
     # print(create(s, 'desroot'))
-    print(create(s, **{'schema:name': '"ACCO23012"'}))
+    #print(create(s, **{'schema:name': '"ACCO23012"'}))
+    print(unseen(s, 'desroot'))
     # print(create(s, 'desroot', 'rani123', 'rani', 'rafid', 'ranii.rafid@gmail.com'))
