@@ -24,8 +24,6 @@ def create(session: core.Session,
     return retval != [], {'user': user, 'password': password, 'fName': fName, 'lName': lName, 'email': email}
 
 
-
-
 def delete(session: core.Session, user: str) -> None:
     query = """
     with <http://www.securesea.ca/conupedia/user/> 
@@ -62,6 +60,7 @@ def insert(session: core.Session, user: str, action: str, course: str):
 
     return session.post(query=query)
 
+
 def exists(session: core.Session, user: str) -> bool:
     query = """
     select ?user where {
@@ -79,5 +78,6 @@ if __name__ == '__main__':
     print(delete(s, 'desroot'))
     print(exists(s, 'desroot'))
     print(create(s, 'desroot', 'rani123', 'rani', 'rafid', 'ranii.rafid@gmail.com'))
-    print(insert(s, 'desroot', 'saw', '000537'))
-
+    print(insert(s, 'desroot', 'saw', '000055'))
+    print(insert(s, 'desroot', 'saw', '000043'))
+    print(insert(s, 'desroot', 'likes', '000055'))

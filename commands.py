@@ -119,8 +119,7 @@ def exists_token(username: str, session: requests.Session) -> bool:
 
 
 
-def renew_token(validate=False):
-    if validate:
+
 
 @app.get('/')
 def root():
