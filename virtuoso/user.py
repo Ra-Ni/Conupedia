@@ -10,7 +10,7 @@ def create(session: core.Session,
            lName: str,
            email: str,
            password: str) -> bool:
-    unique_id = uuid.uuid4()
+    unique_id = str(uuid.uuid4())
     query = """
     insert in graph <http://www.securesea.ca/conupedia/user/> {
         ssu:%s a rdfs:Class ;
@@ -64,10 +64,11 @@ def insert(session: core.Session, user: str, action: str, course: str):
 
 def from_email(session: core.Session, email: str):
     query = """
-    select ?user where {
+    with <http://www.securesea.ca/conupedia/user/>
+    select ?user ?password where {
         ?user rdfs:subClassOf foaf:Person ;
             foaf:mbox "%s" ;
-            foaf:accessCode ?password .
+            schema:accessCode ?password .
     }
     """ % email
 
@@ -88,10 +89,10 @@ def exists(session: core.Session, email: str) -> bool:
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
     s = core.Session(u)
-    print(get(s, 'desroot'))
-    print(delete(s, 'desroot'))
-    print(exists(s, 'desroot'))
-    print(create(s, 'desroot', 'rani123', 'rani', 'rafid', 'ranii.rafid@gmail.com'))
-    print(insert(s, 'desroot', 'saw', '000055'))
-    print(insert(s, 'desroot', 'saw', '000043'))
-    print(insert(s, 'desroot', 'likes', '000055'))
+    print(get(s, 'desroot2'))
+    print(delete(s, 'desroot2'))
+    print(exists(s, 'desroot2'))
+    print(create(s, 'desroot2', 'ranii.rafid@gmail.com', 'rani', 'rafid'))
+    print(insert(s, 'desroot2', 'saw', '000055'))
+    print(insert(s, 'desroot2', 'saw', '000043'))
+    print(insert(s, 'desroot2', 'likes', '000055'))

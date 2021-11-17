@@ -53,7 +53,6 @@ class Session(requests.Session):
         if response.status_code != 200:
             raise Exception('Bad request')
 
-        Response()
         return _beautify_response(response)
 
 if __name__ == '__main__':
