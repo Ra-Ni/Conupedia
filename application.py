@@ -26,7 +26,7 @@ URI = 'http://192.168.0.4:8890/sparql'
 
 @app.get('/register')
 def register(request: Request):
-    return templates.TemplateResponse('sign-up/index.html', context={'request': request})
+    return templates.TemplateResponse('portal/login.html', context={'request': request})
 
 
 @app.post('/register')
@@ -39,37 +39,43 @@ def register(request: Request,
              ):
     if password != cpassword:
         feedback = 'Password does not match'
-        return templates.TemplateResponse('sign-up/index.html', context={'request': request, 'feedback': feedback})
+        return templates.TemplateResponse('portal/login.html', context={'request': request, 'feedback': feedback})
 
     with virtuoso.Session(URI) as session:
         if virtuoso.user.exists(session, email):
             feedback = 'Email already exists'
-            return templates.TemplateResponse('sign-up/index.html', context={'request': request, 'feedback': feedback})
+            return templates.TemplateResponse('portal/login.html', context={'request': request, 'feedback': feedback})
 
         virtuoso.user.create(session, fName, lName, email, hash_password(password))
     feedback = 'User successfully created'
-    return templates.TemplateResponse('sign-in/index.html', context={'request': request, 'feedback': feedback})
+    return templates.TemplateResponse('portal/login.html', context={'request': request, 'feedback': feedback})
 
 
 @app.get('/login')
 async def login(request: Request, response: Response, sessionID: Optional[str] = Cookie(None)):
     if sessionID:
-        return RedirectResponse(url=app.url_path_for('browse'))
+        return RedirectResponse(url=app.url_path_for('dashboard'))
 
-    return templates.TemplateResponse('sign-in/index.html', context={'request': request})
+    return templates.TemplateResponse('portal/login.html', context={'request': request})
 
 
 @app.post('/login')
 async def login(request: Request, response: Response, email: str = Form(...), password: str = Form(...)):
-    with virtuoso.Session(URI) as session:
-        profile = virtuoso.user.from_email(session, email)
+    context = {'request': request}
+    session = virtuoso.Session(URI)
+    profile = virtuoso.user.from_email(session, email)
+
+    if not profile:
+        context['email_feedback'] = " The email you entered isn't connected to an account. "
+        return templates.TemplateResponse('portal/login.html', context=context)
+
     profile = profile[0]
     db_password = profile['password']
     io_password = hash_password(password)
 
     if db_password != io_password:
-        feedback = 'Incorrect e-mail or password'
-        return templates.TemplateResponse('sign-in/index.html', context={'request': request, 'feedback': feedback})
+        context['password_feedback'] = " The password you entered is incorrect. "
+        return templates.TemplateResponse('portal/login.html', context=context)
 
     uid = str(uuid.uuid4())
     query = """
@@ -77,10 +83,11 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
         <%s> sso:hasSession "%s" .
     }
     """ % (profile['user'], uid)
-    with virtuoso.Session(URI) as session:
-        session.post(query=query)
 
-    response = RedirectResponse(url=app.url_path_for('browse'), status_code=status.HTTP_302_FOUND)
+    session.post(query=query)
+    session.close()
+
+    response = RedirectResponse(url=app.url_path_for('dashboard'), status_code=status.HTTP_302_FOUND)
     response.set_cookie(key='sessionID', value=uid)
     response.set_cookie(key='profileID', value=str(re.sub('.*[/#]', '', profile['user'])))
     return response
@@ -108,10 +115,10 @@ async def logout(request: Request, sessionID: Optional[str] = Cookie(None)):
     return response
 
 
-@app.get('/browse')
-async def browse(request: Request):
+@app.get('/dashboard')
+async def dashboard(request: Request):
 
-    return templates.TemplateResponse('dashboard/index.html', context={'request': request})
+    return templates.TemplateResponse('student/dashboard.html', context={'request': request})
 
 
 @app.get('/browse/{category}')

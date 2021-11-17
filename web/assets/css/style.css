@@ -9426,3 +9426,40 @@ input[type="button"].dark1, input[type="submit"].dark1 {
 /* 05. Add your custom classes
 ----------------------------------------------------------------- */
 /*# sourceMappingURL=style.css.map */
+
+.err {
+  color: red;
+}
+
+html ._55r1 {
+    background: #FFFFFF repeat-x;
+    border: 1px solid #dddfe2;
+    color: #1d2129;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    height: 22px;
+    line-height: 16px;
+    padding: 0 8px;
+    vertical-align: middle;
+}
+
+.gbutton {
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 42px;
+    color: #fff;
+    padding: 0 16px;
+    border: 1px solid;
+    border-radius: 2px;
+    box-sizing: content-box;
+    font-size: 12px;
+    -webkit-font-smoothing: antialiased;
+    font-weight: bold;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    text-shadow: none;
+    vertical-align: middle;
+}
