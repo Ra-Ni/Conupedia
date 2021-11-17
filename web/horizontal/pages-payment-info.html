@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Courseplus Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Courseplus is - Professional A unique and beautiful collection of UI elements">
+
+    <!-- Favicon -->
+    <link href="../assets/images/favicon.png" rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/icons.css">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/uikit.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <div id="wrapper" class="horizontal">
+        
+        <!--  Header  -->
+        <header  uk-sticky>
+            <div class="header_inner">
+                <div class="left-side">
+    
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="home.html">
+                            <img src="../assets/images/logo.png" alt="">
+                            <img src="../assets/images/logo-light.png" class="logo_inverse" alt="">
+                            <img src="../assets/images/logo-mobile.png" class="logo_mobile" alt="">
+                        </a>
+                    </div>
+    
+                    <!-- icon menu for mobile -->
+                    <div class="triger" uk-toggle="target: .header_menu ; cls: is-visible">
+                    </div>
+    
+                    <!-- menu bar for mobile -->
+                    <nav class="header_menu">
+                        <ul> 
+                            <li> 
+                                <a href="#"> Courses</a> 
+                                <div uk-drop="mode: click" class="category-dropdown">
+                                    <ul>
+                                        <li> <a href="courses.html">  <ion-icon name="newspaper-outline" class="is-icon"></ion-icon> Web Development </a></li>
+                                        <li> <a href="courses.html">  <ion-icon name="leaf-outline" class="is-icon"></ion-icon> Mobile App </a> </li>
+                                        <li> <a href="courses.html">  <ion-icon name="briefcase-outline" class="is-icon"></ion-icon> Business </a> </li>
+                                        <li> <a href="courses.html">  <ion-icon name="color-palette-outline" class="is-icon"></ion-icon> Desings </a></li>
+                                        <li> <a href="courses.html">  <ion-icon name="megaphone-outline" class="is-icon"></ion-icon> Marketing </a></li>
+                                        <li> <a href="courses.html">  <ion-icon name="camera-outline" class="is-icon"></ion-icon> Photography </a> </li>
+                                        <li> <a href="courses.html">  <ion-icon name="accessibility-outline" class="is-icon"></ion-icon> Life Style </a> </li>
+                                    </ul>
+                                </div>
+                          
+                            </li>
+                           <li> <a href="categories.html" class="active"> Categories </a></li>
+                            <li> <a href="episodes.html"> Episode  </a></li>
+                            <li> <a href="books.html"> Book  </a></li>
+                            <li> <a href="blog.html"> Blog</a></li>
+                            <li> <a href="#">Pages</a>
+                                <div uk-drop="mode: click" class="menu-dropdown">
+                                    <ul>
+                                        <li> <a href="pages-pricing.html"> Pricing</a></li>
+                                        <li> <a href="pages-faq.html"> Faq </a></li>
+                                        <li> <a href="pages-help.html"> Help </a></li>
+                                        <li> <a href="pages-terms.html"> Terms </a></li>
+                                        <li> <a href="pages-setting.html"> Setting </a></li>  
+                                        <li> <a href="#"> Development </a>
+                                            <div class="menu-dropdown" uk-drop="mode: click;pos:right-top;animation: uk-animation-slide-right-small">
+                                                <ul> 
+                                                    <li><a href="development-elements.html"> Elements  </a></li>
+                                                    <li><a href="development-components.html"> Compounents </a></li>
+                                                    <li><a href="development-plugins.html"> Plugins </a></li>
+                                                    <li><a href="development-icons.html"> Icons </a></li>
+                                                </ul>
+                                            </div>  
+                                        </li>
+                                        <li> <a href="pages-cart.html"> Shopping cart </a></li>
+                                        <li> <a href="pages-payment-info.html"> Payment methods </a></li>
+                                        <li> <a href="pages-account-info.html"> Account info </a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+    
+                    <!-- overly for small devices -->
+                    <div class="overly" uk-toggle="target: .header_menu ; cls: is-visible"></div>
+    
+                </div>
+                <div class="right-side">
+    
+                    <!-- cart -->
+                    <a href="#" class="header_widgets">
+                        <ion-icon name="cart-outline" class="is-icon"></ion-icon>
+                    </a>
+                    <div uk-drop="mode: click" class="dropdown_cart">
+                        <div class="cart-headline"> My Cart 
+                            <a href="#" class="checkout">Checkout</a>
+                        </div>
+                        <ul class="dropdown_cart_scrollbar" data-simplebar>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-1.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> Learn Angular Beginner to Advanced Fundamentals </h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $12.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-1.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4>  Become a Web Developer from Scratch to Advanced </h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $19.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-2.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> Angular Fundamentals for Beginner to advance </h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $12.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-3.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> Ultimate Web Developer Course for Beginners 2020</h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $14.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-4.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> The Complete JavaScript From beginning to advance </h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $16.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-5.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> Become a Web Developer from Scratch to Advanced</h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $12.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                        </ul>
+    
+                        <div class="cart_footer">
+                            <p> Subtotal : $ 320 </p>
+                            <h1> Total :  <strong> $ 320</strong> </h1>
+                        </div>
+                    </div>
+    
+                    <!-- notification -->
+                    <a href="#" class="header_widgets">
+                        <ion-icon name="mail-outline" class="is-icon"></ion-icon>
+                    </a>
+                    <div uk-drop="mode: click" class="header_dropdown"> 
+                        <div class="drop_headline">
+                            <h4>Notifications </h4>
+                            <div class="btn_action">
+                                <div class="btn_action">
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" uk-tooltip="title: Notifications settings ; pos: left"></ion-icon>
+                                    </a>
+                                    <a href="#">
+                                        <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <ul class="dropdown_scrollbar" data-simplebar>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <p> <strong>Adrian Mohani</strong> Like Your Comment On Course
+                                            <span class="text-link">Javascript Introduction </span>
+                                        </p>
+                                        <span class="time-ago"> 2 hours ago </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <p>
+                                            <strong>Stella Johnson</strong> Replay Your Comments in
+                                            <span class="text-link">Programming for Games</span>
+                                        </p>
+                                        <span class="time-ago"> 9 hours ago </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <p>
+                                            <strong>Alex Dolgove</strong> Added New Review In Course
+                                            <span class="text-link">Full Stack PHP Developer</span>
+                                        </p>
+                                        <span class="time-ago"> 12 hours ago </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <p>
+                                            <strong>Jonathan Madano</strong> Shared Your Discussion On Course
+                                            <span class="text-link">Css Flex Box </span>
+                                        </p>
+                                        <span class="time-ago"> Yesterday </span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <a href="#" class="see-all">See all</a>
+                    </div>
+    
+                    <!-- messages -->
+                    <a href="#" class="header_widgets">
+                        <ion-icon name="notifications-outline" class="is-icon"></ion-icon>
+                        <span> 2 </span>
+                    </a>
+                    <div uk-drop="mode: click" class="header_dropdown">
+                        <div class="drop_headline">
+                            <h4>Messages </h4>
+                            <div class="btn_action">
+                                <a href="#">
+                                    <ion-icon name="settings-outline" uk-tooltip="title: Message settings ; pos: left"></ion-icon>
+                                </a>
+                                <a href="#">
+                                    <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                </a>
+                            </div>
+                        </div>
+                        <ul class="dropdown_scrollbar" data-simplebar>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> John menathon </strong> <span class="time"> 6:43 PM</span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> Zara Ali </strong> <span class="time">12:43 PM</span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> Mohamed Ali </strong> <span class="time"> Wed</span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> John menathon </strong> <span class="time"> Sun </span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> Zara Ali </strong> <span class="time"> Fri </span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> Mohamed Ali </strong> <span class="time">1 Week ago</span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <a href="#" class="see-all">See all</a>
+                    </div>
+    
+                     <!-- profile -->
+                    <a href="#">
+                        <img src="../assets/images/avatars/placeholder.png" class="header_widgets_avatar" alt="">
+                    </a>
+                    <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
+                        <ul>   
+                            <li>
+                                <a href="#" class="user">
+                                    <div class="user_avatar">
+                                        <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    </div>
+                                    <div class="user_name">
+                                        <div> Stella Johnson </div>
+                                        <span> @Johnson </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li> 
+                                <hr>
+                            </li>
+                            <li> 
+                                <a href="#" class="is-link">
+                                    <ion-icon name="rocket-outline" class="is-icon"></ion-icon> <span>  Upgrade Membership  </span>
+                                </a>
+                            </li> 
+                            <li> 
+                                <hr>
+                            </li>
+                            <li> 
+                                <a href="#">
+                                    <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
+                                     My Account 
+                                </a>
+                            </li>
+                            <li> 
+                                <a href="#">
+                                    <ion-icon name="card-outline" class="is-icon"></ion-icon>
+                                    Subscriptions
+                                </a>
+                            </li>
+                            <li> 
+                                <a href="#">
+                                    <ion-icon name="color-wand-outline" class="is-icon"></ion-icon>
+                                    My Billing 
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <ion-icon name="settings-outline" class="is-icon"></ion-icon>
+                                    Account Settings  
+                                </a>
+                            </li>
+                            <li> 
+                                <hr>
+                            </li>
+                            <li> 
+                                <a href="#" id="night-mode" class="btn-night-mode" onclick="UIkit.notification({ message: 'Hmm...  <strong> Night mode </strong> feature is not available yet. ' , pos: 'bottom-right'  })">
+                                    <ion-icon name="moon-outline" class="is-icon"></ion-icon>
+                                     Night mode
+                                    <span class="btn-night-mode-switch">
+                                        <span class="uk-switch-button"></span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li> 
+                                <a href="#">
+                                    <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                                    Log Out 
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+    
+                </div>
+            </div>
+        </header>
+  
+        <!--  breadcrumb -->
+        <div class="from-blue-500 via-blue-400 to-blue-500 bg-gradient-to-l breadcrumb-area py-6 text-white">
+            <div class="container mx-auto lg:pt-5">
+                <div class="breadcrumb text-white">
+                    <ul class="m-0">
+                        <li>
+                            <a href="index.html"> <i class="icon-feather-home"></i> </a>
+                        </li>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li> 
+                        <li class="active">
+                            <a href="#">Payment method </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:text-2xl text-base font-semibold mt-6 md:mb-6"> Payment method </div>
+            </div>
+        </div>
+        
+        <div class="lg:py-10 py-5">
+            <div class="container">
+
+                <div class="lg:flex">
+         
+                    <div class="w-full lg:pr-24"> 
+        
+                        <h2 class="text-xl font-semibold md:mb-6 mb-3"> Choose payment method </h2>
+
+                        <div class="bg-white rounded-md shadow-md">
+ 
+                            <ul class=" space-y-0 rounded-md" uk-accordion>
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title border-b py-4 px-6" href="#"> <div class="flex items-center text-base font-semibold"> <ion-icon name="card-outline" class="mr-2"></ion-icon> Pay with Credit Card</div> </a>
+                                    <div class="uk-accordion-content py-6 px-8 mt-0 border-b">
+                                        
+                                        <p class="">We accept following credit cards:&nbsp;&nbsp;<img class="inline-block" src="../assets/images/cards.png" style="width: 187px;" alt="Cerdit Cards"></p>
+            
+                                        <form class="grid sm:grid-cols-4 gap-4 mt-3">
+                                            <div class="col-span-2">
+                                                <input type="text" name="number" placeholder="Card Number" class="with-border">
+                                            </div>
+                                            <div class="col-span-2">
+                                                <input type="text" name="name" placeholder="Full Name" class="with-border">
+                                            </div>
+                                            <div> 
+                                                <input type="text" name="expiry" placeholder="MM/YY" class="with-border">
+                                            </div>
+                                            <div>    
+                                                <input type="text" name="cvc" placeholder="CVC" class="with-border">
+                                            </div>
+                                            <div class="col-span-2 border rounded-md border-blue-500">
+                                                <button class="w-full py-3 font-semibold rounded text-blue-600 text-base block" type="submit">Submit</button>
+                                            </div>
+                                        </form>
+            
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="uk-accordion-title border-b py-4 px-6" href="#"> <div class="flex items-center text-base font-semibold"> <ion-icon name="logo-paypal" class="mr-2"></ion-icon> Pay with PayPal</div> </a>
+                                    <div class="uk-accordion-content py-6 px-8 mt-0 border-b">
+                                        
+                                        <p><span class="font-semibold">PayPal</span> - the safer, easier way to pay</p> 
+                                        <form class="grid sm:grid-cols-2 gap-4 mt-3">
+                                            <div>
+                                                <input type="text" name="email" placeholder="E-mail" class="with-border">
+                                            </div>
+                                            <div>
+                                                <input type="Password" name="Password" placeholder="Password" class="with-border">
+                                            </div>
+                                        </form>
+            
+                                        <div class="flex flex-wrap items-center justify-between py-2 mt-3">
+                                            <a class="font-medium text-sm text-blue-600 hover:underline" href="#">Forgot password?</a>
+                                            <button class="button" type="submit">Log In</button>
+                                        </div>
+            
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="uk-accordion-title border-b py-4 px-6" href="#"> <div class="flex items-center text-base font-semibold"> <ion-icon name="gift-outline" class="mr-2"></ion-icon> Redeem Reward Points</div> </a>
+                                    <div class="uk-accordion-content py-6 px-8 mt-0 border-b">
+                                        
+                                        <p>You currently have<span class="font-semibold">&nbsp;562</span>&nbsp;Reward Points to spend.</p>
+                                        
+                                        <div class="checkbox mt-3">
+                                            <input type="checkbox" id="use_points_check" checked>
+                                            <label for="use_points_check"><span class="checkbox-icon"></span>  Use my Reward Points to pay for this order</label>
+                                        </div>
+            
+                                    </div>
+                                </li>
+                            </ul>
+            
+                        </div>
+    
+                        <div class="grid grid-cols-2 md:gap-6 gap-3 md:mt-10 mt-5">
+                            <a class="bg-gray-200 flex font-medium items-center justify-center py-3 rounded-md" href="pages-cart.html">
+                                <i class="icon-feather-chevron-left mr-1"></i>
+                                <span class="md:block hidden">Back to Cart</span><span class="md:hidden block">Back</span>
+                            </a>
+                            <a class="bg-blue-600 text-white flex font-medium items-center justify-center py-3 rounded-md hover:text-white" href="pages-account-info.html">
+                                <span class="md:block hidden">Billing address </span><span class="md:hidden block">Review</span>
+                                <i class="icon-feather-chevron-right ml-1"></i>
+                            </a>
+                        </div>
+                        
+        
+                    </div>
+        
+                    <!-- Sidebar -->
+                    <div class="lg:w-5/12 lg:-ml-12 lg:mt-0 mt-8">
+                        <div class="bg-white rounded-md shadow-lg lg:p-6 p-3" uk-sticky="offset:; offset:90 ; media: 1024 ; bottom: true">
+        
+                            <div class="font-semibold px-5 pb-3 text-lg text-center"> Order summary </div>
+        
+                            <div>
+                                <div class="flex py-3 space-x-2.5 delimiter-bottom">
+                                    <a class="block md:mr-2" href="#"><img class="w-16 h-11 object-cover rounded" src="../assets/images/courses/img-7.jpg" alt="Product"></a>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium"><a href="#" class="line-clamp-2"> Learn Angular Fundamentals to Expert</a></h6>
+                                        <div class="flex justify-between mt-1"><span class="font-medium text-sm text-blue-500">Angular</span><span class="font-bold mt-0.5">$49.<small>00</small></span></div>
+                                    </div>
+                                </div>
+                                <div class="flex py-3 space-x-2.5 delimiter-bottom">
+                                    <a class="block md:mr-2" href="#"><img class="w-16 h-11 object-cover rounded" src="../assets/images/courses/img-5.jpg" alt="Product"></a>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium"><a href="#" class="line-clamp-2">
+                                            Build Responsive Real World Websites </a></h6>
+                                        <div class="flex justify-between mt-1"><span class="font-medium text-sm text-green-500">HTML</span><span class="font-bold mt-0.5">$64.<small>00</small></span></div>
+                                    </div>
+                                </div>
+                                <div class="flex py-3 space-x-2.5">
+                                    <a class="block md:mr-2" href="#"><img class="w-16 h-11 object-cover rounded" src="../assets/images/courses/img-3.jpg" alt="Product"></a>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium"><a href="#" class="line-clamp-2">  The Complete JavaScript For Beginners </a></h6>
+                                        <div class="flex justify-between mt-1"><span class="font-medium text-sm text-yellow-500">  JavaScript</span><span class="font-bold mt-0.5">$84.<small>00</small></span></div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <ul class="border-b border-t my-3 py-3 text-sm">
+                                <li class="flex justify-between align-center"><span class="mr-2">Subtotal:</span><span>$197.<small>00</small></span></li>
+                                <li class="flex justify-between align-center"><span class="mr-2">Discount:</span><span><span class="text-right">—</span></span></li>
+                            </ul>
+        
+                            <h3 class="font-semibold text-center my-6 text-2xl">$197.<small>50</small></h3>
+                            <form method="post" class="space-y-3">
+                                <input class="form-control with-border" type="text" placeholder="Promo code" required="">
+                                <div class="col-span-2 border rounded-md border-blue-500">
+                                    <button class="w-full py-2.5 font-semibold rounded text-blue-600 text-base block" type="submit">Apply promo code</button>
+                                </div>
+                            </form>
+                             
+                        </div>
+                    </div>
+        
+                </div>
+        
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
+            <div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
+                <p class="capitalize font-medium"> © copyright 2021  Courseplus</p>
+                <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
+                    <a href="#"> About</a>
+                    <a href="#"> Help</a>
+                    <a href="#"> Terms</a>
+                    <a href="#"> Privacy</a>
+                </div>
+            </div>
+        </div>
+
+  
+    </div>
+           
+    
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   <script src="../assets/js/uikit.js"></script>
+    <script src="../assets/js/tippy.all.min.js"></script>
+    <script src="../assets/js/simplebar.js"></script>
+    <script src="../assets/js/custom.js"></script>
+    <script src="../assets/js/bootstrap-select.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+</body>
+
+</html>

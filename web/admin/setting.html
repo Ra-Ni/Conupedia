@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Courseplus Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Courseplus is - Professional A unique and beautiful collection of UI elements">
+
+    <!-- Favicon -->
+    <link href="../assets/images/favicon.png" rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/icons.css">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/uikit.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+ 
+   
+</head>
+
+<body>
+
+    <div id="wrapper" class="is-verticle admin-panel">
+
+        <!--  Header  -->
+        <header uk-sticky> 
+            <div class="header_inner">
+                <div class="left-side">
+    
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="dashboard.html">
+                            <img src="../assets/images/logo.png" alt="">
+                            <img src="../assets/images/logo-light.png" class="logo_inverse" alt="">
+                            <img src="../assets/images/logo-mobile.png" class="logo_mobile" alt="">
+                        </a>
+                    </div>
+                    <!-- icon menu for mobile -->
+                    <div class="triger" uk-toggle="target: #wrapper ; cls: is-active"> 
+                    </div>
+    
+                </div>
+                <div class="right-side">
+     
+                    <!-- Header search box  -->
+                    <div class="header_search"><i class="uil-search-alt"></i> 
+                        <input value="" type="text" class="form-control" placeholder=" Quick search for anything.." autocomplete="off">
+                        <div uk-drop="mode: click;offset:10" class="header_search_dropdown">
+                               
+                            <h4 class="search_title"> Recently </h4>
+                            <ul>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Erica Jones </div>
+                                    </a> 
+                                </li> 
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Coffee  Addicts </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-3.jpg" alt="" class="list-avatar">
+                                        <div class="list-name"> Mountain Riders </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-4.jpg" alt="" class="list-avatar">
+                                        <div class="list-name"> Property Rent And Sale  </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-5.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Erica Jones </div>
+                                    </a> 
+                                </li>
+                            </ul>
+    
+                        </div>
+                    </div>
+                    
+                    <div>
+
+                        <!-- search icon for mobile -->
+                        <div class="header-search-icon" uk-toggle="target: #wrapper ; cls: show-searchbox"> </div>
+ 
+        
+                        <!-- notification -->
+                        <a href="#" class="header_widgets">
+                            <ion-icon name="mail-outline" class="is-icon"></ion-icon>
+                        </a>
+                        <div uk-drop="mode: click" class="header_dropdown"> 
+                            <div class="drop_headline">
+                                <h4>Notifications </h4>
+                                <div class="btn_action">
+                                    <div class="btn_action">
+                                        <a href="#">
+                                            <ion-icon name="settings-outline" uk-tooltip="title: Notifications settings ; pos: left"></ion-icon>
+                                        </a>
+                                        <a href="#">
+                                            <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p> <strong>Adrian Mohani</strong> Like Your Comment On Course
+                                                <span class="text-link">Javascript Introduction </span>
+                                            </p>
+                                            <span class="time-ago"> 2 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Stella Johnson</strong> Replay Your Comments in
+                                                <span class="text-link">Programming for Games</span>
+                                            </p>
+                                            <span class="time-ago"> 9 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Alex Dolgove</strong> Added New Review In Course
+                                                <span class="text-link">Full Stack PHP Developer</span>
+                                            </p>
+                                            <span class="time-ago"> 12 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Jonathan Madano</strong> Shared Your Discussion On Course
+                                                <span class="text-link">Css Flex Box </span>
+                                            </p>
+                                            <span class="time-ago"> Yesterday </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+        
+                        <!-- messages -->
+                        <a href="#" class="header_widgets">
+                            <ion-icon name="notifications-outline" class="is-icon"></ion-icon>
+                            <span> 2 </span>
+                        </a>
+                        <div uk-drop="mode: click" class="header_dropdown">
+                            <div class="drop_headline">
+                                <h4>Messages </h4>
+                                <div class="btn_action">
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" uk-tooltip="title: Message settings ; pos: left"></ion-icon>
+                                    </a>
+                                    <a href="#">
+                                        <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                    </a>
+                                </div>
+                            </div>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> John menathon </strong> <span class="time"> 6:43 PM</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Zara Ali </strong> <span class="time">12:43 PM</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Mohamed Ali </strong> <span class="time"> Wed</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> John menathon </strong> <span class="time"> Sun </span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Zara Ali </strong> <span class="time"> Fri </span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Mohamed Ali </strong> <span class="time">1 Week ago</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+        
+                        <!-- profile -->
+                        <a href="#" class="flex items-center space-x-2">
+                            <img src="../assets/images/avatars/placeholder.png" class="header_widgets_avatar mr-3" alt=""> 
+                            <span class="sm:inline hidden">  User admin </span>
+                        </a>
+                        <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
+                            <ul>   
+                                <li>
+                                    <a href="#" class="user">
+                                        <div class="user_avatar">
+                                            <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="user_name">
+                                            <div> Stella Johnson </div>
+                                            <span> @Johnson </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#" class="is-link">
+                                        <ion-icon name="rocket-outline" class="is-icon"></ion-icon> <span>  Upgrade Membership  </span>
+                                    </a>
+                                </li> 
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
+                                         My Account 
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="card-outline" class="is-icon"></ion-icon>
+                                        Subscriptions
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="color-wand-outline" class="is-icon"></ion-icon>
+                                        My Billing 
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" class="is-icon"></ion-icon>
+                                        Account Settings  
+                                    </a>
+                                </li>
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#" id="night-mode" class="btn-night-mode" onclick="UIkit.notification({ message: 'Hmm...  <strong> Night mode </strong> feature is not available yet. ' , pos: 'bottom-right'  })">
+                                        <ion-icon name="moon-outline" class="is-icon"></ion-icon>
+                                         Night mode
+                                        <span class="btn-night-mode-switch">
+                                            <span class="uk-switch-button"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                                        Log Out 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div> 
+
+                    </div>
+    
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Contents -->
+        <div class="main_content">
+            <div class="container uk-switcher" id="setting-pages">
+
+                <!-- General Information d-->
+                <div>
+
+                    <div class="max-w-3xl mx-auto">
+                        <h3 class="text-2xl font-medium mb-5"> General Setting </h3>
+                        <!-- Item description -->
+                        <div class="shadow bg-white rounded-md">
+                                
+                            <h3 class="border-b py-4 px-6 text-base font-semibold"> Name & Description </h3>
+                    
+                            <div class="p-6">
+     
+                                <form action="" class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2 md:mt-4">
+    
+                                    <!-- Website title -->
+                                    <label for="system_info" class="font-medium">Website title<span class="text-red-600">*</span></label>
+                                    <div class="col-span-2">
+                                        <input type="text" id="system_info" name="system_info" class="shadow-none with-border" value="Title" required="">
+                                        <p class="mt-2 text-sm text-gray-500">Your website general title, it will appear on Google and on your browser tab.</p>
+                                    </div>
+                                    
+                                    <!-- Website name  -->
+                                    <label for="system_info" class="font-medium">Website name<span class="text-red-600">*</span></label>
+                                    <div class="col-span-2">
+                                        <input type="text" id="system_info" name="system_info" class="shadow-none with-border" value="Name" required="">
+                                        <p class="mt-2 text-sm text-gray-500"> Your website name, it will on website's footer and E-mails.</p>
+                                    </div>
+
+                                    <!-- Website logo  -->
+                                    <label for="system_info" class="font-medium">Website Logo </label>
+                                    <div class="col-span-2 flex py-2 space-x-5">
+                                        <img src="../assets/images/image-placeholder.jpg" alt="" class="h-16 rounded-full w-16">
+                                        <div class="border font-medium px-3 py-1.5 rounded-md self-center shadow-sm text-center text-sm" uk-form-custom>
+                                            <input type="file"> Change
+                                        </div> 
+                                    </div>
+
+                                    <!-- Website description  -->
+                                    <label for="system_info" class="font-medium self-start"> Website description </label>
+                                    <div class="col-span-2">
+                                        <textarea class="with-border col-span-2 p-4" id="system_info" name="system_info" type="text" value=""></textarea>
+                                        <p class="mt-2 text-sm text-gray-500"> Your website's description, used mostly for SEO and search engines, Max of 100 characters is recommended</p>
+                                    </div>
+    
+                                    <!-- Website keywords -->
+                                    <label for="system_info" class="font-medium"> Website Website keywords </label>
+                                    <div class="col-span-2 keywords-container py-2">
+                                        <div class="keyword-input-container">
+                                            <input type="text" class="keyword-input with-border" placeholder="Add Keywords" />
+                                            <button class="keyword-input-button ripple-effect"><i
+                                                    class="icon-material-outline-add"></i></button>
+                                        </div>
+                                        <div class="keywords-list">
+                                            <span class="keyword">
+                                                <span class="keyword-remove"></span>
+                                                <span class="keyword-text">LMS</span>
+                                            </span>
+                                            <span class="keyword">
+                                                <span class="keyword-remove"></span>
+                                                <span class="keyword-text">Couresplus</span>
+                                            </span>
+                                            <span class="keyword">
+                                                <span class="keyword-remove"></span>
+                                                <span class="keyword-text">Learning</span>
+                                            </span>
+                                            <span class="keyword">
+                                                <span class="keyword-remove"></span>
+                                                <span class="keyword-text">School</span>
+                                            </span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <!-- Item name -->
+                                    <label for="student_email_verification" class="font-medium self-center"> Student email verification </label>
+                                    <select class="selectpicker border rounded-md col-span-2" name="student_email_verification" id="student_email_verification">
+                                        <option value="enable" >Enable</option>
+                                        <option value="disable" selected>Disable</option>
+                                    </select>
+                                      
+                                </form>
+
+                            </div>
+    
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- General Configuration d-->
+                <div>
+
+                    <h3 class="text-2xl font-medium mb-5">  General Configuration </h3>
+
+                    
+                    <div class="grid lg:grid-cols-2 gap-8">
+
+                        <!-- column -->
+                        <div class="space-y-8">
+                            <div class="bg-white rounded-md lg:shadow-md shadow">
+                                <h3 class="border-b py-4 px-6 font-semibold"> Website Configuration </h3>
+                                <div>
+                                    <div class="flex justify-between items-center p-4 pl-5">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> Maintenance Mode</h4>
+                                            <div class="text-sm"> Turn the whole site under Maintenance.  </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox" checked><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                    <div class="flex justify-between items-center p-4 pl-5 space-x-2">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> SEO Friendly URL</h4>
+                                            <div class="text-sm"> Enable smooth loading to save bandwidth.  </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center p-4 pl-5 space-x-2">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> Account Validation </h4>
+                                            <div class="text-sm"> Send an activation link after registration.  </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox" checked><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-6">
+                                        <h4 class="font-semibold mb-2"> Default Language </h4>
+                                        <label for="level" class="text-sm"> Set your site default language.
+                                        </label>
+                                        <select id="defualtLang" name="defualtLang" class="shadow-none selectpicker with-border ">
+                                            <option value="english" selected="">English</option>
+                                            <option value="arabic">Arabic</option>
+                                            <option value="dutch">Dutch</option>
+                                            <option value="french">French</option>
+                                            <option value="german">German</option>
+                                            <option value="italian">Italian</option>
+                                            <option value="portuguese">Portuguese</option>
+                                            <option value="russian">Russian</option>
+                                            <option value="spanish">Spanish</option>
+                                            <option value="turkish">Turkish</option>
+                                            <option value="indonesia">Indonesia</option>
+                                        </select>
+                                    
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+ 
+                            <div class="bg-white rounded-md lg:shadow-md shadow">
+                                <h3 class="border-b py-4 px-6 font-semibold"> Other Settings</h3>
+                                <div>
+                                    <div class="p-4">
+                                        <h4 class="font-semibold mb-2"> Block Bad Words </h4>
+                                        <div class="text-sm mb-2"> Words to be censored in whole website </div>
+                                        <div class="keywords-container">
+                                            <div class="keyword-input-container">
+                                                <input type="text" class="keyword-input with-border" placeholder="Add Keywords" />
+                                                <button class="keyword-input-button ripple-effect"><i
+                                                        class="icon-material-outline-add"></i></button>
+                                            </div>
+                                            <div class="keywords-list">
+                                                <span class="keyword"><span class="keyword-remove"></span><span
+                                                        class="keyword-text">Mustard</span></span>
+                                                <span class="keyword"><span class="keyword-remove"></span><span
+                                                        class="keyword-text">Relish</span></span>
+                                                <span class="keyword"><span class="keyword-remove"></span><span
+                                                        class="keyword-text">Ketchup</span></span> 
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                         
+                                    <div class="flex justify-between items-center p-4 pl-5 space-x-2">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> SEO Friendly URL</h4>
+                                            <div class="text-sm"> Enable smooth loading to save bandwidth.  </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="flex justify-between items-center p-4 pl-5 space-x-2">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> Allow Commenting </h4>
+                                            <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+ 
+                        <!-- column -->
+                        <div class="space-y-8">
+                            <div class="bg-white rounded-md lg:shadow-md shadow">
+                                <h3 class="border-b py-4 px-6 font-semibold"> Login & Registration </h3>
+                                <div class="">
+                                    <div class="flex justify-between items-center p-4 pl-5">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> User Registration ?</h4>
+                                            <div class="text-sm"> Allow users to create accounts in your site.  </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox" checked><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                    <div class="flex justify-between items-center p-4 pl-5 space-x-2">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> Auto Username On Register </h4>
+                                            <div class="text-sm"> Registration form will ask for user's first name and last name. </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center p-4 pl-5 space-x-2">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> Account Validation </h4>
+                                            <div class="text-sm"> Send an activation link after registration.  </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox" checked><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-6">
+                                        <h4 class="font-semibold mb-2"> Account Validation Method </h4>
+                                        <label for="level" class="text-sm"> Choose the validation type, by SMS or E-mail address  if you choose SMS,
+                                            make sure you have configured SMS
+                                        </label>
+                                        <select id="level" name="relationship" class="shadow-none selectpicker with-border ">
+                                            <option value="0">Email <address></address>
+                                            </option>
+                                            <option value="1">SMS/ Mobile number</option>
+                                        </select>
+                                    
+                                    </div>
+                                    <div class="flex justify-between items-center p-4 pl-5 space-x-2">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> Search engines </h4>
+                                            <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox" checked><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                    <div class="flex justify-between items-center p-4 pl-5 space-x-2">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"> Allow Commenting </h4>
+                                            <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+
+
+
+                </div>
+
+                <!-- Social Login  d only icons need replacement-->
+                <div>
+
+                    <div class="max-w-3xl mx-auto">
+                        <h3 class="text-2xl font-medium mb-5"> Social Login </h3>
+
+                       
+                        <div class="shadow bg-white rounded-md">
+                                
+                            <h3 class="border-b py-4 px-6 text-base font-semibold"> Social Login </h3>
+                    
+                            <div class="  bg-yellow-50 border border-yellow-100 lg:mb-0 m-4 md:m-7 mt-1 p-4 relative rounded-md shadow-sm text-yellow-600 uk-alert" uk-alert>
+                                <a class="uk-alert-close absolute right-0 top-0 m-5" uk-close></a>
+                                <h3 class="text-lg font-semibold text-yellow-500">Notice</h3>
+                                <p class="text-yellow-600 mt-1 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+
+                            <div class="p-6"> 
+     
+                                <div class="grid sm:grid-cols-5 align-items-start sm:gap-6 gap-2 md:mt-4 md:gap-y-10">
+    
+                                    <!-- Facebook Login -->
+                                    <div class="text-4xl text-indigo-500 sm:block hidden">
+                                        <ion-icon name="logo-facebook" class="border p-2.5 rounded-md shadow-sm"></ion-icon>
+                                    </div>
+                                    <div class="col-span-4 flex items-baseline justify-between sm:space-x-12 space-x-6">
+                                        <div class="space-y-2">
+                                            <h3 for="social_info" class="font-semibold text-base">Facebook Login </h3>
+                                            <p class="leading-6 text-gray-500 text-sm">Enable the ability for users to login to your site using their accounts on the Facebook .</p>
+                                            <div class="space-y-2" id="show_facebook_config" hidden>
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application ID" required="">
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application Secret ID" required="">
+                                            </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button" uk-toggle="target: #show_facebook_config ;animation: uk-animation-fade"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+ 
+
+                                    <!-- Google+ Login --> 
+                                    <div class="text-4xl text-red-500 sm:block hidden">
+                                        <i class="icon-brand-google-plus border p-2.5 rounded-md shadow-sm"></i> 
+                                    </div>
+                                    <div class="col-span-4 flex items-baseline justify-between sm:space-x-12 space-x-6">
+                                        <div class="space-y-2">
+                                            <h3 for="social_info" class="font-semibold text-base">Google+ Login </h3>
+                                            <p class="leading-6 text-gray-500 text-sm">Enable the ability for users to login to your site using their Google+ account, (App requires reviewing)</p>
+                                            <div class="space-y-2" id="show_google_config" hidden>
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application ID" required="">
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application Secret ID" required="">
+                                            </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button" uk-toggle="target: #show_google_config ;animation: uk-animation-fade"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Twitter Login -->
+                                    <div class="text-4xl text-blue-500 sm:block hidden">
+                                        <i class="icon-brand-twitter border p-2.5 rounded-md shadow-sm"></i> 
+                                    </div>
+                                    <div class="col-span-4 flex items-baseline justify-between sm:space-x-12 space-x-6">
+                                        <div class="space-y-2">
+                                            <h3 for="social_info" class="font-semibold text-base">Twitter Login </h3>
+                                            <p class="leading-6 text-gray-500 text-sm">Enable the ability for users to login to your site using their Twitter account. </p>
+                                            <div class="space-y-2" id="show_twitter_config" hidden>
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application ID" required="">
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application Secret ID" required="">
+                                            </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button" uk-toggle="target: #show_twitter_config ;animation: uk-animation-fade"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Linkedin Login --> 
+                                    <div class="text-4xl text-blue-700 sm:block hidden">
+                                        <i class="icon-brand-linkedin-in border p-2.5 rounded-md shadow-sm"></i> 
+                                    </div>
+                                    <div class="col-span-4 flex items-baseline justify-between sm:space-x-12 space-x-6">
+                                        <div class="space-y-2">
+                                            <h3 for="social_info" class="font-semibold text-base">Linkedin Login </h3>
+                                            <p class="leading-6 text-gray-500 text-sm">Enable the ability for users to login to your site using their Linkedin account. </p>
+                                            <div class="space-y-2" id="show_linkedin_config" hidden>
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application ID" required="">
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application Secret ID" required="">
+                                            </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button" uk-toggle="target: #show_linkedin_config ;animation: uk-animation-fade"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+ 
+                                    <!-- Discord Login --> 
+                                    <div class="text-4xl text-gray-700 sm:block hidden">
+                                        <i class="icon-brand-discord border p-2.5 rounded-md shadow-sm"></i> 
+                                    </div>
+                                    <div class="col-span-4 flex items-baseline justify-between sm:space-x-12 space-x-6">
+                                        <div class="space-y-2">
+                                            <h3 for="social_info" class="font-semibold text-base">Discord Login </h3>
+                                            <p class="leading-6 text-gray-500 text-sm">Enable the ability for users to login to your site using their Discord account. </p>
+                                            <div class="space-y-2" id="show_discord_config" hidden>
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application ID" required="">
+                                                <input type="text" id="social_info" name="social_info" class="shadow-none with-border" value="Application Secret ID" required="">
+                                            </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button" uk-toggle="target: #show_discord_config ;animation: uk-animation-fade"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+ 
+                                      
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Setup payment informations -->
+                <div>
+
+                    <h3 class="text-2xl font-medium mb-5">  Setup payment informations </h3>
+                    
+                    <div class="grid lg:grid-cols-2 gap-8">
+
+                        <!-- column 1-->
+                        <div class="space-y-8">
+
+                            <!-- setup Payple  -->
+                            <div class="bg-white rounded-md lg:shadow-md shadow">
+                                <h3 class="border-b py-4 px-6 font-semibold"> SETUP PAYPAL SETTINGS  </h3>
+                                <div class="-space-y-5">
+                                    
+                                    <div class="p-6">
+                                        <label for="payple_status" class="text-sm"> Active .  </label>
+                                        <select id="payple_status" name="payple_status" class="shadow-none selectpicker with-border"  required>
+                                            <option value="Anable"> Anable </option> 
+                                            <option value="Disable"> Disable </option>
+                                        </select>
+                                    </div>
+                                    <div class="p-6">
+                                        <label for="paypal_mode" class="text-sm"> Mode  .  </label>
+                                        <select id="paypal_mode" name="paypal_mode" class="shadow-none selectpicker with-border"  required>
+                                            <option value="Sandbox"> Sandbox </option>
+                                            <option value="Production"> Production </option> 
+                                        </select>
+                                    </div>
+                                    <div class="p-6">
+                                        <label for="payple_currency" class="text-sm"> Paypal currency  .  </label>
+                                        <select id="payple_currency" name="payple_currency" class="shadow-none selectpicker with-border"  required>
+                                            <option value="">Select Paypal currency</option>
+                                            <option value="ALL"> ALL </option>
+                                            <option value="USD"> USD </option>
+                                            <option value="AFN"> AFN </option>
+                                            <option value="ARS"> ARS </option>
+                                            <option value="AWG"> AWG </option>
+                                            <option value="AUD"> AUD </option>
+                                        </select>
+                                    </div>
+                                    <div class="p-6">
+                                        <label for="Sandbox_id" class="font-medium"> Client id (Sandbox)</label>
+                                        <input type="text" id="Sandbox_id" name="Sandbox_id" class="shadow-none with-border" value="" required="">
+                                    </div>
+                                    <div class="p-6">
+                                        <label for="Sandbox_production" class="font-medium"> Client id (Production)</label>
+                                        <input type="text" id="Sandbox_production" name="Sandbox_production" class="shadow-none with-border" value="" required="">
+                                    </div>
+                                     
+                                </div>
+                            </div>
+
+                            <!--  stripe Stripe  -->
+                            <div class="bg-white rounded-md lg:shadow-md shadow">
+                                <h3 class="border-b py-4 px-6 font-semibold"> SETUP STRIPE  SETTINGS  </h3>
+                                <div class="-space-y-5">
+                                    
+                                    <div class="p-6">
+                                        <label for="stripe_status" class="text-sm"> Active .  </label>
+                                        <select id="stripe_status" name="stripe_status" class="shadow-none selectpicker with-border"  required>
+                                            <option value="Anable"> Anable </option> 
+                                            <option value="Disable"> Disable </option>
+                                        </select>
+                                    </div>
+                                    <div class="p-6">
+                                        <label for="stripe_mode" class="text-sm"> Mode  .  </label>
+                                        <select id="stripe_mode" name="stripe_mode" class="shadow-none selectpicker with-border"  required>
+                                            <option value="Sandbox"> Sandbox </option>
+                                            <option value="Production"> Production </option> 
+                                        </select>
+                                    </div>
+                                    <div class="p-6">
+                                        <label for="stripe_currency" class="text-sm"> Stripe currency  .  </label>
+                                        <select id="stripe_currency" name="stripe_currency" class="shadow-none selectpicker with-border"  required>
+                                            <option value="">Select Stripe currency</option>
+                                            <option value="ALL"> ALL </option>
+                                            <option value="USD"> USD </option>
+                                            <option value="AFN"> AFN </option>
+                                            <option value="ARS"> ARS </option>
+                                            <option value="AWG"> AWG </option>
+                                            <option value="AUD"> AUD </option>
+                                        </select>
+                                    </div>
+                                    <div class="p-6">
+                                        <label for="stripe_id" class="font-medium"> Client id (Sandbox)</label>
+                                        <input type="text" id="stripe_id" name="stripe_id" class="shadow-none with-border" value="" required="">
+                                    </div>
+                                    <div class="p-6">
+                                        <label for="stripe_production" class="font-medium"> Client id (Production)</label>
+                                        <input type="text" id="stripe_production" name="stripe_production" class="shadow-none with-border" value="" required="">
+                                    </div>
+                                     
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- column 2-->
+                        <div class="space-y-8">
+
+                            <!-- notification -->
+                            <div class="bg-blue-100 border border-blue-200 p-4 relative rounded-md shadow-sm uk-alert" uk-alert="">
+                                <a class="uk-alert-close absolute right-0 top-0 m-5 text-blue-600" uk-close></a>
+                                <h3 class="text-lg font-semibold text-blue-500">Remember</h3>
+                                <p class="text-blue-700 mt-1 ">Please make sure that "System currency", "Paypal currency" and "Stripe currency" Are same.</p>
+                            </div>
+
+                            <!-- system currency -->
+                            <div class="bg-white rounded-md lg:shadow-md shadow">
+                                <h3 class="border-b py-4 px-6 font-semibold"> SYSTEM CURRENCY  </h3>
+                                <div class="-space-y-5">
+                                    
+                                    <div class="p-6">
+                                        <label for="system_currency" class="text-sm"> Set your site System currency  .  </label>
+                                        <select id="system_currency" name="system_currency" class="shadow-none selectpicker with-border"  required>
+                                            <option value="">Select system currency</option>
+                                            <option value="ALL"> ALL </option>
+                                            <option value="USD" selected> USD </option>
+                                            <option value="AFN"> AFN </option>
+                                            <option value="ARS"> ARS </option>
+                                            <option value="AWG"> AWG </option>
+                                            <option value="AUD"> AUD </option>
+                                        </select>
+
+                                    </div>
+                                    <div class="p-6">
+                                        <label for="system_align_currency" class="text-sm"> Currency Align position  .  </label>
+                                        <select id="system_align_currency" name="system_align_currency" class="shadow-none selectpicker with-border"  required>
+                                            <option value="">Select system currency</option>
+                                            <option value="Left"> Left </option>
+                                            <option value="Right"> Right </option> 
+                                        </select>
+
+                                    </div>
+                                     
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+             
+            </div>
+           
+            <!-- footer -->
+            <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
+                <div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
+                    <p class="capitalize font-medium"> © copyright 2021  Courseplus</p>
+                    <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
+                        <a href="#"> About</a>
+                        <a href="#"> Help</a>
+                        <a href="#"> Terms</a>
+                        <a href="#"> Privacy</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+   
+
+        <!-- sidebar -->
+        <div class="sidebar">
+            <div class="sidebar_inner" data-simplebar>
+                
+                <ul>
+                    <li><a href="dashboard.html">
+                            <ion-icon name="home-outline" class="side-icon"></ion-icon>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
+                    <li><a href="#">
+                            <ion-icon name="play-circle-outline" class="side-icon"></ion-icon>
+                            <span> Courses</span>
+                        </a>
+                        <ul>
+                            <li><a href="courses.html"> List View</a></li> 
+                            <li><a href="courses-card.html"> Courses View </a></li> 
+                            <li><a href="create-new-course.html"> Add new course </a></li> 
+                        </ul>
+                    </li>
+                    <li><a href="books.html">
+                            <ion-icon name="book-outline" class="side-icon"></ion-icon>
+                            <span> Books</span>
+                        </a>
+                    </li>
+                    <li><a href="messages.html">
+                            <ion-icon name="chatbox-ellipses-outline" class="side-icon"></ion-icon>
+                            <span> Message</span>
+                        </a>
+                    </li>
+                    <li><a href="#">
+                            <ion-icon name="people-circle-outline" class="side-icon">
+                            </ion-icon>
+                            <span> Instructors</span>
+                        </a>
+                        <ul>
+                            <li><a href="instructors.html"> List View </a></li> 
+                            <li><a href="instructors-card.html"> Grid View </a></li> 
+                        </ul>
+                    </li>
+                    <li><a href="#">
+                            <ion-icon name="people-outline" class="side-icon"></ion-icon>
+                            <span> Students</span>
+                        </a>
+                        <ul>
+                            <li><a href="students.html"> List View </a></li> 
+                            <li><a href="student-card.html"> Grid View </a></li> 
+                        </ul>
+                    </li>
+                    <li><a href="categories.html">
+                            <ion-icon name="albums-outline" class="side-icon"></ion-icon>
+                            <span> Categories</span>
+                        </a>
+                    </li>
+                    <li class="active-submenu"><a href="setting.html">
+                            <ion-icon name="settings-outline" class="side-icon"></ion-icon>
+                            <span> Setting</span>
+                        </a>
+                        <ul uk-switcher="connect: #setting-pages; animation: uk-animation-fade">
+                            <li><a href="#"> Website Information </a></li>
+                            <li><a href="#"> General Configuration </a></li>
+                            <li><a href="#"> Social Login </a></li> 
+                            <li><a href="#"> Setup payment </a></li> 
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="side_links" data-sub-title="">
+                    <li><a href="personal-profile.html">
+                            <ion-icon name="person-outline" class="side-icon"></ion-icon>
+                            <span> Manage profile </span>
+                        </a>
+                    </li>
+                    <li><a href="form-login.html">
+                            <ion-icon name="log-out-outline" class="side-icon"></ion-icon>
+                            <span> logout </span>
+                        </a>
+                    </li>
+                </ul>
+ 
+            </div>
+
+            <div class="side_overly" uk-toggle="target: #wrapper ; cls: is-collapse is-active"></div>
+        </div>
+        
+    </div>
+
+ 
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="../assets/js/uikit.js"></script>
+    <script src="../assets/js/tippy.all.min.js"></script>
+    <script src="../assets/js/simplebar.js"></script>
+    <script src="../assets/js/custom.js"></script>
+    <script src="../assets/js/bootstrap-select.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+ 
+</body>
+
+</html>

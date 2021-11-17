@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Courseplus Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Courseplus is - Professional A unique and beautiful collection of UI elements">
+
+    <!-- Favicon -->
+    <link href="../assets/images/favicon.png" rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/icons.css">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/uikit.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+ 
+   
+</head>
+
+<body>
+
+    <div id="wrapper" class="is-verticle">
+
+        <!--  Header  -->
+        <header class="is-transparent is-dark border-none" uk-sticky="cls-inactive:is-transparent is-dark"> 
+            <div class="header_inner">
+                <div class="left-side">
+    
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="dashboard.html">
+                            <img src="../assets/images/logo.png" alt="">
+                            <img src="../assets/images/logo-light.png" class="logo_inverse" alt="">
+                            <img src="../assets/images/logo-mobile.png" class="logo_mobile" alt="">
+                        </a>
+                    </div>
+                    <!-- icon menu for mobile -->
+                    <div class="triger" uk-toggle="target: #wrapper ; cls: is-active"> 
+                    </div>
+    
+                </div>
+                <div class="right-side">
+     
+                    <!-- Header search box  -->
+                    <div class="header_search"><i class="uil-search-alt"></i> 
+                        <input value="" type="text" class="form-control" placeholder=" Quick search for anything.." autocomplete="off">
+                        <div uk-drop="mode: click;offset:10" class="header_search_dropdown">
+                               
+                            <h4 class="search_title"> Recently </h4>
+                            <ul>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Erica Jones </div>
+                                    </a> 
+                                </li> 
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/courses/img-3.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  The Complete JavaScript For Beginners </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/courses/img-2.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">Learn Angular Fundamentals to Expert </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/courses/img-5.jpg" alt="" class="list-avatar">
+                                        <div class="list-name"> Property Rent And Sale  </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/courses/img-3.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Build Responsive Real World Websites</div>
+                                    </a> 
+                                </li>
+                            </ul>
+    
+                        </div>
+                    </div>
+                    
+                    <div>
+
+                        <!-- search icon for mobile -->
+                        <div class="header-search-icon" uk-toggle="target: #wrapper ; cls: show-searchbox"> </div>
+ 
+        
+                        <!-- notification -->
+                        <a href="#" class="header_widgets">
+                            <ion-icon name="mail-outline" class="is-icon"></ion-icon>
+                        </a>
+                        <div uk-drop="mode: click" class="header_dropdown"> 
+                            <div class="drop_headline">
+                                <h4>Notifications </h4>
+                                <div class="btn_action">
+                                    <div class="btn_action">
+                                        <a href="#">
+                                            <ion-icon name="settings-outline" uk-tooltip="title: Notifications settings ; pos: left"></ion-icon>
+                                        </a>
+                                        <a href="#">
+                                            <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p> <strong>Adrian Mohani</strong> Like Your Comment On Course
+                                                <span class="text-link">Javascript Introduction </span>
+                                            </p>
+                                            <span class="time-ago"> 2 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Stella Johnson</strong> Replay Your Comments in
+                                                <span class="text-link">Programming for Games</span>
+                                            </p>
+                                            <span class="time-ago"> 9 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Alex Dolgove</strong> Added New Review In Course
+                                                <span class="text-link">Full Stack PHP Developer</span>
+                                            </p>
+                                            <span class="time-ago"> 12 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Jonathan Madano</strong> Shared Your Discussion On Course
+                                                <span class="text-link">Css Flex Box </span>
+                                            </p>
+                                            <span class="time-ago"> Yesterday </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+        
+                        <!-- messages -->
+                        <a href="#" class="header_widgets">
+                            <ion-icon name="notifications-outline" class="is-icon"></ion-icon>
+                            <span> 2 </span>
+                        </a>
+                        <div uk-drop="mode: click" class="header_dropdown">
+                            <div class="drop_headline">
+                                <h4>Messages </h4>
+                                <div class="btn_action">
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" uk-tooltip="title: Message settings ; pos: left"></ion-icon>
+                                    </a>
+                                    <a href="#">
+                                        <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                    </a>
+                                </div>
+                            </div>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> John menathon </strong> <span class="time"> 6:43 PM</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Zara Ali </strong> <span class="time">12:43 PM</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Mohamed Ali </strong> <span class="time"> Wed</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> John menathon </strong> <span class="time"> Sun </span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Zara Ali </strong> <span class="time"> Fri </span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Mohamed Ali </strong> <span class="time">1 Week ago</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+        
+                        <!-- profile -->
+                        <a href="#" class="flex items-center space-x-2">
+                            <img src="../assets/images/avatars/placeholder.png" class="header_widgets_avatar mr-3" alt=""> 
+                            <span class="sm:inline hidden">  User admin </span>
+                        </a>
+                        <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
+                            <div class="p-4 pb-2">
+                                <div class="flex items-center space-x-3">  
+                                    <div>
+                                        <span class="text-gray-500 text-sm">Your earning</span>
+                                        <div class="font-semibold my-1 text-2xl text-black"> $2,242.00 <div class="inline-flex items-baseline text-green-500 text-xs"> <i class="icon-feather-arrow-up"></i> 4.4% </div> </div>
+                                    </div>
+                                </div>
+                                <a href="create-new-course.html" class="bg-blue-600 block font-bold mt-1 py-2 text-center rounded-md text-sm text-white w-full">Create New Course</a>
+                            </div>
+                            <ul>   
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
+                                         My Account 
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="card-outline" class="is-icon"></ion-icon>
+                                        Subscriptions
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="color-wand-outline" class="is-icon"></ion-icon>
+                                        My Billing 
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" class="is-icon"></ion-icon>
+                                        Account Settings  
+                                    </a>
+                                </li>
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#" id="night-mode" class="btn-night-mode" onclick="UIkit.notification({ message: 'Hmm...  <strong> Night mode </strong> feature is not available yet. ' , pos: 'bottom-right'  })">
+                                        <ion-icon name="moon-outline" class="is-icon"></ion-icon>
+                                         Night mode
+                                        <span class="btn-night-mode-switch">
+                                            <span class="uk-switch-button"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                                        Log Out 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div> 
+
+                    </div>
+    
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Contents -->
+        <div class="main_content">
+ 
+            <div class="absolute bg-gradient-to-l from-blue-400 h-56 left-0 to-blue-500 top-0 via-blue-400 w-full lg:inline hidden"></div>
+ 
+            <div class="container z-10 relative">
+
+                <div class="md:space-y-10 space-y-4">
+
+                    <div class="md:-mb-3 space-y-2">
+                        <h6 class="font-medium lg:text-white"> Welcome John</h6>
+                        <h1 class="font-semibold md:text-2xl text-xl lg:text-white"> Dashboard</h1>
+                    </div>
+
+                    <div class="grid md:grid-cols-4 grid-cols-2 gap-5"  uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 50">
+                        <div class="backdrop-blur-md backdrop-filter bg-opacity-90 bg-white flex p-4 rounded-md shadow sm:p-5 border-t-4 border-green-500">
+                            <div class="flex-1 min-w-0">
+                                <div class="text-sm"> Active Courses </div>
+                                <div class="font-semibold md:text-2xl text-xl mt-3">  123 </div> 
+                            </div>
+                            <ion-icon name="checkmark-circle" class="text-3xl text-green-500"></ion-icon>
+                        </div>
+                        <div class="backdrop-blur-md backdrop-filter bg-opacity-90 bg-white flex p-4 rounded-md shadow sm:p-5 border-t-4 border-yellow-500">
+                            <div class="flex-1 min-w-0">
+                                <div class="text-sm"> Pending Courses </div>
+                                <div class="font-semibold md:text-2xl text-xl mt-3">  42 </div> 
+                            </div>
+                            <ion-icon name="bookmark" class="text-3xl text-yellow-500"></ion-icon>
+                        </div>
+                        <div class="backdrop-blur-md backdrop-filter bg-opacity-90 bg-white flex p-4 rounded-md shadow sm:p-5 border-t-4 border-blue-500">
+                            <div class="flex-1 min-w-0">
+                                <div class="text-sm"> Draft Courses </div>
+                                <div class="font-semibold md:text-2xl text-xl mt-3">  32 </div> 
+                            </div>
+                            <ion-icon name="save" class="text-3xl text-blue-500"></ion-icon>
+                        </div>
+                        <div class="backdrop-blur-md backdrop-filter bg-opacity-90 bg-white flex p-4 rounded-md shadow sm:p-5 border-t-4 border-pink-500">
+                            <div class="flex-1 min-w-0">
+                                <div class="text-sm"> Enrollment </div>
+                                <div class="font-semibold md:text-2xl text-xl mt-3">  620 </div> 
+                            </div>
+                            <ion-icon name="stop" class="text-3xl text-pink-500"></ion-icon>
+                        </div>
+                    </div>
+
+                    <div class="lg:flex lg:space-x-4">
+
+                        <!-- Latest Courses Purchased --> 
+                        <div class="shadow bg-white rounded-md lg:w-8/12">
+    
+                            <div class="border-b flex items-center justify-between md:p-5 p-3">
+                                <div>
+                                    <h2 class="text-lg font-semibold"> Latest Courses Purchased</h2>
+                                </div>
+                                <a href="#" class="text-blue-500"> See all </a>
+                            </div>
+    
+                            <div class="lg:max-h-96" data-simplebar>
+    
+                                <ul class="divide-y px-5">
+                                    
+                                    <li class="flex items-start md:space-x-6 space-x-3 md:py-4 py-3">
+    
+                                        <a href="#">
+                                            <div class=" h-12 md:h-16 md:w-24 overflow-hidden relative rounded w-12"> 
+                                                <img src="../assets/images/courses/img-1.jpg" alt="" class="w-full h-full absolute inset-0 object-cover">
+                                            </div>
+                                        </a>
+                                        <div class="flex-1 flex justify-between">
+                                            <div class="flex-1">
+                                                <a href="#" class="md:text-base font-semibold line-clamp-1"> The Complete JavaScript For Beginners </a>
+                                                <div class="flex space-x-3 items-center text-sm md:mt-1.5 text-gray-500">
+                                                    <span class="font-semibold text-sm text-blue-500">JavaScript</span>
+                                                    <div class="md:block hidden">·</div>
+                                                    <span class="font-medium text-sm"> Total Enrolled 212</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="text-base lg:block py-1 px-3 rounded-md font-semibold hidden">
+                                                $360.24
+                                            </a> 
+                                        </div>
+    
+                                    </li>
+                                   
+                                    <li class="flex items-start md:space-x-6 space-x-3 md:py-4 py-3">
+                                        <a href="#">
+                                            <div class=" h-12 md:h-16 md:w-24 overflow-hidden relative rounded w-12"> 
+                                                <img src="../assets/images/courses/img-2.jpg" alt="" class="w-full h-full absolute inset-0 object-cover">
+                                            </div>
+                                        </a>
+                                        <div class="flex-1 flex justify-between">
+    
+                                            <div class="flex-1">
+                                                <a href="#" class="md:text-base font-semibold line-clamp-1">  Learn and Understand AngularJS to become a professional  developer</a>
+    
+                                                <div class="flex space-x-3 items-center text-sm md:mt-1.5 text-gray-500">
+                                                    <span class="font-semibold text-sm text-green-500">Angular</span>
+                                                    <div class="md:block hidden">·</div>
+                                                    <span class="font-medium text-sm"> Total Enrolled 192</span>
+                                                </div>
+    
+                                            </div>
+                                            <a href="#" class="text-base lg:block py-1 px-3 rounded-md font-semibold hidden">
+                                                $320.46
+                                            </a> 
+    
+                                        </div>
+    
+                                    </li>
+    
+                                    <li class="flex items-start md:space-x-6 space-x-3 md:py-4 py-3">
+                                        <a href="#">
+                                            <div class=" h-12 md:h-16 md:w-24 overflow-hidden relative rounded w-12"> 
+                                                <img src="../assets/images/courses/img-3.jpg" alt="" class="w-full h-full absolute inset-0 object-cover">
+                                            </div>
+                                        </a>
+                                        <div class="flex-1 flex justify-between">
+    
+                                            <div class="flex-1">
+                                                <a href="#" class="md:text-base font-semibold line-clamp-1">  Build Responsive Real World Websites</a>
+    
+                                                <div class="flex space-x-3 items-center text-sm md:mt-1.5 text-gray-500">
+                                                    <span class="font-semibold text-sm text-yellow-500">Web Design</span>
+                                                    <div class="md:block hidden">·</div>
+                                                    <span class="font-medium text-sm"> Total Enrolled 320</span>
+                                                </div>
+    
+                                            </div>
+                                            <a href="#" class="text-base lg:block py-1 px-3 rounded-md font-semibold hidden">
+                                                $289.46
+                                            </a> 
+    
+                                        </div>
+    
+                                    </li>
+
+                                    <li class="flex items-start md:space-x-6 space-x-3 md:py-4 py-3">
+    
+                                        <a href="#">
+                                            <div class=" h-12 md:h-16 md:w-24 overflow-hidden relative rounded w-12"> 
+                                                <img src="../assets/images/courses/img-4.jpg" alt="" class="w-full h-full absolute inset-0 object-cover">
+                                            </div>
+                                        </a>
+                                        <div class="flex-1 flex justify-between">
+                                            <div class="flex-1">
+                                                <a href="#" class="md:text-base font-semibold line-clamp-1"> Learn Angular Fundamentals to Expert </a>
+                                                <div class="flex space-x-3 items-center text-sm md:mt-1.5 text-gray-500">
+                                                    <span class="font-semibold text-sm text-blue-500">Angular</span>
+                                                    <div class="md:block hidden">·</div>
+                                                    <span class="font-medium text-sm"> Total Enrolled 212</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="text-base lg:block py-1 px-3 rounded-md font-semibold hidden">
+                                                $245.32
+                                            </a> 
+                                        </div>
+    
+                                    </li>
+                                   
+                                    <li class="flex items-start md:space-x-6 space-x-3 md:py-4 py-3">
+                                        <a href="#">
+                                            <div class=" h-12 md:h-16 md:w-24 overflow-hidden relative rounded w-12"> 
+                                                <img src="../assets/images/courses/img-5.jpg" alt="" class="w-full h-full absolute inset-0 object-cover">
+                                            </div>
+                                        </a>
+                                        <div class="flex-1 flex justify-between">
+    
+                                            <div class="flex-1">
+                                                <a href="#" class="md:text-base font-semibold line-clamp-1"> Learn C sharp for Beginners Crash Course</a>
+    
+                                                <div class="flex space-x-3 items-center text-sm md:mt-1.5 text-gray-500">
+                                                    <span class="font-semibold text-sm text-green-500">C#</span>
+                                                    <div class="md:block hidden">·</div>
+                                                    <span class="font-medium text-sm"> Total Enrolled 192</span>
+                                                </div>
+    
+                                            </div>
+                                            <a href="#" class="text-base lg:block py-1 px-3 rounded-md font-semibold hidden">
+                                                $192.46
+                                            </a>  
+                                        </div>
+    
+                                    </li>
+    
+                                    <li class="flex items-start md:space-x-6 space-x-3 md:py-4 py-3">
+                                        <a href="#">
+                                            <div class=" h-12 md:h-16 md:w-24 overflow-hidden relative rounded w-12"> 
+                                                <img src="../assets/images/courses/img-6.jpg" alt="" class="w-full h-full absolute inset-0 object-cover">
+                                            </div>
+                                        </a>
+                                        <div class="flex-1 flex justify-between">
+    
+                                            <div class="flex-1">
+                                                <a href="#" class="md:text-base font-semibold line-clamp-1">Responsive Web Design Essentials Training</a>
+    
+                                                <div class="flex space-x-3 items-center text-sm md:mt-1.5 text-gray-500">
+                                                    <span class="font-semibold text-sm text-yellow-500">HTML</span>
+                                                    <div class="md:block hidden">·</div>
+                                                    <span class="font-medium text-sm"> Total Enrolled 320</span>
+                                                </div>
+    
+                                            </div>
+                                            <a href="#" class="text-base lg:block py-1 px-3 rounded-md font-semibold hidden">
+                                                $162.46
+                                            </a>  
+                                        </div>
+    
+                                    </li> 
+                                   
+                                </ul>
+                    
+                            </div>
+                    
+                        </div>
+
+                        <!--Your Popular Courses-->
+                        <div class="bg-white rounded-md self-start shadow-md lg:w-4/12 mt-5 lg:mt-0">
+     
+                            <div class="bg-yellow-50 border-b border-yellow-100 flex items-center justify-center px-6 py-4 rounded-t-md">
+                                <ion-icon name="trophy" class="text-lg text-yellow-600 mr-2"></ion-icon>
+                                <h2 class="font-semibold text-base text-center text-yellow-700">  Your Popular Courses</h2>
+                            </div>
+
+                            <ul class="divide-y px-5">
+    
+                                <div class="flex py-3.5 space-x-4">
+                                    <div class="bg-yellow-100 border border-yellow-300 font-semibold px-2 py-1.5 rounded self-start text-yellow-600"> 1 <span class="-ml-0.5 font-medium text-xs">st</span> </div>
+                                    <div class="flex-1">
+                                        <a href="#" class="capitalize font-medium line-clamp-2">Build Responsive Real World Websites</a>
+                                        <div class="text-sm md:mt-1.5 text-gray-500">Enrolled 212</div>
+                                    </div>
+                                </div>
+                                <div class="flex py-3.5 space-x-4">
+                                    <div class="bg-yellow-100 border border-yellow-300 font-semibold px-2 py-1.5 rounded self-start text-yellow-600"> 2 <span class="-ml-0.5 font-medium text-xs">st</span> </div>
+                                    <div class="flex-1">
+                                        <a href="#" class="capitalize font-medium line-clamp-2">Responsive Web Design Essentials From  beginners </a>
+                                        <div class="text-sm md:mt-1.5 text-gray-500">Enrolled 212</div>
+                                    </div>
+                                </div> 
+                                <div class="flex py-3.5 space-x-4">
+                                    <div class="bg-yellow-100 border border-yellow-300 font-semibold px-2 py-1.5 rounded self-start text-yellow-600"> 3 <span class="-ml-0.5 font-medium text-xs">st</span> </div>
+                                    <div class="flex-1">
+                                        <a href="#" class="capitalize font-medium line-clamp-2">Ultimate Web Developer Course</a>
+                                        <div class="text-sm md:mt-1.5 text-gray-500">Enrolled 212</div>
+                                    </div>
+                                </div>
+                                <div class="flex py-3.5 space-x-4">
+                                    <div class="bg-yellow-100 border border-yellow-300 font-semibold px-2 py-1.5 rounded self-start text-yellow-600"> 4 <span class="-ml-0.5 font-medium text-xs">st</span> </div>
+                                    <div class="flex-1">
+                                        <a href="#" class="capitalize font-medium line-clamp-2"> Learn and Understand AngularJS </a>
+                                        <div class="text-sm md:mt-1.5 text-gray-500">Enrolled 212</div>
+                                    </div>
+                                </div> 
+
+                            </ul>
+                    
+                        </div>
+
+                    </div>
+ 
+                    <div class="md:flex md:space-x-4">
+                        
+                        <!--Latest Reviews -->
+                        <div class="shadow bg-white rounded-md md:w-6/12 self-start">
+      
+                            <div class="flex items-center justify-between border-b py-4 px-6">
+                                <div class="flex items-center">
+                                    <ion-icon name="star" class="bg-yellow-100 p-1 mr-2 rounded text-yellow-500"></ion-icon>
+                                    <h2 class="text-base font-semibold"> Latest Reviews </h2>
+                                </div>
+                                <a href="#" class="text-blue-500"> See all </a>
+                            </div>
+                            <div class="md:max-h-96" data-simplebar>
+
+                                <!-- list reviews -->
+                                <div class="divide-y px-5">
+
+                                    <!--  single review -->
+                                    <div class="flex gap-x-4 py-4 relative">
+                                        <img src="../assets/images/avatars/avatar-5.jpg" alt="" class="rounded-full shadow w-12 h-12">
+                                        <div class="flex justify-center items-center absolute right-5 top-6 space-x-1 text-yellow-500">
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star" class="text-gray-200"></ion-icon>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-base m-0 font-semibold"> Jesse Stevens</h4>
+                                            <span class="text-gray-700 text-sm"> Instructor </span>
+                                            <p class="mt-2 md:ml-0 -ml-16 text-sm leading-6">
+                                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam ut laoreet dolore magna aliquam erat volutpat.. 
+                                                <a href="#" class="text-blue-500 ml-2">Read more</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!--  single review --> 
+                                    <div class="flex gap-x-4 py-4 relative">
+                                        <img src="../assets/images/avatars/avatar-4.jpg" alt="" class="rounded-full shadow w-12 h-12">
+                                        <div class="flex justify-center items-center absolute right-5 top-6 space-x-1 text-yellow-500">
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-base m-0 font-semibold"> Martin Gray</h4>
+                                            <span class="text-gray-700 text-sm leading-6"> Student </span>
+                                            <p class="mt-2 md:ml-0 -ml-16">
+                                                Sediam ut laoreet dolore magna aliquam erat volutpat , morem ipsum dolor sit amet, consectetuer adipiscing elit 
+                                                <a href="#" class="text-blue-500 ml-2">Read more</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="flex gap-x-4 py-4 relative">
+                                        <img src="../assets/images/avatars/avatar-3.jpg" alt="" class="rounded-full shadow w-12 h-12">
+                                        <div class="flex justify-center items-center absolute right-5 top-6 space-x-1 text-yellow-500">
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star" class="text-gray-200"></ion-icon>
+                                            <ion-icon name="star" class="text-gray-200"></ion-icon>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-base m-0 font-semibold"> Monroe Parker</h4>
+                                            <span class="text-gray-700 text-sm"> Instructor </span>
+                                            <p class="mt-2 md:ml-0 -ml-16 text-sm leading-6">
+                                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam ut laoreet dolore magna aliquam erat volutpat.. 
+                                                <a href="#" class="text-blue-500 ml-2">Read more</a>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-x-4 py-4 relative">
+                                        <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="rounded-full shadow w-12 h-12">
+                                        <div class="flex justify-center items-center absolute right-5 top-6 space-x-1 text-yellow-500">
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star" class="text-gray-200"></ion-icon>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-base m-0 font-semibold"> John Michael </h4>
+                                            <span class="text-gray-700 text-sm leading-6"> Student </span>
+                                            <p class="mt-2 md:ml-0 -ml-16">
+                                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam ut laoreet dolore magna aliquam erat volutpat
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                          
+                            <div class="relative">
+                                <div class="-top-16 absolute bg-gradient-to-t from-white h-16 to-transparent w-full"></div>
+                                <a href="#" class="block font-semibold mt-2 pb-6 text-blue-600 text-center"> See all </a>
+                            </div>
+                            
+                        </div>
+
+                        <!--Top Student Countries -->
+                        <div class="shadow bg-white rounded-md md:w-6/12 self-start mt-5 md:mt-0">
+                            
+                            <div class="flex items-center justify-between border-b py-4 px-6">
+                                <div class="flex items-center">
+                                    <ion-icon name="location" class="bg-blue-100 p-1 mr-2 rounded text-blue-500"></ion-icon>
+                                    <h2 class="text-base font-semibold"> Top Student Countries </h2>
+                                </div>
+                                <a href="#" class="text-blue-500"> See all </a>
+                            </div>
+
+                            <!-- Instructor list -->
+                            <div class="md:max-h-96" data-simplebar>
+
+                                <table class="sm:table-fixed w-full font-medium">
+                                    <thead>
+                                        <tr class="border-b bg-gray-50">
+                                            <th class="w-1/12 p-3"> </th>
+                                            <th class="w-5/12 p-3 font-medium text-sm md:pl-6">Country</th> 
+                                            <th class="w-2/12 p-3 font-medium text-sm text-right">Enrolled</th>
+                                            <th class="w-3/12 p-3 font-medium text-sm">Amount</th> 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="md:pl-4"> <img src="../assets/images/demos/flags/tr.svg" alt="" > </td>
+                                            <td class="p-3 md:pl-6"> Turkey  </td> 
+                                            <td class="p-3"> 286 </td>
+                                            <td class="p-3"> $3,620.26 </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="md:pl-4"> <img src="../assets/images/demos/flags/us.svg" alt=""> </td>
+                                            <td class="p-3 md:pl-6"> United States </td> 
+                                            <td class="p-3"> 246 </td>
+                                            <td class="p-3"> $3,420.26 </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="md:pl-4"> <img src="../assets/images/demos/flags/br.svg" alt=""> </td>
+                                            <td class="p-3 md:pl-6"> Brazil </td> 
+                                            <td class="p-3">238 </td>
+                                            <td class="p-3"> $2,820.26 </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="md:pl-4"> <img src="../assets/images/demos/flags/id.svg" alt=""> </td>
+                                            <td class="p-3 md:pl-6"> Indonesia</td> 
+                                            <td class="p-3"> 192 </td>
+                                            <td class="p-3"> $2,520.26 </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="md:pl-4"> <img src="../assets/images/demos/flags/in.svg" alt=""> </td>
+                                            <td class="p-3 md:pl-6"> India </td> 
+                                            <td class="p-3"> 145 </td>
+                                            <td class="p-3"> $1,920.26 </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="md:pl-4"> <img src="../assets/images/demos/flags/ca.svg" alt=""> </td>
+                                            <td class="p-3 md:pl-6"> Canada </td> 
+                                            <td class="p-3"> 118 </td>
+                                            <td class="p-3"> $1,420.26 </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="md:pl-4"> <img src="../assets/images/demos/flags/ru.svg" alt=""> </td>
+                                            <td class="p-3 md:pl-6"> Russia </td> 
+                                            <td class="p-3"> 92 </td>
+                                            <td class="p-3"> $820.26 </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="md:pl-4"> <img src="../assets/images/demos/flags/de.svg" alt=""> </td>
+                                            <td class="p-3 md:pl-6"> Germany </td> 
+                                            <td class="p-3"> 92 </td>
+                                            <td class="p-3"> $820.26 </td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        
+                          <a href="#" class="block border-t font-semibold py-3 mt-2 text-blue-600 text-center"> See all </a>
+
+                        </div>
+
+                    </div>
+ 
+                </div>
+
+            </div>
+           
+            <!-- footer -->
+            <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
+                <div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
+                    <p class="capitalize font-medium"> © copyright 2021  Courseplus</p>
+                    <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
+                        <a href="#"> About</a>
+                        <a href="#"> Help</a>
+                        <a href="#"> Terms</a>
+                        <a href="#"> Privacy</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+ 
+        <!-- sidebar -->
+        <div class="sidebar">
+            <div class="sidebar_inner" data-simplebar>
+
+                <div class="border-b flex flex-col items-center mt-8 pb-5 -mb-1.5">
+                    <div class="h-20 w-20 rounded-full overflow-hidden relative">
+                        <img src="../assets/images/avatars/avatar-2.jpg" class="absolute object-cover w-full h-full">
+                    </div>
+                    <div class="mt-3">
+                        <a href="#" class="capitalize font-semibold text-lg"> Stella Johnson </a>
+                        <div class="text-gray-500 text-sm"> info@mydomailn.com</div>
+                    </div>
+                    <div class="flex items-center justify-around mt-6 text-center text-gray-800 w-full">
+                        <a href="#">
+                            <div class="font-semibold">Courses</div>
+                            <div class="text-xl">42</div>
+                        </a>
+               
+                        <a href="#">
+                             <div class="font-semibold">Students</div>
+                            <div class="text-xl"> 2,430</div>
+                        </a>
+                    </div>
+                </div>
+
+                <ul class="border-transparent">
+                    <li><a href="dashboard.html">
+                            <ion-icon name="home-outline" class="side-icon"></ion-icon>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
+                    <li><a href="#">
+                        <ion-icon name="play-circle-outline" class="side-icon"></ion-icon>
+                        <span> Courses</span>
+                    </a>
+                    <ul>
+                        <li><a href="manage-courses.html"> Manage Courses </a></li>  
+                        <li><a href="create-new-course.html"> Add new course </a></li> 
+                    </ul>
+                </li>
+                    <li><a href="reviews.html">
+                            <ion-icon name="star-outline" class="side-icon"></ion-icon>
+                            <span> Reviews</span>
+                        </a>
+                    </li>
+                    <li><a href="messages.html">
+                            <ion-icon name="chatbox-ellipses-outline" class="side-icon"></ion-icon>
+                            <span> Message</span>
+                        </a>
+                    </li>
+                    <li><a href="payout.html">
+                            <ion-icon name="card-outline" class="side-icon"></ion-icon>
+                            <span> Payout</span>
+                        </a>
+                    </li>
+                    <li><a href="setting.html">
+                            <ion-icon name="settings-outline" class="side-icon"></ion-icon>
+                            <span> Setting</span>
+                        </a>
+                        <ul>
+                            <li><a href="setting.html"> General setting </a></li>
+                            <li><a href="setting.html"> Notifications </a></li>
+                            <li><a href="setting.html"> Social Login </a></li> 
+                            <li><a href="setting.html"> Setup payment </a></li> 
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="side_links" data-sub-title="">
+                    <li><a href="setting.html">
+                            <ion-icon name="person-outline" class="side-icon"></ion-icon>
+                            <span> Manage profile </span>
+                        </a>
+                    </li>
+                    <li><a href="form-login.html">
+                            <ion-icon name="log-out-outline" class="side-icon"></ion-icon>
+                            <span> logout </span>
+                        </a>
+                    </li>
+                </ul>
+ 
+            </div>
+
+            <div class="side_overly" uk-toggle="target: #wrapper ; cls: is-collapse is-active"></div>
+        </div>
+        
+    </div>
+
+ 
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="../assets/js/uikit.js"></script>
+    <script src="../assets/js/tippy.all.min.js"></script>
+    <script src="../assets/js/simplebar.js"></script>
+    <script src="../assets/js/custom.js"></script>
+    <script src="../assets/js/bootstrap-select.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+ 
+</body>
+
+</html>

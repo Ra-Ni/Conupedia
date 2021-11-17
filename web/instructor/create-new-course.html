@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Courseplus Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Courseplus is - Professional A unique and beautiful collection of UI elements">
+
+    <!-- Favicon -->
+    <link href="../assets/images/favicon.png" rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/icons.css">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/uikit.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+ 
+   
+</head>
+
+<body>
+
+    <div id="wrapper" class="is-verticle">
+
+        <!--  Header  -->
+        <header uk-sticky> 
+            <div class="header_inner">
+                <div class="left-side">
+    
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="dashboard.html">
+                            <img src="../assets/images/logo.png" alt="">
+                            <img src="../assets/images/logo-light.png" class="logo_inverse" alt="">
+                            <img src="../assets/images/logo-mobile.png" class="logo_mobile" alt="">
+                        </a>
+                    </div>
+                    <!-- icon menu for mobile -->
+                    <div class="triger" uk-toggle="target: #wrapper ; cls: is-active"> 
+                    </div>
+    
+                </div>
+                <div class="right-side">
+     
+                    <!-- Header search box  -->
+                    <div class="header_search"><i class="uil-search-alt"></i> 
+                        <input value="" type="text" class="form-control" placeholder=" Quick search for anything.." autocomplete="off">
+                        <div uk-drop="mode: click;offset:10" class="header_search_dropdown">
+                               
+                            <h4 class="search_title"> Recently </h4>
+                            <ul>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Erica Jones </div>
+                                    </a> 
+                                </li> 
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Coffee  Addicts </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-3.jpg" alt="" class="list-avatar">
+                                        <div class="list-name"> Mountain Riders </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-4.jpg" alt="" class="list-avatar">
+                                        <div class="list-name"> Property Rent And Sale  </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-5.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Erica Jones </div>
+                                    </a> 
+                                </li>
+                            </ul>
+    
+                        </div>
+                    </div>
+                    
+                    <div>
+
+                        <!-- search icon for mobile -->
+                        <div class="header-search-icon" uk-toggle="target: #wrapper ; cls: show-searchbox"> </div>
+ 
+        
+                        <!-- notification -->
+                        <a href="#" class="header_widgets">
+                            <ion-icon name="mail-outline" class="is-icon"></ion-icon>
+                        </a>
+                        <div uk-drop="mode: click" class="header_dropdown"> 
+                            <div class="drop_headline">
+                                <h4>Notifications </h4>
+                                <div class="btn_action">
+                                    <div class="btn_action">
+                                        <a href="#">
+                                            <ion-icon name="settings-outline" uk-tooltip="title: Notifications settings ; pos: left"></ion-icon>
+                                        </a>
+                                        <a href="#">
+                                            <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p> <strong>Adrian Mohani</strong> Like Your Comment On Course
+                                                <span class="text-link">Javascript Introduction </span>
+                                            </p>
+                                            <span class="time-ago"> 2 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Stella Johnson</strong> Replay Your Comments in
+                                                <span class="text-link">Programming for Games</span>
+                                            </p>
+                                            <span class="time-ago"> 9 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Alex Dolgove</strong> Added New Review In Course
+                                                <span class="text-link">Full Stack PHP Developer</span>
+                                            </p>
+                                            <span class="time-ago"> 12 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Jonathan Madano</strong> Shared Your Discussion On Course
+                                                <span class="text-link">Css Flex Box </span>
+                                            </p>
+                                            <span class="time-ago"> Yesterday </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+        
+                        <!-- messages -->
+                        <a href="#" class="header_widgets">
+                            <ion-icon name="notifications-outline" class="is-icon"></ion-icon>
+                            <span> 2 </span>
+                        </a>
+                        <div uk-drop="mode: click" class="header_dropdown">
+                            <div class="drop_headline">
+                                <h4>Messages </h4>
+                                <div class="btn_action">
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" uk-tooltip="title: Message settings ; pos: left"></ion-icon>
+                                    </a>
+                                    <a href="#">
+                                        <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                    </a>
+                                </div>
+                            </div>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> John menathon </strong> <span class="time"> 6:43 PM</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Zara Ali </strong> <span class="time">12:43 PM</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Mohamed Ali </strong> <span class="time"> Wed</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> John menathon </strong> <span class="time"> Sun </span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Zara Ali </strong> <span class="time"> Fri </span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Mohamed Ali </strong> <span class="time">1 Week ago</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+        
+                        <!-- profile -->
+                        <a href="#" class="flex items-center space-x-2">
+                            <img src="../assets/images/avatars/placeholder.png" class="header_widgets_avatar mr-3" alt=""> 
+                            <span class="sm:inline hidden">  User admin </span>
+                        </a>
+                        <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
+                            <ul>   
+                                <li>
+                                    <a href="#" class="user">
+                                        <div class="user_avatar">
+                                            <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="user_name">
+                                            <div> Stella Johnson </div>
+                                            <span> @Johnson </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#" class="is-link">
+                                        <ion-icon name="rocket-outline" class="is-icon"></ion-icon> <span>  Upgrade Membership  </span>
+                                    </a>
+                                </li> 
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
+                                         My Account 
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="card-outline" class="is-icon"></ion-icon>
+                                        Subscriptions
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="color-wand-outline" class="is-icon"></ion-icon>
+                                        My Billing 
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" class="is-icon"></ion-icon>
+                                        Account Settings  
+                                    </a>
+                                </li>
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#" id="night-mode" class="btn-night-mode" onclick="UIkit.notification({ message: 'Hmm...  <strong> Night mode </strong> feature is not available yet. ' , pos: 'bottom-right'  })">
+                                        <ion-icon name="moon-outline" class="is-icon"></ion-icon>
+                                         Night mode
+                                        <span class="btn-night-mode-switch">
+                                            <span class="uk-switch-button"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                                        Log Out 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div> 
+
+                    </div>
+    
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Contents -->
+        <div class="main_content">
+ 
+            <div class="container">
+
+                <div class="lg:w-11/12 mx-auto">
+
+                    <div class="flex items-center mb-10">
+                        <a href="#" class="-ml-2 inline-flex p-1.5 text-xl">
+                            <ion-icon name="chevron-back-outline"></ion-icon>
+                        </a>
+                        <h3 class="font-semibold md:text-xl text-lg">  Create New Course </h3>
+                    </div>
+
+                    <div class="bg-white rounded-md shadow">
+
+                        <h3 class="px-8 pt-5 mb-2 text-lg font-semibold">  Course Adding Form</h3>
+ 
+                        <div class="z-20 bg-white overflow-hidden border-b" uk-sticky="cls-active:shadow rounded-none ;media 992; offset:67;bottom:true">
+                            <nav class="cd-secondary-nav extanded px-6">
+                                <ul class="space-x-3" uk-switcher="connect: #form_tabs; animation: uk-animation-fade">
+                                    <li><a href="#"> <ion-icon name="document-text-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Basic </a></li>
+                                    <li><a href="#"> <ion-icon name="help-circle-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon> Required </a></li>
+                                    <li><a href="#"> <ion-icon name="card-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Pricing</a></li> 
+                                    <li><a href="#"> <ion-icon name="film-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Media</a></li> 
+                                    <li><a href="#"> <ion-icon name="globe-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>SEO</a></li> 
+                                    <li><a href="#"> <ion-icon name="checkmark-circle-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Finish</a></li> 
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <form class="uk-switcher" id="form_tabs">
+                             
+                            <!-- Basic  -->
+                            <div class="p-8">
+
+                                <div class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2 md:mt-4">
+        
+                                    <!-- Course title -->
+                                    <label for="course_basic" class="font-medium"> Course title <span class="text-red-600">*</span></label>
+                                    <div class="col-span-2">
+                                        <input type="text" id="course_basic" name="course_basic" class="shadow-none with-border" placeholder="Enter course title" required="">
+                                    </div>
+                                    
+                                    <!-- Course short description  -->
+                                    <label for="course_basic" class="font-medium self-start"> Short description </label>
+                                    <div class="col-span-2">
+                                        <textarea class="with-border col-span-2 p-4 min-h-full resize-none" id="course_basic" name="course_basic" type="text" rows="2" value=""></textarea>
+                                        <p class="mt-2 text-sm text-gray-500"> Brief description for your course max 100 letter</p>
+                                    </div>
+    
+                                    <!-- Course description  -->
+                                    <label for="course_basic" class="font-medium"> Course description </label>
+                                    <div class="col-span-2">
+                                        <textarea class="with-border col-span-2 p-4" id="course_basic" name="course_basic" type="text" value=""></textarea>
+                                    </div>
+    
+                                    <!-- Course tags -->
+                                    <label for="course_basic" class="font-medium"> Course tags </label>
+                                    <div class="col-span-2 keywords-container py-2">
+                                        <div class="keyword-input-container">
+                                            <input type="text" class="keyword-input with-border" placeholder="Add Keywords" />
+                                            <button class="keyword-input-button ripple-effect"><i
+                                                    class="icon-material-outline-add"></i></button>
+                                        </div>
+                                        <div class="keywords-list">
+                                            <span class="keyword">
+                                                <span class="keyword-remove"></span>
+                                                <span class="keyword-text">LMS</span>
+                                            </span>
+                                            <span class="keyword">
+                                                <span class="keyword-remove"></span>
+                                                <span class="keyword-text">Couresplus</span>
+                                            </span>
+                                            <span class="keyword">
+                                                <span class="keyword-remove"></span>
+                                                <span class="keyword-text">Learning</span>
+                                            </span>
+                                            <span class="keyword">
+                                                <span class="keyword-remove"></span>
+                                                <span class="keyword-text">School</span>
+                                            </span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+    
+                                    <!-- Course name --> 
+                                    <label for="course_basic" class="font-medium self-center">Category <span class="text-red-600">*</span> </label>
+                                    <select class="selectpicker border rounded-md col-span-2" name="course_basic" id="course_basic">
+                                        <option value="all" >All</option>
+                                        <optgroup label="Web Design">
+                                            <option value="3">Responsive </option>
+                                            <option value="4">WordPress </option> 
+                                        </optgroup>
+                                        <optgroup label="Graphic Design">
+                                            <option value="9">Photoshop</option> 
+                                            <option value="11">Drawing</option> 
+                                        </optgroup> 
+                                        <optgroup label="Prototype Design"> 
+                                            <option value="24">SketchUp</option> 
+                                            <option value="26">Figma</option>
+                                        </optgroup> 
+                                        <optgroup label="Frontend Development">
+                                            <option value="40">Frontend design</option>
+                                        </optgroup>
+                                    </select>
+    
+                                    <!-- Course Level -->
+                                    <label for="course_basic" class="font-medium self-center"> Level <span class="text-red-600">*</span> </label>
+                                    <select class="selectpicker border rounded-md col-span-2" name="course_basic" id="course_basic">
+                                        <option value="beginner">Beginner</option>
+                                        <option value="advanced">Advanced</option>
+                                        <option value="intermediate">Intermediate</option>
+                                    </select>
+    
+                                    <!-- Course Language -->
+                                    <label for="course_basic" class="font-medium self-center">Language made in  </label>
+                                    <select class="selectpicker border rounded-md col-span-2" name="course_basic" id="course_basic">
+                                        <option value="english" selected="">English</option>
+                                        <option value="arabic">Arabic</option>
+                                        <option value="dutch">Dutch</option>
+                                        <option value="french">French</option>
+                                        <option value="german">German</option>
+                                        <option value="italian">Italian</option> 
+                                        <option value="russian">Russian</option>
+                                        <option value="spanish">Spanish</option>
+                                        <option value="turkish">Turkish</option> 
+                                    </select>
+    
+                                      
+                                </div>
+
+                            </div>
+                            
+                            <!-- Requirements  -->
+                            <div class="p-8 md:w-3/4 mx-auto">
+
+                                <div class="flex items-center justify-between space-x-2 mb-7">
+                                    <div>
+                                        <h4 class="font-semibold mb-1 text-lg">Requirements</h4>
+                                        <div class="text-sm"> List of requirements that can be set for this course  </div>
+                                    </div>
+                                    <button type="button" class="bg-gray-100 border p-2 px-4 rounded-md"> Create  </button>
+                                   
+                                </div>
+
+                                <div class="grid sm:grid-cols-4 align-items-center sm:gap-6 gap-2 md:mt-4">
+
+                                    <div class="col-span-3 space-y-4">
+                                        <input type="text" id="requirements" name="requirements" class="shadow-none with-border" value="Basic programming HTML and CSS." required="">
+                                    </div>
+                                    <!-- buttons -->
+                                    <div class="flex space-x-2">
+                                        <ion-icon name="create-outline" class="text-xl rounded-md p-2.5 bg-gray-100"></ion-icon>
+                                        <ion-icon name="trash-outline" class="text-xl rounded-md p-2.5 bg-red-100 text-red-500"></ion-icon>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="grid sm:grid-cols-4 align-items-center sm:gap-6 gap-2 md:mt-4">
+
+                                    <div class="col-span-3 space-y-4">
+                                        <input type="text" id="requirements" name="requirements" class="shadow-none with-border" value="Basic/Minimal understanding of JavaScript" required="">
+                                    </div>
+                                    <!-- buttons -->
+                                    <div class="flex space-x-2">
+                                        <ion-icon name="create-outline" class="text-xl rounded-md p-2.5 bg-gray-100"></ion-icon>
+                                        <ion-icon name="trash-outline" class="text-xl rounded-md p-2.5 bg-red-100 text-red-500"></ion-icon>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+ 
+                            <!-- Pricing  -->
+                            <div class="p-8 w-4/5 mx-auto py-12 md:space-y-10 space-y-4">
+
+                                <div>
+                                    <div class="flex items-center justify-between space-x-2 mb-5">
+                                        <div>
+                                            <h4 class="font-semibold mb-2 text-base">Check if this is a free course</h4>
+                                            <div class="text-sm"> Set the price for this course or let the student register for free.  </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2">
+                
+                                        <!-- Website title -->
+                                        <label for="course_basic" class="font-medium"> Course price ($) </label>
+                                        <div class="col-span-2">
+                                            <input type="number" id="course_basic" name="course_basic" class="shadow-none with-border" value="Title" required="">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div>
+
+                                    <div class="flex items-center justify-between space-x-2 mb-5">
+                                        <div>
+                                            <h4 class="font-semibold mb-2 text-base"> Check if this course has discount</h4>
+                                            <div class="text-sm"> This course has 0% Discount  </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2">
+                
+                                        <!-- Website title -->
+                                        <label for="course_basic" class="font-medium">Discounted price ($) </label>
+                                        <div class="col-span-2">
+                                            <input type="number" id="course_basic" name="course_basic" class="shadow-none with-border" value="Title" required="">
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+ 
+                                
+                                <div>
+
+                                    <div class="flex items-center justify-between space-x-2 mb-5">
+                                        <div>
+                                            <h4 class="font-semibold mb-2 text-base">Sale type</h4>
+                                            <div class="text-sm"> How do you want students to be registered  </div>
+                                        </div>
+                                        <div class="switches-list -mt-8 is-large">
+                                            <div class="switch-container">
+                                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Website title -->
+                                    <div class="border divide-y rounded-md">
+                                        <div class="radio p-5 w-full">
+                                            <input id="price-discount-1" name="radio" type="radio" checked>
+                                            <label for="price-discount-1" class="font-semibold"><span class="radio-label"></span> Subscriptions</label>
+                                            <p class="text-gray-500 text-sm mt-1.5 ml-7"> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
+                                        </div>
+                                        <br>
+                                        <div class="radio p-5 w-full">
+                                            <input id="price-discount-2" name="radio" type="radio">
+                                            <label for="price-discount-2" class="font-semibold"><span class="radio-label"></span> Selling </label>
+                                            <p class="text-gray-500 text-sm mt-1.5 ml-7"> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
+                                        </div>
+                                        <br>
+                                        <div class="radio p-5 w-full">
+                                            <input id="price-discount-3" name="radio" type="radio">
+                                            <label for="price-discount-3" class="font-semibold"><span class="radio-label"></span> Bundle </label>
+                                            <p class="text-gray-500 text-sm mt-1.5 ml-7"> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+ 
+                            </div>
+                             
+                            <!-- Media  -->
+                            <div class="p-8 w-4/5 mx-auto py-12 space-y-5">
+
+                                <div class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2 md:mt-4">
+        
+                                    <!-- Course provider -->
+                                    <label for="course_media" class="font-medium self-center">Course overview provider  </label>
+                                    <select class="selectpicker border rounded-md col-span-2" name="course_media" id="course_basic">
+                                        <option value="youtube">Youtube</option>
+                                        <option value="vimeo">Vimeo</option>
+                                        <option value="html5">Html5</option>
+                                    </select>
+
+                                    <!-- Course url -->
+                                    <label for="course_media" class="font-medium">Course overview url </label>
+                                    <div class="col-span-2">
+                                        <input type="text" id="course_media" name="course_media" class="shadow-none with-border" placeholder="E.g: https://www.youtube.com/watch?v=abcd1234" required="">
+                                    </div>
+
+                                    <!-- Course thumbnail -->
+                                    <label for="course_media" class="font-medium self-start">Course thumbnail </label>
+                                    <div class="col-span-2">
+                                        <aks-file-upload></aks-file-upload>  
+                                    </div>
+                                
+                                </div>
+ 
+
+                            </div>
+                            
+                            <!-- SEO  -->
+                            <div class="p-8 w-4/5 mx-auto py-12 space-y-5">
+
+                                <div class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2 md:mt-4">
+        
+                                    <!-- Meta keywords -->
+                                    <label for="course_meta" class="font-medium self-start"> Meta keywords  </label>
+                                    <textarea class="with-border col-span-2 p-4 min-h-full resize-none" id="course_meta" name="course_meta" type="text" rows="2" value=""></textarea>
+    
+                                    <!-- Meta description  -->
+                                    <label for="course_description" class="font-medium self-start"> Meta description </label>
+                                    <div class="col-span-2 ">
+                                        <textarea class="with-border col-span-2 p-4" id="course_description" name="course_description" type="text" value=""></textarea>
+                                        <p class="mt-2 text-sm text-gray-500"> Your website's description, used mostly for SEO and search engines, Max of 100 characters is recommended</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Finish  -->
+                            <div class="max-w-sm mx-auto px-20 py-20 uk-active">
+
+                                <div class="flex flex-col items-center justify-center">
+                                    <ion-icon name="checkmark-circle" class="hydrated mb-2 md text-5xl text-green-500" role="img" aria-label="checkmark circle"></ion-icon>
+                                    <h6 class="font-semibold text-2xl"> Thank You</h6>
+                                    <h1 class="font-medium mb-5 text-gray-500"> Just One click away</h1>
+                                    <button type="button" class="bg-blue-600 px-4 py-2.5 rounded-md self-center text-center text-white w-full">Submit</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+
+                    </div>
+
+                </div>
+ 
+            </div>
+           
+            <!-- footer -->
+            <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
+                <div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
+                    <p class="capitalize font-medium"> © copyright 2021  Courseplus</p>
+                    <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
+                        <a href="#"> About</a>
+                        <a href="#"> Help</a>
+                        <a href="#"> Terms</a>
+                        <a href="#"> Privacy</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+       
+        <!-- sidebar -->
+        <div class="sidebar">
+            <div class="sidebar_inner" data-simplebar>
+
+                 <div class="border-b flex flex-col items-center mt-8 pb-5 -mb-1.5">
+                    <div class="h-20 w-20 rounded-full overflow-hidden relative">
+                        <img src="../assets/images/avatars/avatar-2.jpg" class="absolute object-cover w-full h-full">
+                    </div>
+                    <div class="mt-3">
+                        <a href="#" class="capitalize font-semibold text-lg"> Stella Johnson </a>
+                        <div class="text-gray-500 text-sm"> info@mydomailn.com</div>
+                    </div>
+                    <div class="flex items-center justify-around mt-6 text-center text-gray-800 w-full">
+                        <a href="#">
+                            <div class="font-semibold">Courses</div>
+                            <div class="text-xl">42</div>
+                        </a>
+               
+                        <a href="#">
+                             <div class="font-semibold">Students</div>
+                            <div class="text-xl"> 2,430</div>
+                        </a>
+                    </div>
+                </div>
+
+                <ul class="border-transparent">
+                    <li><a href="dashboard.html">
+                            <ion-icon name="home-outline" class="side-icon"></ion-icon>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
+                    <li><a href="#">
+                        <ion-icon name="play-circle-outline" class="side-icon"></ion-icon>
+                        <span> Courses</span>
+                    </a>
+                    <ul>
+                        <li><a href="manage-courses.html"> Manage Courses </a></li>  
+                        <li><a href="create-new-course.html"> Add new course </a></li> 
+                    </ul>
+                </li>
+                    <li><a href="reviews.html">
+                            <ion-icon name="star-outline" class="side-icon"></ion-icon>
+                            <span> Reviews</span>
+                        </a>
+                    </li>
+                    <li><a href="messages.html">
+                            <ion-icon name="chatbox-ellipses-outline" class="side-icon"></ion-icon>
+                            <span> Message</span>
+                        </a>
+                    </li>
+                    <li><a href="payout.html">
+                            <ion-icon name="card-outline" class="side-icon"></ion-icon>
+                            <span> Payout</span>
+                        </a>
+                    </li>
+                    <li><a href="setting.html">
+                            <ion-icon name="settings-outline" class="side-icon"></ion-icon>
+                            <span> Setting</span>
+                        </a>
+                        <ul>
+                            <li><a href="setting.html"> General setting </a></li>
+                            <li><a href="setting.html"> Notifications </a></li>
+                            <li><a href="setting.html"> Social Login </a></li> 
+                            <li><a href="setting.html"> Setup payment </a></li> 
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="side_links" data-sub-title="">
+                    <li><a href="setting.html">
+                            <ion-icon name="person-outline" class="side-icon"></ion-icon>
+                            <span> Manage profile </span>
+                        </a>
+                    </li>
+                    <li><a href="form-login.html">
+                            <ion-icon name="log-out-outline" class="side-icon"></ion-icon>
+                            <span> logout </span>
+                        </a>
+                    </li>
+                </ul>
+ 
+            </div>
+
+            <div class="side_overly" uk-toggle="target: #wrapper ; cls: is-collapse is-active"></div>
+        </div>
+        
+    </div>
+
+ 
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="../assets/js/uikit.js"></script>
+    <script src="../assets/js/tippy.all.min.js"></script>
+    <script src="../assets/js/simplebar.js"></script>
+    <script src="../assets/js/custom.js"></script>
+    <script src="../assets/js/bootstrap-select.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+    <!-- aksfileupload  -->
+    <script src="../assets/js/aksfileupload.js"></script>
+    <script>
+        $(function () {
+            $("aks-file-upload").aksFileUpload({
+                fileUpload: "#uploadfile",
+                dragDrop: true,
+                maxSize: "90 GB",
+                multiple: true,
+                maxFile: 50
+            });
+        });
+    </script>
+     
+ 
+
+     
+</body>
+
+</html>

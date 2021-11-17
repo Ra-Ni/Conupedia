@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Courseplus Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Courseplus is - Professional A unique and beautiful collection of UI elements">
+
+    <!-- Favicon -->
+    <link href="../assets/images/favicon.png" rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/icons.css">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/uikit.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <div id="wrapper" class="horizontal">
+        
+        <!--  Header  -->
+        <header  uk-sticky>
+            <div class="header_inner">
+                <div class="left-side">
+    
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="home.html">
+                            <img src="../assets/images/logo.png" alt="">
+                            <img src="../assets/images/logo-light.png" class="logo_inverse" alt="">
+                            <img src="../assets/images/logo-mobile.png" class="logo_mobile" alt="">
+                        </a>
+                    </div>
+    
+                    <!-- icon menu for mobile -->
+                    <div class="triger" uk-toggle="target: .header_menu ; cls: is-visible">
+                    </div>
+    
+                    <!-- menu bar for mobile -->
+                    <nav class="header_menu">
+                        <ul> 
+                            <li> 
+                                <a href="#"> Courses</a> 
+                                <div uk-drop="mode: click" class="category-dropdown">
+                                    <ul>
+                                        <li> <a href="courses.html">  <ion-icon name="newspaper-outline" class="is-icon"></ion-icon> Web Development </a></li>
+                                        <li> <a href="courses.html">  <ion-icon name="leaf-outline" class="is-icon"></ion-icon> Mobile App </a> </li>
+                                        <li> <a href="courses.html">  <ion-icon name="briefcase-outline" class="is-icon"></ion-icon> Business </a> </li>
+                                        <li> <a href="courses.html">  <ion-icon name="color-palette-outline" class="is-icon"></ion-icon> Desings </a></li>
+                                        <li> <a href="courses.html">  <ion-icon name="megaphone-outline" class="is-icon"></ion-icon> Marketing </a></li>
+                                        <li> <a href="courses.html">  <ion-icon name="camera-outline" class="is-icon"></ion-icon> Photography </a> </li>
+                                        <li> <a href="courses.html">  <ion-icon name="accessibility-outline" class="is-icon"></ion-icon> Life Style </a> </li>
+                                    </ul>
+                                </div>
+                          
+                            </li>
+                           <li> <a href="categories.html" class="active"> Categories </a></li>
+                            <li> <a href="episodes.html"> Episode  </a></li>
+                            <li> <a href="books.html"> Book  </a></li>
+                            <li> <a href="blog.html"> Blog</a></li>
+                            <li> <a href="#">Pages</a>
+                                <div uk-drop="mode: click" class="menu-dropdown">
+                                    <ul>
+                                        <li> <a href="pages-pricing.html"> Pricing</a></li>
+                                        <li> <a href="pages-faq.html"> Faq </a></li>
+                                       <li> <a href="pages-help.html"> Help </a></li>
+                                        <li> <a href="pages-terms.html"> Terms </a></li>
+                                        <li> <a href="pages-setting.html"> Setting </a></li>
+                                        <li> <a href="#"> Development </a>
+                                            <div class="menu-dropdown" uk-drop="mode: click;pos:right-top;animation: uk-animation-slide-right-small">
+                                                <ul> 
+                                                    <li><a href="development-elements.html"> Elements  </a></li>
+                                                    <li><a href="development-components.html"> Compounents </a></li>
+                                                    <li><a href="development-plugins.html"> Plugins </a></li>
+                                                    <li><a href="development-icons.html"> Icons </a></li>
+                                                </ul>
+                                            </div>  
+                                        </li>
+                                        <li> <a href="pages-cart.html"> Shopping cart </a></li>
+                                        <li> <a href="pages-payment-info.html"> Payment methods </a></li>
+                                        <li> <a href="pages-account-info.html"> Account info </a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+    
+                    <!-- overly for small devices -->
+                    <div class="overly" uk-toggle="target: .header_menu ; cls: is-visible"></div>
+    
+                </div>
+                <div class="right-side">
+    
+                    <!-- cart -->
+                    <a href="#" class="header_widgets">
+                        <ion-icon name="cart-outline" class="is-icon"></ion-icon>
+                    </a>
+                    <div uk-drop="mode: click" class="dropdown_cart">
+                        <div class="cart-headline"> My Cart 
+                            <a href="#" class="checkout">Checkout</a>
+                        </div>
+                        <ul class="dropdown_cart_scrollbar" data-simplebar>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-1.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> Learn Angular Beginner to Advanced Fundamentals </h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $12.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-1.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4>  Become a Web Developer from Scratch to Advanced </h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $19.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-2.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> Angular Fundamentals for Beginner to advance </h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $12.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-3.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> Ultimate Web Developer Course for Beginners 2020</h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $14.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-4.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> The Complete JavaScript From beginning to advance </h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $16.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="cart_avatar">
+                                    <img src="../assets/images/courses/img-5.jpg" alt="">
+                                </div>
+                                <div class="cart_text">
+                                    <h4> Become a Web Developer from Scratch to Advanced</h4>
+                                </div>
+                                <div class="cart_price">
+                                    <span> $12.99 </span>
+                                    <button class="type"> Remove</button>
+                                </div>
+                            </li>
+                        </ul>
+    
+                        <div class="cart_footer">
+                            <p> Subtotal : $ 320 </p>
+                            <h1> Total :  <strong> $ 320</strong> </h1>
+                        </div>
+                    </div>
+    
+                    <!-- notification -->
+                    <a href="#" class="header_widgets">
+                        <ion-icon name="mail-outline" class="is-icon"></ion-icon>
+                    </a>
+                    <div uk-drop="mode: click" class="header_dropdown"> 
+                        <div class="drop_headline">
+                            <h4>Notifications </h4>
+                            <div class="btn_action">
+                                <div class="btn_action">
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" uk-tooltip="title: Notifications settings ; pos: left"></ion-icon>
+                                    </a>
+                                    <a href="#">
+                                        <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <ul class="dropdown_scrollbar" data-simplebar>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <p> <strong>Adrian Mohani</strong> Like Your Comment On Course
+                                            <span class="text-link">Javascript Introduction </span>
+                                        </p>
+                                        <span class="time-ago"> 2 hours ago </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <p>
+                                            <strong>Stella Johnson</strong> Replay Your Comments in
+                                            <span class="text-link">Programming for Games</span>
+                                        </p>
+                                        <span class="time-ago"> 9 hours ago </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <p>
+                                            <strong>Alex Dolgove</strong> Added New Review In Course
+                                            <span class="text-link">Full Stack PHP Developer</span>
+                                        </p>
+                                        <span class="time-ago"> 12 hours ago </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <p>
+                                            <strong>Jonathan Madano</strong> Shared Your Discussion On Course
+                                            <span class="text-link">Css Flex Box </span>
+                                        </p>
+                                        <span class="time-ago"> Yesterday </span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <a href="#" class="see-all">See all</a>
+                    </div>
+    
+                    <!-- messages -->
+                    <a href="#" class="header_widgets">
+                        <ion-icon name="notifications-outline" class="is-icon"></ion-icon>
+                        <span> 2 </span>
+                    </a>
+                    <div uk-drop="mode: click" class="header_dropdown">
+                        <div class="drop_headline">
+                            <h4>Messages </h4>
+                            <div class="btn_action">
+                                <a href="#">
+                                    <ion-icon name="settings-outline" uk-tooltip="title: Message settings ; pos: left"></ion-icon>
+                                </a>
+                                <a href="#">
+                                    <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                </a>
+                            </div>
+                        </div>
+                        <ul class="dropdown_scrollbar" data-simplebar>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> John menathon </strong> <span class="time"> 6:43 PM</span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> Zara Ali </strong> <span class="time">12:43 PM</span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> Mohamed Ali </strong> <span class="time"> Wed</span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> John menathon </strong> <span class="time"> Sun </span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> Zara Ali </strong> <span class="time"> Fri </span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                    </div>
+                                    <div class="drop_content">
+                                        <strong> Mohamed Ali </strong> <span class="time">1 Week ago</span>
+                                        <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <a href="#" class="see-all">See all</a>
+                    </div>
+    
+                     <!-- profile -->
+                    <a href="#">
+                        <img src="../assets/images/avatars/placeholder.png" class="header_widgets_avatar" alt="">
+                    </a>
+                    <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
+                        <ul>   
+                            <li>
+                                <a href="#" class="user">
+                                    <div class="user_avatar">
+                                        <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    </div>
+                                    <div class="user_name">
+                                        <div> Stella Johnson </div>
+                                        <span> @Johnson </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li> 
+                                <hr>
+                            </li>
+                            <li> 
+                                <a href="#" class="is-link">
+                                    <ion-icon name="rocket-outline" class="is-icon"></ion-icon> <span>  Upgrade Membership  </span>
+                                </a>
+                            </li> 
+                            <li> 
+                                <hr>
+                            </li>
+                            <li> 
+                                <a href="#">
+                                    <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
+                                     My Account 
+                                </a>
+                            </li>
+                            <li> 
+                                <a href="#">
+                                    <ion-icon name="card-outline" class="is-icon"></ion-icon>
+                                    Subscriptions
+                                </a>
+                            </li>
+                            <li> 
+                                <a href="#">
+                                    <ion-icon name="color-wand-outline" class="is-icon"></ion-icon>
+                                    My Billing 
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <ion-icon name="settings-outline" class="is-icon"></ion-icon>
+                                    Account Settings  
+                                </a>
+                            </li>
+                            <li> 
+                                <hr>
+                            </li>
+                            <li> 
+                                <a href="#" id="night-mode" class="btn-night-mode" onclick="UIkit.notification({ message: 'Hmm...  <strong> Night mode </strong> feature is not available yet. ' , pos: 'bottom-right'  })">
+                                    <ion-icon name="moon-outline" class="is-icon"></ion-icon>
+                                     Night mode
+                                    <span class="btn-night-mode-switch">
+                                        <span class="uk-switch-button"></span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li> 
+                                <a href="#">
+                                    <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                                    Log Out 
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+    
+                </div>
+            </div>
+        </header>
+  
+        <div class="container">
+
+            <!-- Spacer -->
+            <div class="page-spacer"></div>
+               
+            <div class="lg:flex lg:space-x-10">
+
+                <div class="lg:w-3/12 space-y-4 lg:block hidden">
+
+                    <div>
+                        <h4 class="font-semibold text-base mb-2"> Categories </h4>
+                        <select class="selectpicker default shadow-sm rounded" data-selected-text-format="count" data-size="7"
+                            title="All Categories">
+                            <option> Web Development </option>
+                            <option> Mobile App </option>
+                            <option> Business </option>
+                            <option> IT Software </option>
+                            <option> Desings </option>
+                            <option> Marketing </option>
+                            <option> Life Style </option>
+                            <option> Photography </option>
+                            <option> Health Fitness </option>
+                            <option> Ecommerce </option>
+                            <option> Food cooking </option>
+                            <option> Teaching academy </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-base mb-2"> Skill Levels</h4>
+                        <form class="space-y-1">
+                            <div class="radio">
+                                <input id="radio-1" name="radio" type="radio" checked>
+                                <label for="radio-1"><span class="radio-label"></span> Beginner <span> (25) </span>
+                                </label>
+                            </div>
+                            <br>
+                            <div class="radio">
+                                <input id="radio-2" name="radio" type="radio">
+                                <label for="radio-2"><span class="radio-label"></span> Entermidate <span> (25) </span>
+                                </label>
+                            </div>
+                            <br>
+                            <div class="radio">
+                                <input id="radio-3" name="radio" type="radio">
+                                <label for="radio-3"><span class="radio-label"></span> Expert <span> (25) </span>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-base mb-2"> Course rating </h4>
+
+                        <form class="space-y-1">
+                            <div class="radio">
+                                <input id="course-rate-1" name="radio" type="radio" checked>
+                                <label for="course-rate-1"><span class="radio-label"></span>
+
+                                    <div class="star-rating leading-4">
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> (320)
+                                    </div> 
+
+                                </label>
+                            </div>
+                            <br>
+                            <div class="radio">
+                                <input id="course-rate-2" name="radio" type="radio">
+                                <label for="course-rate-2"><span class="radio-label"></span>
+
+                                    <div class="star-rating leading-4">
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> (160)
+                                    </div> 
+
+                                </label>
+                            </div>
+                            <br>
+                            <div class="radio">
+                                <input id="course-rate-3" name="radio" type="radio">
+                                <label for="course-rate-3"><span class="radio-label"></span>
+
+                                    <div class="star-rating leading-4">
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> (120)
+                                    </div> 
+
+                                </label>
+                            </div> 
+                            <br>
+                            <div class="radio">
+                                <input id="course-rate-4" name="radio" type="radio">
+                                <label for="course-rate-4"><span class="radio-label"></span>
+
+                                    <div class="star-rating leading-4">
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> (50)
+                                    </div> 
+
+                                </label>
+                            </div>
+                            <br>
+                            <div class="radio">
+                                <input id="course-rate-5" name="radio" type="radio">
+                                <label for="course-rate-5"><span class="radio-label"></span>
+
+                                    <div class="star-rating leading-4">
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon> (50)
+                                    </div> 
+
+                                </label>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-base mb-2"> Course type </h4>
+                        <form class="space-y-1">
+                            <div class="radio">
+                                <input id="course-type-1" name="radio" type="radio" checked>
+                                <label for="course-type-1"><span class="radio-label"></span>Free (42) </label>
+                            </div>
+                            <br>
+                            <div class="radio">
+                                <input id="course-type-2" name="radio" type="radio">
+                                <label for="course-type-2"><span class="radio-label"></span> Paid (42)</label>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-base mb-2"> Duration </h4>
+                        <form class="space-y-1">
+                            <div class="radio">
+                                <input id="course-duration-1" name="radio" type="radio" checked>
+                                <label for="course-duration-1"><span class="radio-label"></span> +5 Hourse (23) </label>
+                            </div>
+                            <br>
+                            <div class="radio">
+                                <input id="course-duration-2" name="radio" type="radio">
+                                <label for="course-duration-2"><span class="radio-label"></span> +10 Hourse (42)</label>
+                            </div>
+                            <br>
+                            <div class="radio">
+                                <input id="course-duration-3" name="radio" type="radio">
+                                <label for="course-duration-3"><span class="radio-label"></span> +20 Hourse (42)</label>
+                            </div>
+                            <br>
+                            <div class="radio">
+                                <input id="course-duration-4" name="radio" type="radio">
+                                <label for="course-duration-4"><span class="radio-label"></span> +30 Hourse (42)</label>
+                            </div>
+                        </form>
+                    </div>
+  
+                </div>
+            
+                <div class="w-full"> 
+                     
+                    <div class="md:flex justify-between items-center mb-8">
+
+                        <div>
+                            <div class="text-xl font-semibold"> Web Development Courses </div>
+                            <div class="text-sm mt-2 font-medium text-gray-500 leading-6">  Choose from +10.000 courses with new  additions published every months  </div>
+                        </div>
+    
+                        <div class="flex items-center justify-end">
+    
+                            <div class="bg-gray-100 border inline-flex p-0.5 rounded-md text-lg self-center">
+                                <a href="#" class="py-1.5 px-2.5 rounded-md bg-white shadow" data-tippy-placement="top" title="List view"> 
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg> 
+                                </a>
+                                <a href="courses.html" class="py-1.5 px-2.5 rounded-md" data-tippy-placement="top" title="Grid view"> 
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                                </a>
+                            </div>
+                            <div class="w-40 lg:block hidden ml-3">
+                                <select class="selectpicker is-small rounded-md shadow-sm" data-size="7">
+                                    <option value="">Newest</option>
+                                    <option value="1">Popular</option>
+                                    <option value="2">Free</option>
+                                    <option value="3">Paid</option>
+                                </select>
+                            </div>
+    
+                        </div>
+                    </div>
+     
+
+                    <div class="tube-card mt-3 lg:mx-0 -mx-5">
+                        
+                        <h4 class="py-3 px-5 border-b font-semibold text-grey-700"> <ion-icon name="star"></ion-icon> Featured today </h4>
+    
+                        <div class="divide-y">
+                            <div class="flex md:space-x-6 space-x-3 md:p-5 p-2 relative">
+                                <a href="course-intro-2.html" class="md:w-60 md:h-36 w-28 h-20 overflow-hidden rounded-lg relative shadow-sm">
+                                    <img src="../assets/images/courses/img-5.jpg" alt=""  class="w-full h-full absolute inset-0 object-cover">
+                                    <img src="../assets/images/icon-play.svg" class="w-12 h-12 uk-position-center" alt="">
+                                </a>
+                                <div class="flex-1 md:space-y-2 space-y-1">
+                                    <a href="course-intro-2.html" class="md:text-xl font-semibold line-clamp-2"> Learn C sharp for Beginners Crash Course </a>
+                                    <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet,
+                                        consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                                        magna . </p>
+                                    <a href="#" class="md:font-semibold block text-sm"> John Michael</a>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex space-x-2 items-center text-sm">
+                                            <div> Binginner levels  </div>
+                                            <div class="md:block hidden">·</div>
+                                            <div class="flex items-center"> 18 Hourse </div>
+                                        </div>
+                                        <a href="#" class="md:flex items-center justify-center h-9 px-8 rounded-md border -mt-3.5 hidden"> Enroll Now </a>
+                                    </div>
+    
+                                    <div class="absolute top-1 right-3 md:flex hidden">
+                                        <a href="#" class="hover:bg-gray-200 p-1.5 inline-block rounded-full">
+                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6">
+                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                         </svg>
+                                        </a>
+                                        <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: hover;pos: top-right">
+    
+                                            <ul class="space-y-1">
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-share-alt mr-1"></i> Share
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-edit-alt mr-1"></i>  Edit Post
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-comment-slash mr-1"></i>   Disable comments
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-favorite mr-1"></i>  Add favorites
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                <hr class="-mx-2 my-2 dark:border-gray-800">
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                                   <i class="uil-trash-alt mr-1"></i>  Delete
+                                                  </a>
+                                              </li>
+                                            </ul>
+    
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+                            <div class="flex md:space-x-6 space-x-3 md:p-5 p-2 relative">
+                                <a href="course-intro-2.html" class="md:w-60 md:h-36 w-28 h-20 overflow-hidden rounded-lg relative shadow-sm">
+                                    <img src="../assets/images/courses/img-1.jpg" alt=""  class="w-full h-full absolute inset-0 object-cover">
+                                    <img src="../assets/images/icon-play.svg" class="w-12 h-12 uk-position-center" alt="">
+                                </a>
+                                <div class="flex-1 md:space-y-2 space-y-1">
+                                    <a href="course-intro-2.html" class="md:text-xl font-semibold line-clamp-2"> Ultimate Web Developer Course  </a>
+                                    <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet,
+                                        consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                                        magna . </p>
+                                    <a href="#" class="md:font-semibold block text-sm"> Stella Johnson</a>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex space-x-2 items-center text-sm">
+                                            <div> Advance levels  </div>
+                                            <div class="md:block hidden">·</div>
+                                            <div class="flex items-center"> 13 Hourse </div>
+                                        </div>
+                                        <a href="#" class="md:flex items-center justify-center h-9 px-8 rounded-md border -mt-3.5 hidden"> Enroll Now </a>
+                                    </div>
+    
+                                    <div class="absolute top-1 right-3 md:flex hidden">
+                                        <a href="#" class="hover:bg-gray-200 p-1.5 inline-block rounded-full">
+                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6">
+                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                         </svg>
+                                        </a>
+                                        <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: hover;pos: top-right">
+    
+                                            <ul class="space-y-1">
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-share-alt mr-1"></i> Share
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-edit-alt mr-1"></i>  Edit Post
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-comment-slash mr-1"></i>   Disable comments
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-favorite mr-1"></i>  Add favorites
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                <hr class="-mx-2 my-2 dark:border-gray-800">
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                                   <i class="uil-trash-alt mr-1"></i>  Delete
+                                                  </a>
+                                              </li>
+                                            </ul>
+    
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+                            <div class="flex md:space-x-6 space-x-3 md:p-5 p-2 relative">
+                                <a href="course-intro-2.html" class="md:w-60 md:h-36 w-28 h-20 overflow-hidden rounded-lg relative shadow-sm">
+                                    <img src="../assets/images/courses/img-3.jpg" alt=""  class="w-full h-full absolute inset-0 object-cover">
+                                    <img src="../assets/images/icon-play.svg" class="w-12 h-12 uk-position-center" alt="">
+                                </a>
+                                <div class="flex-1 md:space-y-2 space-y-1">
+                                    <a href="course-intro-2.html" class="md:text-xl font-semibold line-clamp-2"> Build Responsive Real World Websites </a>
+                                    <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet,
+                                        consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                                        magna . </p>
+                                    <a href="#" class="md:font-semibold block text-sm"> Monroe Parker</a>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex space-x-2 items-center text-sm">
+                                            <div> Binginner levels  </div>
+                                            <div class="md:block hidden">·</div>
+                                            <div class="flex items-center"> 23 Hourse </div>
+                                        </div>
+                                        <a href="#" class="md:flex items-center justify-center h-9 px-8 rounded-md border -mt-3.5 hidden"> Enroll Now </a>
+                                    </div>
+    
+                                    <div class="absolute top-1 right-3 md:flex hidden">
+                                        <a href="#" class="hover:bg-gray-200 p-1.5 inline-block rounded-full">
+                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6">
+                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                         </svg>
+                                        </a>
+                                        <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: hover;pos: top-right">
+    
+                                            <ul class="space-y-1">
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-share-alt mr-1"></i> Share
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-edit-alt mr-1"></i>  Edit Post
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-comment-slash mr-1"></i>   Disable comments
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                   <i class="uil-favorite mr-1"></i>  Add favorites
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                <hr class="-mx-2 my-2 dark:border-gray-800">
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                                   <i class="uil-trash-alt mr-1"></i>  Delete
+                                                  </a>
+                                              </li>
+                                            </ul>
+    
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+                            <div class="flex md:space-x-6 space-x-3 md:p-5 p-2 relative">
+                                <a href="course-intro-2.html" class="md:w-60 md:h-36 w-28 h-20 overflow-hidden rounded-lg relative shadow-sm">
+                                    <img src="../assets/images/courses/img-4.jpg" alt=""  class="w-full h-full absolute inset-0 object-cover">
+                                    <img src="../assets/images/icon-play.svg" class="w-12 h-12 uk-position-center" alt="">
+                                </a>
+                                <div class="flex-1 md:space-y-2 space-y-1">
+                                    <a href="course-intro-2.html" class="md:text-xl font-semibold line-clamp-2">
+                                         Learn Angular Fundamentals to Expert  </a>
+                                    <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet,
+                                        consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                                        magna . </p>
+                                    <a href="single-channel.html" class="md:font-semibold block text-sm"> Jesse Stevens </a>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex space-x-2 items-center text-sm">
+                                            <div> Advance levels  </div>
+                                            <div class="md:block hidden">·</div>
+                                            <div class="flex items-center"> 18 Hourse </div>
+                                        </div>
+                                        <a href="#" class="md:flex items-center justify-center h-9 px-8 rounded-md border -mt-3.5 hidden"> Enroll Now </a>
+                                    </div>
+    
+                                    <div class="absolute top-1 right-3 md:flex hidden">
+                                        <a href="#" class="hover:bg-gray-200 p-1.5 inline-block rounded-full">
+                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6">
+                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                         </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+    
+                    </div> 
+          
+                    
+                </div> 
+            </div>  
+
+
+        </div>
+ 
+         <!-- footer -->
+         <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
+            <div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
+                <p class="capitalize font-medium"> © copyright 2021  Courseplus</p>
+                <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
+                    <a href="#"> About</a>
+                    <a href="#"> Help</a>
+                    <a href="#"> Terms</a>
+                    <a href="#"> Privacy</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+           
+    
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   <script src="../assets/js/uikit.js"></script>
+    <script src="../assets/js/tippy.all.min.js"></script>
+    <script src="../assets/js/simplebar.js"></script>
+    <script src="../assets/js/custom.js"></script>
+    <script src="../assets/js/bootstrap-select.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+</body>
+
+</html>

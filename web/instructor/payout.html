@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Courseplus Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Courseplus is - Professional A unique and beautiful collection of UI elements">
+
+    <!-- Favicon -->
+    <link href="../assets/images/favicon.png" rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/icons.css">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/uikit.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+ 
+   
+</head>
+
+<body>
+
+    <div id="wrapper" class="is-verticle">
+
+        <!--  Header  -->
+        <header uk-sticky> 
+            <div class="header_inner">
+                <div class="left-side">
+    
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="dashboard.html">
+                            <img src="../assets/images/logo.png" alt="">
+                            <img src="../assets/images/logo-light.png" class="logo_inverse" alt="">
+                            <img src="../assets/images/logo-mobile.png" class="logo_mobile" alt="">
+                        </a>
+                    </div>
+                    <!-- icon menu for mobile -->
+                    <div class="triger" uk-toggle="target: #wrapper ; cls: is-active"> 
+                    </div>
+    
+                </div>
+                <div class="right-side">
+     
+                    <!-- Header search box  -->
+                    <div class="header_search"><i class="uil-search-alt"></i> 
+                        <input value="" type="text" class="form-control" placeholder=" Quick search for anything.." autocomplete="off">
+                        <div uk-drop="mode: click;offset:10" class="header_search_dropdown">
+                               
+                            <h4 class="search_title"> Recently </h4>
+                            <ul>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Erica Jones </div>
+                                    </a> 
+                                </li> 
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Coffee  Addicts </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-3.jpg" alt="" class="list-avatar">
+                                        <div class="list-name"> Mountain Riders </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-4.jpg" alt="" class="list-avatar">
+                                        <div class="list-name"> Property Rent And Sale  </div>
+                                    </a> 
+                                </li>
+                                <li> 
+                                    <a href="#">  
+                                        <img src="../assets/images/avatars/avatar-5.jpg" alt="" class="list-avatar">
+                                        <div class="list-name">  Erica Jones </div>
+                                    </a> 
+                                </li>
+                            </ul>
+    
+                        </div>
+                    </div>
+                    
+                    <div>
+
+                        <!-- search icon for mobile -->
+                        <div class="header-search-icon" uk-toggle="target: #wrapper ; cls: show-searchbox"> </div>
+ 
+        
+                        <!-- notification -->
+                        <a href="#" class="header_widgets">
+                            <ion-icon name="mail-outline" class="is-icon"></ion-icon>
+                        </a>
+                        <div uk-drop="mode: click" class="header_dropdown"> 
+                            <div class="drop_headline">
+                                <h4>Notifications </h4>
+                                <div class="btn_action">
+                                    <div class="btn_action">
+                                        <a href="#">
+                                            <ion-icon name="settings-outline" uk-tooltip="title: Notifications settings ; pos: left"></ion-icon>
+                                        </a>
+                                        <a href="#">
+                                            <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p> <strong>Adrian Mohani</strong> Like Your Comment On Course
+                                                <span class="text-link">Javascript Introduction </span>
+                                            </p>
+                                            <span class="time-ago"> 2 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Stella Johnson</strong> Replay Your Comments in
+                                                <span class="text-link">Programming for Games</span>
+                                            </p>
+                                            <span class="time-ago"> 9 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Alex Dolgove</strong> Added New Review In Course
+                                                <span class="text-link">Full Stack PHP Developer</span>
+                                            </p>
+                                            <span class="time-ago"> 12 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p>
+                                                <strong>Jonathan Madano</strong> Shared Your Discussion On Course
+                                                <span class="text-link">Css Flex Box </span>
+                                            </p>
+                                            <span class="time-ago"> Yesterday </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+        
+                        <!-- messages -->
+                        <a href="#" class="header_widgets">
+                            <ion-icon name="notifications-outline" class="is-icon"></ion-icon>
+                            <span> 2 </span>
+                        </a>
+                        <div uk-drop="mode: click" class="header_dropdown">
+                            <div class="drop_headline">
+                                <h4>Messages </h4>
+                                <div class="btn_action">
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" uk-tooltip="title: Message settings ; pos: left"></ion-icon>
+                                    </a>
+                                    <a href="#">
+                                        <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
+                                    </a>
+                                </div>
+                            </div>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> John menathon </strong> <span class="time"> 6:43 PM</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Zara Ali </strong> <span class="time">12:43 PM</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Mohamed Ali </strong> <span class="time"> Wed</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> John menathon </strong> <span class="time"> Sun </span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Zara Ali </strong> <span class="time"> Fri </span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Mohamed Ali </strong> <span class="time">1 Week ago</span>
+                                            <p> Lorem ipsum dolor sit amet, consectetur </p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+        
+                        <!-- profile -->
+                        <a href="#" class="flex items-center space-x-2">
+                            <img src="../assets/images/avatars/placeholder.png" class="header_widgets_avatar mr-3" alt=""> 
+                            <span class="sm:inline hidden">  User admin </span>
+                        </a>
+                        <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
+                            <div class="p-4 pb-2">
+                                <div class="flex items-center space-x-3">  
+                                    <div>
+                                        <span class="text-gray-500 text-sm">Your earning</span>
+                                        <div class="font-semibold my-1 text-2xl text-black"> $2,242.00 <div class="inline-flex items-baseline text-green-500 text-xs"> <i class="icon-feather-arrow-up"></i> 4.4% </div> </div>
+                                    </div>
+                                </div>
+                                <a href="create-new-course.html" class="bg-blue-600 block font-bold mt-1 py-2 text-center rounded-md text-sm text-white w-full">Create New Course</a>
+                            </div>
+                            <ul> 
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
+                                         My Account 
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="card-outline" class="is-icon"></ion-icon>
+                                        Subscriptions
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="color-wand-outline" class="is-icon"></ion-icon>
+                                        My Billing 
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <ion-icon name="settings-outline" class="is-icon"></ion-icon>
+                                        Account Settings  
+                                    </a>
+                                </li>
+                                <li> 
+                                    <hr>
+                                </li>
+                                <li> 
+                                    <a href="#" id="night-mode" class="btn-night-mode" onclick="UIkit.notification({ message: 'Hmm...  <strong> Night mode </strong> feature is not available yet. ' , pos: 'bottom-right'  })">
+                                        <ion-icon name="moon-outline" class="is-icon"></ion-icon>
+                                         Night mode
+                                        <span class="btn-night-mode-switch">
+                                            <span class="uk-switch-button"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                                        Log Out 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div> 
+
+                    </div>
+    
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Contents -->
+        <div class="main_content">
+ 
+            <div class="container">
+
+                <div class="shadow bg-white rounded-md mb-2">
+                            
+                    <h3 class="border-b py-4 px-6 text-base font-semibold"> Submit a payment request </h3>
+            
+                    <div class="p-6">
+
+                        <form action="" class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2 md:mt-4">
+
+                            <!-- Item name -->
+                            <label for="item-info" class="font-medium"> Payment Method </label>
+                            <div class="col-span-2 space-y-2">
+
+                                <ul class="space-y-2 mb-10">
+                                    <li class="radio w-full">
+                                        <input id="radio-11" name="radio" type="radio">
+                                        <label for="radio-11" uk-toggle="target: .toggle ; animation: uk-animation-fade">
+                                            <span class="radio-label mt-0.5"></span>  
+                                            <div> <span class="text-base font-semibold">  PayPal</span>  <span class="text-sm mt-1.5 block text-gray-500"> - Minimum you can Withdrawal $50.00 </span></div>
+                                        </label>
+                                    </li>
+                                    <li class="radio w-full">
+                                        <input id="radio-22" name="radio" type="radio" checked>
+                                        <label for="radio-22" uk-toggle="target: .toggle ; animation: uk-animation-fade">
+                                            <span class="radio-label mt-0.5"></span>  
+                                            <div> <span class="text-base font-semibold">  Bank Transfer </span>  <span class="text-sm mt-1.5 block text-gray-500"> - Minimum you can Withdrawal $200.00 </span></div>
+                                        </label>
+                                    </li>
+                                </ul>
+
+                                <div class="toggle space-y-3" hidden>
+
+                                    <p><span class="font-semibold">PayPal</span> - the safer, easier way to pay</p> 
+                                    
+                                        <div>
+                                            <input type="text" name="email" placeholder="E-mail" class="with-border">
+                                        </div>
+                                        <div>
+                                            <input type="Password" name="Password" placeholder="Password" class="with-border">
+                                        </div>
+                                    
+
+                                    <div class="flex flex-wrap items-center justify-between py-2 mt-3">
+                                        <a class="font-medium text-sm text-blue-600 hover:underline" href="#">Forgot password?</a>
+                                        <button class="button" type="submit">Log In</button>
+                                    </div>
+
+                                </div>
+                                <div class="toggle text-sm space-y-3 leading-6">
+
+                                    <div> Please note that a $10.00 transaction fee is charged on all Bank Transfers (SWIFT). </div>
+                                    
+                                    <div>  Courseplus  cannot be held responsible for delays, extra costs or financial loss that arises from being provided incorrect account information, so please ensure that you double check the details with your financial institution prior to submitting a request for a Bank Wire Transfer.</div> 
+                                    
+                                    <div class="font-semibold pt-2 md:text-base"> Please fill in your bank details as complete as possible, including </div>
+
+                                    <ul>
+                                        <li> - Your Address  </li>
+                                        <li> - Your bank's Address </li>
+                                        <li> - The name of the account holder </li>
+                                        <li> - Your account number and if possible IBAN</li>
+                                        <li> - Your bank's SWIFT code </li>
+                                    </ul>
+
+                                    <div> If you have any questions, don't hesitate to <a href="#" class="text-blue-500"> Contact support </a> </div>
+                                
+                                    
+                                    <label for="item-info" class="font-semibold pt-2 md:text-base"> Bank details </label>
+
+                                    <textarea class="with-border col-span-2 p-4" type="text" value=""></textarea>
+                                
+                                    <button type="submit" class="bg-blue-600 btn btn-info font-semibold inline-block px-5 py-2 rounded-md submit text-white">Submit Request</button>
+
+                                </div>
+                                
+                            </div>
+                            
+                            
+                        </form>
+                        
+                    </div>
+                    
+                </div>
+
+            </div>
+           
+            <!-- footer -->
+            <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
+                <div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
+                    <p class="capitalize font-medium"> © copyright 2021  Courseplus</p>
+                    <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
+                        <a href="#"> About</a>
+                        <a href="#"> Help</a>
+                        <a href="#"> Terms</a>
+                        <a href="#"> Privacy</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+ 
+
+        <!-- sidebar -->
+        <div class="sidebar">
+            <div class="sidebar_inner" data-simplebar>
+
+                 <div class="border-b flex flex-col items-center mt-8 pb-5 -mb-1.5">
+                    <div class="h-20 w-20 rounded-full overflow-hidden relative">
+                        <img src="../assets/images/avatars/avatar-2.jpg" class="absolute object-cover w-full h-full">
+                    </div>
+                    <div class="mt-3">
+                        <a href="#" class="capitalize font-semibold text-lg"> Stella Johnson </a>
+                        <div class="text-gray-500 text-sm"> info@mydomailn.com</div>
+                    </div>
+                    <div class="flex items-center justify-around mt-6 text-center text-gray-800 w-full">
+                        <a href="#">
+                            <div class="font-semibold">Courses</div>
+                            <div class="text-xl">42</div>
+                        </a>
+               
+                        <a href="#">
+                             <div class="font-semibold">Students</div>
+                            <div class="text-xl"> 2,430</div>
+                        </a>
+                    </div>
+                </div>
+                
+                <ul class="border-transparent">
+                    <li><a href="dashboard.html">
+                            <ion-icon name="home-outline" class="side-icon"></ion-icon>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
+                    <li><a href="#">
+                        <ion-icon name="play-circle-outline" class="side-icon"></ion-icon>
+                        <span> Courses</span>
+                    </a>
+                    <ul>
+                        <li><a href="manage-courses.html"> Manage Courses </a></li>  
+                        <li><a href="create-new-course.html"> Add new course </a></li> 
+                    </ul>
+                </li>
+                    <li><a href="reviews.html">
+                            <ion-icon name="star-outline" class="side-icon"></ion-icon>
+                            <span> Reviews</span>
+                        </a>
+                    </li>
+                    <li><a href="messages.html">
+                            <ion-icon name="chatbox-ellipses-outline" class="side-icon"></ion-icon>
+                            <span> Message</span>
+                        </a>
+                    </li>
+                    <li><a href="payout.html">
+                            <ion-icon name="card-outline" class="side-icon"></ion-icon>
+                            <span> Payout</span>
+                        </a>
+                    </li>
+                    <li><a href="setting.html">
+                            <ion-icon name="settings-outline" class="side-icon"></ion-icon>
+                            <span> Setting</span>
+                        </a>
+                        <ul>
+                            <li><a href="setting.html"> General setting </a></li>
+                            <li><a href="setting.html"> Notifications </a></li>
+                            <li><a href="setting.html"> Social Login </a></li> 
+                            <li><a href="setting.html"> Setup payment </a></li> 
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="side_links" data-sub-title="">
+                    <li><a href="setting.html">
+                            <ion-icon name="person-outline" class="side-icon"></ion-icon>
+                            <span> Manage profile </span>
+                        </a>
+                    </li>
+                    <li><a href="form-login.html">
+                            <ion-icon name="log-out-outline" class="side-icon"></ion-icon>
+                            <span> logout </span>
+                        </a>
+                    </li>
+                </ul>
+ 
+            </div>
+
+            <div class="side_overly" uk-toggle="target: #wrapper ; cls: is-collapse is-active"></div>
+        </div>
+        
+    </div>
+
+ 
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="../assets/js/uikit.js"></script>
+    <script src="../assets/js/tippy.all.min.js"></script>
+    <script src="../assets/js/simplebar.js"></script>
+    <script src="../assets/js/custom.js"></script>
+    <script src="../assets/js/bootstrap-select.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+ 
+</body>
+
+</html>
