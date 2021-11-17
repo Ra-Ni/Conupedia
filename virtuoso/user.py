@@ -61,15 +61,28 @@ def insert(session: core.Session, user: str, action: str, course: str):
     return session.post(query=query)
 
 
-def exists(session: core.Session, user: str) -> bool:
+def from_email(session: core.Session, email: str):
     query = """
     select ?user where {
-        ?user rdfs:subClassOf foaf:Person .
-        FILTER(?user = ssu:%s) .
+        ?user rdfs:subClassOf foaf:Person ;
+            foaf:mbox "%s" ;
+            foaf:accessCode ?password .
     }
-    """ % user
+    """ % email
+
+    return session.post(query=query)
+
+
+def exists(session: core.Session, email: str) -> bool:
+    query = """
+    select ?user where {
+        ?user rdfs:subClassOf foaf:Person ;
+            foaf:mbox "%s" .
+    }
+    """ % email
 
     return session.post(query=query) != []
+
 
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
