@@ -1,4 +1,5 @@
 import datetime
+import re
 from asyncio.log import logger
 from typing import Optional
 
@@ -10,6 +11,7 @@ from fastapi.security import OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
 import uuid
 
+from starlette import status
 from starlette.responses import RedirectResponse
 
 import virtuoso
@@ -24,8 +26,7 @@ URI = 'http://192.168.0.4:8890/sparql'
 
 @app.get('/register')
 def register(request: Request):
-    result = 'type a username'
-    return templates.TemplateResponse('sign-up/index.html', context={'request': request, 'result': result})
+    return templates.TemplateResponse('sign-up/index.html', context={'request': request})
 
 
 @app.post('/register')
@@ -38,12 +39,12 @@ def register(request: Request,
              ):
     if password != cpassword:
         feedback = 'Password does not match'
-        return templates.TemplateResponse('sign-in/index.html', context={'request': request, 'feedback': feedback})
+        return templates.TemplateResponse('sign-up/index.html', context={'request': request, 'feedback': feedback})
 
     with virtuoso.Session(URI) as session:
         if virtuoso.user.exists(session, email):
             feedback = 'Email already exists'
-            return templates.TemplateResponse('sign-in/index.html', context={'request': request, 'feedback': feedback})
+            return templates.TemplateResponse('sign-up/index.html', context={'request': request, 'feedback': feedback})
 
         virtuoso.user.create(session, fName, lName, email, hash_password(password))
     feedback = 'User successfully created'
@@ -51,12 +52,11 @@ def register(request: Request,
 
 
 @app.get('/login')
-async def login(request: Request, sessionID: Optional[str] = Cookie(None)):
+async def login(request: Request, response: Response, sessionID: Optional[str] = Cookie(None)):
     if sessionID:
-        response = RedirectResponse(url=app.url_path_for('browse'))
-        return response
-    else:
-        return templates.TemplateResponse('sign-in/index.html', context={'request': request})
+        return RedirectResponse(url=app.url_path_for('browse'))
+
+    return templates.TemplateResponse('sign-in/index.html', context={'request': request})
 
 
 @app.post('/login')
@@ -80,15 +80,17 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
     with virtuoso.Session(URI) as session:
         session.post(query=query)
 
-    response = RedirectResponse(url=app.url_path_for('browse'))
+    response = RedirectResponse(url=app.url_path_for('browse'), status_code=status.HTTP_302_FOUND)
     response.set_cookie(key='sessionID', value=uid)
+    response.set_cookie(key='profileID', value=str(re.sub('.*[/#]', '', profile['user'])))
     return response
+
 
 
 @app.get('/logout')
 async def logout(request: Request, sessionID: Optional[str] = Cookie(None)):
     if not sessionID:
-        return templates.TemplateResponse('sign-in/index.html', context={'request': request})
+        return RedirectResponse(url=app.url_path_for('login'))
 
     query = """
     with <http://www.securesea.ca/conupedia/user/> 
@@ -101,27 +103,48 @@ async def logout(request: Request, sessionID: Optional[str] = Cookie(None)):
 
     response = RedirectResponse(url=app.url_path_for('login'))
     response.delete_cookie(key='sessionID')
+    response.delete_cookie(key='profileID')
 
     return response
 
 
 @app.get('/browse')
 async def browse(request: Request):
-    return templates.TemplateResponse('sign-in/index.html', context={'request': request})
+
+    return templates.TemplateResponse('dashboard/index.html', context={'request': request})
 
 
 @app.get('/browse/{category}')
-async def browse(request: Request, category: str):
-    if category == 'my likes':
+async def browse(request: Request,
+                 category: str,
+                 sessionID: Optional[str] = Cookie(None),
+                 profileID: Optional[str] = Cookie(None)):
+    if not sessionID:
+        return RedirectResponse(url=app.url_path_for('login'))
+
+    session = virtuoso.Session(URI)
+
+    if category == 'explore':
         query = """
-        with <http://www.securesea.ca/conupedia/user/>
         select ?course where {
-        ?user rdfs:subClassOf foaf:Person ;
-            foaf:mbox "%s" ;
-            schema:accessCode ?password .
+         ?course a schema:Course .
+         filter not exists { ssu:%s sso:saw ?course . }
+        } order by rand() limit 20
+        """ % profileID
+        response = session.post(query=query)
+        courses = [item['course'] for item in response]
+
+    if category == 'my-list':
+        query = """
+        select ?course where {
+        ssu:%s sso:likes ?course .
         }
-        """
-    return templates.TemplateResponse('sign-in/index.html', context={'request': request})
+        """ % sessionID
+        response = session.post(query=query)
+        courses = [item['course'] for item in response]
+
+
+    return templates.TemplateResponse('dashboard/index.html', context={'request': request})
 
 
 @app.post('/browse/{category}/{title}')
@@ -135,4 +158,4 @@ async def browse(request: Request):
 
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=8082)
+    uvicorn.run(app, host="0.0.0.0", port=8085)
