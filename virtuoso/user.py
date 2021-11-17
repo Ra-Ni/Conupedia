@@ -1,27 +1,28 @@
 import re
+import uuid
 from collections import defaultdict
 
 from virtuoso import core
 
 
 def create(session: core.Session,
-           user: str,
-           password: str,
            fName: str,
            lName: str,
-           email: str) -> tuple:
+           email: str,
+           password: str) -> bool:
+    unique_id = uuid.uuid4()
     query = """
     insert in graph <http://www.securesea.ca/conupedia/user/> {
         ssu:%s a rdfs:Class ;
             rdfs:subClassOf foaf:Person ;
-            schema:accessCode "%s" ;
             foaf:firstName "%s" ;
             foaf:lastName "%s" ;
-            foaf:mbox "%s" .
+            foaf:mbox "%s" ;
+            schema:accessCode "%s" .
     }
-    """ % (user, password, fName, lName, email)
+    """ % (unique_id, fName, lName, email, password)
     retval = session.post(query=query)
-    return retval != [], {'user': user, 'password': password, 'fName': fName, 'lName': lName, 'email': email}
+    return retval != []
 
 
 def delete(session: core.Session, user: str) -> None:
