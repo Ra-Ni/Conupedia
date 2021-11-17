@@ -143,7 +143,7 @@ async def browse(request: Request,
         response = session.post(query=query)
         courses = [item['course'] for item in response]
 
-
+    session.close()
     return templates.TemplateResponse('dashboard/index.html', context={'request': request})
 
 
