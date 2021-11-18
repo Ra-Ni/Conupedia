@@ -9463,3 +9463,7 @@ html ._55r1 {
     text-shadow: none;
     vertical-align: middle;
 }
+
+.voted {
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}

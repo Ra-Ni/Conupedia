@@ -14,9 +14,10 @@ def process_href(src: str, dst: str = None):
         fstream.write(content)
 
 
+
 if __name__ == '__main__':
     dir = '../web/'
-    files = ['student/dashboard.html']
+    files = ['portal/register.html']
     for file in files:
         path = dir + file
         process_href(path)

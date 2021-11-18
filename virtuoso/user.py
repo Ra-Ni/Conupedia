@@ -62,6 +62,15 @@ def insert(session: core.Session, user: str, action: str, course: str):
     return session.post(query=query)
 
 
+def revert_actions(session: core.Session, user: str, course: str):
+    query = """
+    with <http://www.securesea.ca/conupedia/user/> 
+    delete { ssu:%s ?p ssc:%s }
+    where { ssu:%s ?p ssc:%s }
+    """ % (user, course, user, course)
+    return session.post(query=query)
+
+
 def from_email(session: core.Session, email: str):
     query = """
     with <http://www.securesea.ca/conupedia/user/>
@@ -86,13 +95,29 @@ def exists(session: core.Session, email: str) -> bool:
     return session.post(query=query) != []
 
 
+def from_token(session: core.Session, token: str):
+    query = """
+    select ?user 
+    where {
+    ?user rdfs:subClassOf foaf:Person ;
+        sso:hasSession "%s" .
+    }
+    """ % token
+    response = session.post(query=query)
+    if not response:
+        return None
+    else:
+        return response[0]['user']
+
+
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
     s = core.Session(u)
-    print(get(s, 'desroot2'))
-    print(delete(s, 'desroot2'))
-    print(exists(s, 'desroot2'))
-    print(create(s, 'desroot2', 'ranii.rafid@gmail.com', 'rani', 'rafid'))
-    print(insert(s, 'desroot2', 'saw', '000055'))
-    print(insert(s, 'desroot2', 'saw', '000043'))
-    print(insert(s, 'desroot2', 'likes', '000055'))
+    # print(get(s, 'desroot2'))
+    # print(delete(s, 'desroot2'))
+    # print(exists(s, 'desroot2'))
+    # print(create(s, 'desroot2', 'ranii.rafid@gmail.com', 'rani', 'rafid'))
+    # print(insert(s, 'desroot2', 'saw', '000055'))
+    # print(insert(s, 'desroot2', 'saw', '000043'))
+    print(insert(s, 'desroot', 'likes', '000054'))
+    # select ?o (count(?o) as ?count) where { [] sso:likes ?o .} group by ?o order by desc(?count)
