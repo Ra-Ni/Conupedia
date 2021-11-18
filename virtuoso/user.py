@@ -109,6 +109,13 @@ def from_token(session: core.Session, token: str):
     else:
         return response[0]['user']
 
+def likes(session: core.Session, user: str, *cids: str):
+
+    query = """
+    insert in graph <localhost:8890/DAV> {
+        ?user %s .
+    }
+    """ % (','.join(cids))
 
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'

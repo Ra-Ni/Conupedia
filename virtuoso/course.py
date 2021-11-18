@@ -73,10 +73,10 @@ def mark(session: core.Session, user: str, course: str, cmd: str):
 
 def recommend(session: core.Session, user: str):
     query = """
-    select ?course where {
+    select distinct ?course where {
         ssu:%s sso:likes ?c .
         ?c rdfs:seeAlso ?course .
-        filter not exists { ssu:%s sso:saw ?course . }
+        filter not exists { ssu:%s sso:likes ?course . }
     }
     """ % (user, user)
 

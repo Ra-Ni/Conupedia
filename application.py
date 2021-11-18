@@ -1,8 +1,13 @@
+import atexit
+import shlex
+import subprocess
+from configparser import ConfigParser, ExtendedInterpolation
 import datetime
 import re
 from asyncio.log import logger
 from typing import Optional
 
+import paramiko
 import requests
 import uvicorn
 from fastapi import FastAPI, Form, Request, Depends, HTTPException, Response, Cookie
@@ -22,7 +27,9 @@ app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 templates = Jinja2Templates(directory="web/")
 app.mount('/web', StaticFiles(directory='web'), name='web')
-URI = 'http://192.168.0.4:8890/sparql'
+
+URI = None
+SSH_CLIENT = None
 
 
 @app.get('/register')
@@ -201,6 +208,22 @@ async def browse(request: Request):
 async def browse(request: Request):
     return templates.TemplateResponse('sign-in/index.html', context={'request': request})
 
+@atexit.register
+def exit():
+    SSH_CLIENT.terminate()
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=8086)
+    config = ConfigParser(interpolation=ExtendedInterpolation())
+    config.read('config.ini')
+    sparql = config['Sparql']
+    ssh = config['SSH']
+
+    URI = sparql['CanonicalPath']
+
+    command = 'ssh -L {}:{}:{} {}'.format(sparql['Port'],
+                                          ssh['HostName'],
+                                          sparql['Port'],
+                                          ssh['Host'])
+    command = shlex.split(command)
+    SSH_CLIENT = subprocess.Popen(command) # stdout=subprocess.DEVNULL)
+    uvicorn.run(app, host="0.0.0.0", port=8080)
