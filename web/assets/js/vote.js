@@ -2,8 +2,8 @@ const action_log = {};
 
 function voteHover(reference) {
     let path = reference.getAttribute('href');
-    let like_button = reference.childNodes[1];
-    let dislike_button = reference.childNodes[3];
+    let like_button = reference.childNodes[3];
+    let dislike_button = reference.childNodes[1];
 
     if(path in action_log) {
         let state = action_log[path];
