@@ -22,6 +22,7 @@ from starlette.responses import RedirectResponse
 import virtuoso
 import web_tools
 from password import hash_password
+from virtuoso.namespace import PREFIX, SSU
 
 app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -85,10 +86,11 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
 
     uid = str(uuid.uuid4())
     query = """
+    %s
     insert in graph <http://www.securesea.ca/conupedia/user/> {
         <%s> sso:hasSession "%s" .
     }
-    """ % (profile['user'], uid)
+    """ % (PREFIX, profile['user'], uid)
 
     session.post(query=query)
     session.close()
@@ -106,10 +108,11 @@ async def logout(request: Request, sessionID: Optional[str] = Cookie(None)):
         return RedirectResponse(url=app.url_path_for('login'))
 
     query = """
-    with <http://www.securesea.ca/conupedia/user/> 
+    %s
+    with %s
     delete { ?user sso:hasSession "%s" }
     where { ?user sso:hasSession "%s" }
-    """ % (sessionID, sessionID)
+    """ % (PREFIX, SSU, sessionID, sessionID)
 
     with virtuoso.Session(URI) as session:
         session.post(query=query)

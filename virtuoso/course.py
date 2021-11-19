@@ -2,6 +2,7 @@ from datetime import datetime
 import uuid
 
 from virtuoso import core
+from virtuoso.namespace import *
 
 
 def create(session: core.Session, **kwargs) -> list:
@@ -10,22 +11,24 @@ def create(session: core.Session, **kwargs) -> list:
     triples = ';'.join([f'{k} {v}' for k, v in kwargs.items()])
 
     query = """
-    insert in graph <http://www.securesea.ca/conupedia/course/> {
+    %s
+    insert in graph %s {
     ssc:%s rdf:type schema:Course ;
         schema:dateCreated "%s"^^xsd:dateTime ;
         %s .
     }
-    """ % (course, str(date), triples)
+    """ % (PREFIX, SSC, course, str(date), triples)
 
     return session.post(query=query)
 
 
 def delete(session: core.Session, course: str) -> list:
     query = """
-    with <http://www.securesea.ca/conupedia/course/> 
+    %s
+    with %s
     delete { ssc:%s ?p ?o }
     where { ssc:%s ?p ?o }
-    """ % course
+    """ % (PREFIX, SSC, course, course)
 
     return session.post(query=query)
 
@@ -36,11 +39,12 @@ def get(session: core.Session, **kwargs) -> list:
 
 def seen(session: core.Session, user: str) -> set:
     query = """
-    with <http://www.securesea.ca/conupedia/user/>
+    %s
+    with %s
     select ?course where {
         ssu:%s sso:saw ?course . 
     }
-    """ % user
+    """ % (PREFIX, SSU, user)
 
     courses = session.post(query=query)
     if not courses:
@@ -52,11 +56,12 @@ def seen(session: core.Session, user: str) -> set:
 
 def unseen(session: core.Session, user: str) -> list:
     query = """
+    %s
     select ?course where {
         ?course a schema:Course .
         filter not exists { ssu:%s sso:saw ?course . }
     }
-    """ % user
+    """ % (PREFIX, user)
     courses = session.post(query=query)
     courses = [course['course'] for course in courses]
     return courses
@@ -64,21 +69,23 @@ def unseen(session: core.Session, user: str) -> list:
 
 def mark(session: core.Session, user: str, course: str, cmd: str):
     query = """
-    insert in graph <http://www.securesea.ca/conupedia/user/> {
+    %s
+    insert in graph %s {
     ssu:%s sso:%s ssc:%s .
     }
-    """ % user, cmd, course
+    """ % PREFIX, SSU, user, cmd, course
     session.post(query=query)
 
 
 def recommend(session: core.Session, user: str):
     query = """
+    %s
     select distinct ?course where {
         ssu:%s sso:likes ?c .
         ?c rdfs:seeAlso ?course .
         filter not exists { ssu:%s sso:likes ?course . }
     }
-    """ % (user, user)
+    """ % (PREFIX, user, user)
 
     courses = session.post(query=query)
     return [item['course'] for item in courses]
@@ -86,6 +93,7 @@ def recommend(session: core.Session, user: str):
 
 def topk(session: core.Session):
     query = """
+    %s
     select ?course ?code ?title ?credits ?partOf ?description 
     where {
         ?course a schema:Course ;
@@ -102,12 +110,13 @@ def topk(session: core.Session):
             limit 50
         }
     }
-    """
+    """ % PREFIX
     return session.post(query=query)
 
 
 def latest(session: core.Session, threshold: int = 50):
     query = """
+    %s
     select *
     where {
     ?course a schema:Course ;
@@ -120,17 +129,35 @@ def latest(session: core.Session, threshold: int = 50):
     } 
     order by desc(?date) 
     limit %s 
-    """ % threshold
+    """ % (PREFIX, threshold)
 
     return session.post(query=query)
 
-
+def explore(session: core.Session, user: str, threshold: int = 50):
+    query = """
+    %s
+    select *
+    where {
+    ?course a schema:Course ;
+        schema:courseCode ?code ;
+        schema:name ?title ;
+        schema:numberOfCredits ?credits ;
+        schema:isPartOf ?partOf ;
+        schema:description ?description ;
+        schema:dateCreated ?date .
+        filter not exists { ssu:%s ?p ?course }
+    } 
+    order by rand()
+    limit %s 
+    
+    """ % (PREFIX, user, threshold)
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
     s = core.Session(u)
     # print(create(s, 'desroot'))
     # print(create(s, **{'schema:name': '"ACCO23012"'}))
     # print(unseen(s, 'desroot'))
-    print(create(s, **{'schema:name': '"ACCO23012"'}))
-    print(latest(s))
-    print(recommend(s, 'desroot'))
+    # print(create(s, **{'schema:name': '"ACCO23012"'}))
+    # print(latest(s))
+    #print(recommend(s, 'desroot'))
+    print(explore(s, ''))

@@ -3,6 +3,7 @@ import uuid
 from collections import defaultdict
 
 from virtuoso import core
+from virtuoso.namespace import *
 
 
 def create(session: core.Session,
@@ -12,7 +13,8 @@ def create(session: core.Session,
            password: str) -> bool:
     unique_id = str(uuid.uuid4())
     query = """
-    insert in graph <http://www.securesea.ca/conupedia/user/> {
+    %s
+    insert in graph %s {
         ssu:%s a rdfs:Class ;
             rdfs:subClassOf foaf:Person ;
             foaf:firstName "%s" ;
@@ -20,29 +22,31 @@ def create(session: core.Session,
             foaf:mbox "%s" ;
             schema:accessCode "%s" .
     }
-    """ % (unique_id, fName, lName, email, password)
+    """ % (PREFIX, SSU, unique_id, fName, lName, email, password)
     retval = session.post(query=query)
     return retval != []
 
 
 def delete(session: core.Session, user: str) -> None:
     query = """
-    with <http://www.securesea.ca/conupedia/user/> 
+    %s
+    with %s 
     delete { ssu:%s ?p ?o }
     where { ssu:%s ?p ?o }
-    """ % (user, user)
+    """ % (PREFIX, SSU, user, user)
 
     session.post(query=query)
 
 
 def get(session: core.Session, user: str) -> dict:
     query = """
-    with <http://www.securesea.ca/conupedia/user/>
+    %s
+    with %s
     select *
     where {
         ssu:%s ?p ?o .
     }
-    """ % user
+    """ % (PREFIX, SSU, user)
     response = session.post(query=query)
     retval = defaultdict(list)
     for item in response:
@@ -54,68 +58,66 @@ def get(session: core.Session, user: str) -> dict:
 
 def insert(session: core.Session, user: str, action: str, course: str):
     query = """
-    insert in graph <http://www.securesea.ca/conupedia/user/> {
+    %s
+    insert in graph %s {
         ssu:%s sso:%s ssc:%s .
     }
-    """ % (user, action, course)
+    """ % (PREFIX, SSU, user, action, course)
 
     return session.post(query=query)
 
 
 def revert_actions(session: core.Session, user: str, course: str):
     query = """
-    with <http://www.securesea.ca/conupedia/user/> 
+    %s
+    with %s 
     delete { ssu:%s ?p ssc:%s }
     where { ssu:%s ?p ssc:%s }
-    """ % (user, course, user, course)
+    """ % (PREFIX, SSU, user, course, user, course)
     return session.post(query=query)
 
 
 def from_email(session: core.Session, email: str):
     query = """
-    with <http://www.securesea.ca/conupedia/user/>
+    %s
+    with %s
     select ?user ?password where {
         ?user rdfs:subClassOf foaf:Person ;
             foaf:mbox "%s" ;
             schema:accessCode ?password .
     }
-    """ % email
+    """ % (PREFIX, SSU, email)
 
     return session.post(query=query)
 
 
 def exists(session: core.Session, email: str) -> bool:
     query = """
+    %s
     select ?user where {
         ?user rdfs:subClassOf foaf:Person ;
             foaf:mbox "%s" .
     }
-    """ % email
+    """ % PREFIX, email
 
     return session.post(query=query) != []
 
 
 def from_token(session: core.Session, token: str):
     query = """
+    %s
     select ?user 
     where {
     ?user rdfs:subClassOf foaf:Person ;
         sso:hasSession "%s" .
     }
-    """ % token
+    """ % (PREFIX, token)
     response = session.post(query=query)
     if not response:
         return None
     else:
         return response[0]['user']
 
-def likes(session: core.Session, user: str, *cids: str):
-
-    query = """
-    insert in graph <localhost:8890/DAV> {
-        ?user %s .
-    }
-    """ % (','.join(cids))
 
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
