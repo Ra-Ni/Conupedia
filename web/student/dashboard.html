@@ -627,8 +627,8 @@
                                                 <img src= " {{ url_for('web', path='assets/images/courses/img-1.jpg') }} "  alt="" class="w-full h-full absolute inset-0 object-cover">
 
                                                 <button href="/course/{{ item.course }}" onmouseover="voteHover(this)">
-                                                    <img onclick="voteClick(this.parentElement, 'like')" src= " {{ url_for('web', path='assets/images/icon-dislike.svg') }} "  class="w-8 h-8 uk-position-bottom-right uk-transition-fade" alt="">
-                                                    <img onclick="voteClick(this.parentElement, 'dislike')" src= " {{ url_for('web', path='assets/images/icon-like.svg') }} "  class="w-8 h-8 uk-position-bottom-left uk-transition-fade" alt="">
+                                                    <img onclick="voteClick(this.parentElement, 'dislike')" src= " {{ url_for('web', path='assets/images/icon-dislike.svg') }} "  class="w-8 h-8 uk-position-bottom-right uk-transition-fade" alt="">
+                                                    <img onclick="voteClick(this.parentElement, 'like')" src= " {{ url_for('web', path='assets/images/icon-like.svg') }} "  class="w-8 h-8 uk-position-bottom-left uk-transition-fade" alt="">
                                                 </button>
                                             </div>
                                             <div class="p-4">
