@@ -31,7 +31,7 @@ app.mount('/web', StaticFiles(directory='web'), name='web')
 
 URI = None
 SSH_CLIENT = None
-
+SESSION = None
 
 @app.get('/register')
 def register(request: Request):
@@ -46,13 +46,12 @@ def register(request: Request,
              password: str = Form(...)
              ):
 
-    with virtuoso.Session(URI) as session:
-        if virtuoso.user.exists(session, email):
-            email_feedback = 'Email already exists'
-            return templates.TemplateResponse('portal/login.html',
-                                              context={'request': request, 'email_feedback': email_feedback})
+    if virtuoso.user.exists(SESSION, email):
+        email_feedback = 'Email already exists'
+        return templates.TemplateResponse('portal/login.html',
+                                          context={'request': request, 'email_feedback': email_feedback})
 
-        virtuoso.user.create(session, fName, lName, email, hash_password(password))
+    virtuoso.user.create(SESSION, fName, lName, email, hash_password(password))
 
     response = RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
     return response
@@ -69,8 +68,8 @@ async def login(request: Request, response: Response, sessionID: Optional[str] =
 @app.post('/login')
 async def login(request: Request, response: Response, email: str = Form(...), password: str = Form(...)):
     context = {'request': request}
-    session = virtuoso.Session(URI)
-    profile = virtuoso.user.from_email(session, email)
+
+    profile = virtuoso.user.from_email(SESSION, email)
 
     if not profile:
         context['email_feedback'] = " The email you entered isn't connected to an account. "
@@ -92,8 +91,8 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
     }
     """ % (PREFIX, profile['user'], uid)
 
-    session.post(query=query)
-    session.close()
+    SESSION.post(query=query)
+
 
     response = RedirectResponse(url=app.url_path_for('dashboard'), status_code=status.HTTP_302_FOUND)
     response.set_cookie(key='sessionID', value=uid)
@@ -114,8 +113,8 @@ async def logout(request: Request, sessionID: Optional[str] = Cookie(None)):
     where { ?user sso:hasSession "%s" }
     """ % (PREFIX, SSU, sessionID, sessionID)
 
-    with virtuoso.Session(URI) as session:
-        session.post(query=query)
+
+    SESSION.post(query=query)
 
     response = RedirectResponse(url=app.url_path_for('login'))
     response.delete_cookie(key='sessionID')
@@ -130,22 +129,21 @@ async def dashboard(request: Request, sessionID: Optional[str] = Cookie(None)):
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'))
 
-    session = virtuoso.Session(URI)
 
-    popular = virtuoso.course.topk(session)
+    popular = virtuoso.course.topk(SESSION)
     for item in popular:
         item['partOf'] = re.sub(r'.*[/#](.*)\.html', r'\1', item['partOf']).title()
         item['course'] = re.sub(r'.*[/#](.*)', r'\1', item['course'])
-    latest = virtuoso.course.latest(session)
+    latest = virtuoso.course.latest(SESSION)
 
     for item in latest:
         item['partOf'] = re.sub(r'.*[/#](.*)\.html', r'\1', item['partOf']).title()
         item['course'] = re.sub(r'.*[/#](.*)', r'\1', item['course'])
 
-    user = virtuoso.user.from_token(session, sessionID)
+    user = virtuoso.user.from_token(SESSION, sessionID)
     user = re.sub(r'.*[/#]', r'', user)
-    explore = virtuoso.course.explore(session, user)
-    session.close()
+    explore = virtuoso.course.explore(SESSION, user)
+
     context = {'request': request, 'popular': popular, 'latest': latest, 'explore': explore}
     return templates.TemplateResponse('student/dashboard.html', context=context)
 
@@ -157,18 +155,18 @@ def set_thumb_rating(cid: str,
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 
-    session = virtuoso.Session(URI)
-    user = virtuoso.user.from_token(session, sessionID)
+
+    user = virtuoso.user.from_token(SESSION, sessionID)
     user = re.sub(r'.*[/#]', '', user)
 
     if overwrite:
-        virtuoso.user.revert_actions(session, user, cid)
+        virtuoso.user.revert_actions(SESSION, user, cid)
 
     if action in ['like', 'dislike']:
         action += 's'
-        virtuoso.user.insert(session, user, action, cid)
+        virtuoso.user.insert(SESSION, user, action, cid)
 
-    session.close()
+
 
 @app.post('/course/{cid}')
 async def course(cid: str,
@@ -178,19 +176,19 @@ async def course(cid: str,
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 
-    session = virtuoso.Session(URI)
-    user = virtuoso.user.from_token(session, sessionID)
+
+    user = virtuoso.user.from_token(SESSION, sessionID)
     user = re.sub(r'.*[/#]', '', user)
 
     if overwrite:
-        virtuoso.user.revert_actions(session, user, cid)
+        virtuoso.user.revert_actions(SESSION, user, cid)
 
     if action in ['like', 'dislike']:
         action += 's'
-        virtuoso.user.insert(session, user, action, cid)
+        virtuoso.user.insert(SESSION, user, action, cid)
 
 
-    session.close()
+
 
 @app.get('/browse/{category}')
 async def browse(request: Request,
@@ -200,7 +198,7 @@ async def browse(request: Request,
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'))
 
-    session = virtuoso.Session(URI)
+
 
     if category == 'explore':
         query = """
@@ -209,7 +207,7 @@ async def browse(request: Request,
          filter not exists { ssu:%s sso:saw ?course . }
         } order by rand() limit 20
         """ % profileID
-        response = session.post(query=query)
+        response = SESSION.post(query=query)
         courses = [item['course'] for item in response]
 
     if category == 'my-list':
@@ -218,10 +216,10 @@ async def browse(request: Request,
         ssu:%s sso:likes ?course .
         }
         """ % sessionID
-        response = session.post(query=query)
+        response = SESSION.post(query=query)
         courses = [item['course'] for item in response]
 
-    session.close()
+
     return templates.TemplateResponse('dashboard/index.html', context={'request': request})
 
 
@@ -253,4 +251,5 @@ if __name__ == '__main__':
                                           ssh['Host'])
     command = shlex.split(command)
     SSH_CLIENT = subprocess.Popen(command) # stdout=subprocess.DEVNULL)
+    SESSION = virtuoso.Session(URI)
     uvicorn.run(app, host="0.0.0.0", port=8080)

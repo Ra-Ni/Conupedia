@@ -5,7 +5,7 @@ from virtuoso import core
 
 
 def create(session: core.Session, user: str) -> tuple:
-    uid = uuid.uuid4()
+    uid = str(uuid.uuid4())
     expiry_date = datetime.datetime.now().replace(microsecond=0) + datetime.timedelta(days=1)
 
     query = """
