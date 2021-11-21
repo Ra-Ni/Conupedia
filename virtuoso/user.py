@@ -16,13 +16,14 @@ def create(session: core.Session,
     %s
     insert in graph %s {
         ssu:%s a rdfs:Class ;
+            rdfs:label "%s" ;
             rdfs:subClassOf foaf:Person ;
             foaf:firstName "%s" ;
             foaf:lastName "%s" ;
             foaf:mbox "%s" ;
             schema:accessCode "%s" .
     }
-    """ % (PREFIX, SSU, unique_id, fName, lName, email, password)
+    """ % (PREFIX, SSU, unique_id, unique_id, fName, lName, email, password)
     retval = session.post(query=query)
     return retval != []
 

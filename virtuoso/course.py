@@ -91,21 +91,22 @@ def recommend(session: core.Session, user: str):
     return [item['course'] for item in courses]
 
 
-def topk(session: core.Session):
+def popular(session: core.Session):
     query = """
     %s
     select ?course ?code ?title ?credits ?partOf ?description 
     where {
-        ?course a schema:Course ;
+        ?c a schema:Course ;
+            rdfs:label ?course ;
             schema:courseCode ?code ;
             schema:name ?title ;
             schema:numberOfCredits ?credits ;
             schema:isPartOf ?partOf ;
             schema:description ?description .
         {
-            select ?course (count(?course) as ?count)
-            where { [] sso:likes ?course .} 
-            group by ?course 
+            select ?c (count(?c) as ?count)
+            where { [] sso:likes ?c .} 
+            group by ?c 
             order by desc(?count)
             limit 50
         }
@@ -119,7 +120,8 @@ def latest(session: core.Session, threshold: int = 50):
     %s
     select *
     where {
-    ?course a schema:Course ;
+    ?c a schema:Course ;
+        rdfs:label ?course ;
         schema:courseCode ?code ;
         schema:name ?title ;
         schema:numberOfCredits ?credits ;
@@ -138,14 +140,15 @@ def explore(session: core.Session, user: str, threshold: int = 50):
     %s
     select *
     where {
-    ?course a schema:Course ;
+    ?c a schema:Course ;
+        rdfs:label ?course ;
         schema:courseCode ?code ;
         schema:name ?title ;
         schema:numberOfCredits ?credits ;
         schema:isPartOf ?partOf ;
         schema:description ?description ;
         schema:dateCreated ?date .
-        filter not exists { ssu:%s ?p ?course }
+        filter not exists { ssu:%s ?p ?c }
     } 
     order by rand()
     limit %s 

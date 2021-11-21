@@ -115,16 +115,8 @@ async def dashboard(request: Request, sessionID: Optional[str] = Cookie(None)):
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'))
 
-    popular = virtuoso.course.topk(SESSION)
-    for item in popular:
-        item['partOf'] = re.sub(r'.*[/#](.*)\.html', r'\1', item['partOf']).title()
-        item['course'] = re.sub(r'.*[/#](.*)', r'\1', item['course'])
+    popular = virtuoso.course.popular(SESSION)
     latest = virtuoso.course.latest(SESSION)
-
-    for item in latest:
-        item['partOf'] = re.sub(r'.*[/#](.*)\.html', r'\1', item['partOf']).title()
-        item['course'] = re.sub(r'.*[/#](.*)', r'\1', item['course'])
-
     user = virtuoso.user.from_token(SESSION, sessionID)
     user = re.sub(r'.*[/#]', r'', user)
     explore = virtuoso.course.explore(SESSION, user)
