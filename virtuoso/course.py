@@ -151,6 +151,7 @@ def explore(session: core.Session, user: str, threshold: int = 50):
     limit %s 
     
     """ % (PREFIX, user, threshold)
+    return session.post(query=query)
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
     s = core.Session(u)

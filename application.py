@@ -142,9 +142,33 @@ async def dashboard(request: Request, sessionID: Optional[str] = Cookie(None)):
         item['partOf'] = re.sub(r'.*[/#](.*)\.html', r'\1', item['partOf']).title()
         item['course'] = re.sub(r'.*[/#](.*)', r'\1', item['course'])
 
+    user = virtuoso.user.from_token(session, sessionID)
+    user = re.sub(r'.*[/#]', r'', user)
+    explore = virtuoso.course.explore(session, user)
     session.close()
+    context = {'request': request, 'popular': popular, 'latest': latest, 'explore': explore}
+    return templates.TemplateResponse('student/dashboard.html', context=context)
 
-    return templates.TemplateResponse('student/dashboard.html', context={'request': request, 'popular': popular, 'latest': latest})
+@app.post('/user/{uid}/setThumbRating')
+def set_thumb_rating(cid: str,
+                 action: str = Form(...),
+                 overwrite: str = Form(...),
+                 sessionID: Optional[str] = Cookie(None)):
+    if not sessionID:
+        return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
+
+    session = virtuoso.Session(URI)
+    user = virtuoso.user.from_token(session, sessionID)
+    user = re.sub(r'.*[/#]', '', user)
+
+    if overwrite:
+        virtuoso.user.revert_actions(session, user, cid)
+
+    if action in ['like', 'dislike']:
+        action += 's'
+        virtuoso.user.insert(session, user, action, cid)
+
+    session.close()
 
 @app.post('/course/{cid}')
 async def course(cid: str,
