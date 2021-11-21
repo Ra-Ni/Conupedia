@@ -33,28 +33,31 @@ URI = None
 SSH_CLIENT = None
 SESSION = None
 
-@app.get('/register')
-def register(request: Request):
-    return templates.TemplateResponse('portal/register.html', context={'request': request})
+
+@app.get('/signup')
+def signup(request: Request, sessionID: Optional[str] = Cookie(None)):
+    if sessionID:
+        return RedirectResponse(url=app.url_path_for('dashboard'))
+
+    return templates.TemplateResponse('portal/signup.html', context={'request': request})
 
 
-@app.post('/register')
-def register(request: Request,
-             fName: str = Form(...),
-             lName: str = Form(...),
-             email: str = Form(...),
-             password: str = Form(...)
-             ):
+@app.post('/signup')
+def signup(request: Request,
+           fName: str = Form(...),
+           lName: str = Form(...),
+           email: str = Form(...),
+           password: str = Form(...),
+           sessionID: Optional[str] = Cookie(None)
+           ):
 
     if virtuoso.user.exists(SESSION, email):
         email_feedback = 'Email already exists'
-        return templates.TemplateResponse('portal/login.html',
+        return templates.TemplateResponse('portal/signup.html',
                                           context={'request': request, 'email_feedback': email_feedback})
 
     virtuoso.user.create(SESSION, fName, lName, email, hash_password(password))
-
-    response = RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
-    return response
+    return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 
 
 @app.get('/login')
@@ -76,6 +79,7 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
         return templates.TemplateResponse('portal/login.html', context=context)
 
     profile = profile[0]
+    user = re.sub(r'.*[/#]', '', profile['user'])
     db_password = profile['password']
     io_password = hash_password(password)
 
@@ -83,22 +87,13 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
         context['password_feedback'] = " The password you entered is incorrect. "
         return templates.TemplateResponse('portal/login.html', context=context)
 
-    uid = str(uuid.uuid4())
-    query = """
-    %s
-    insert in graph <http://www.securesea.ca/conupedia/user/> {
-        <%s> sso:hasSession "%s" .
-    }
-    """ % (PREFIX, profile['user'], uid)
-
-    SESSION.post(query=query)
-
+    virtuoso.authentication.delete(SESSION, user)
+    token = virtuoso.authentication.create(SESSION, user=user)
 
     response = RedirectResponse(url=app.url_path_for('dashboard'), status_code=status.HTTP_302_FOUND)
-    response.set_cookie(key='sessionID', value=uid)
-    response.set_cookie(key='profileID', value=str(re.sub('.*[/#]', '', profile['user'])))
+    response.set_cookie(key='sessionID', value=token)
+    response.set_cookie(key='profileID', value=user)
     return response
-
 
 
 @app.get('/logout')
@@ -106,15 +101,7 @@ async def logout(request: Request, sessionID: Optional[str] = Cookie(None)):
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'))
 
-    query = """
-    %s
-    with %s
-    delete { ?user sso:hasSession "%s" }
-    where { ?user sso:hasSession "%s" }
-    """ % (PREFIX, SSU, sessionID, sessionID)
-
-
-    SESSION.post(query=query)
+    virtuoso.authentication.delete(SESSION, token=sessionID)
 
     response = RedirectResponse(url=app.url_path_for('login'))
     response.delete_cookie(key='sessionID')
@@ -123,12 +110,10 @@ async def logout(request: Request, sessionID: Optional[str] = Cookie(None)):
     return response
 
 
-
 @app.get('/dashboard')
 async def dashboard(request: Request, sessionID: Optional[str] = Cookie(None)):
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'))
-
 
     popular = virtuoso.course.topk(SESSION)
     for item in popular:
@@ -147,26 +132,6 @@ async def dashboard(request: Request, sessionID: Optional[str] = Cookie(None)):
     context = {'request': request, 'popular': popular, 'latest': latest, 'explore': explore}
     return templates.TemplateResponse('student/dashboard.html', context=context)
 
-@app.post('/user/{uid}/setThumbRating')
-def set_thumb_rating(cid: str,
-                 action: str = Form(...),
-                 overwrite: str = Form(...),
-                 sessionID: Optional[str] = Cookie(None)):
-    if not sessionID:
-        return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
-
-
-    user = virtuoso.user.from_token(SESSION, sessionID)
-    user = re.sub(r'.*[/#]', '', user)
-
-    if overwrite:
-        virtuoso.user.revert_actions(SESSION, user, cid)
-
-    if action in ['like', 'dislike']:
-        action += 's'
-        virtuoso.user.insert(SESSION, user, action, cid)
-
-
 
 @app.post('/course/{cid}')
 async def course(cid: str,
@@ -176,7 +141,6 @@ async def course(cid: str,
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 
-
     user = virtuoso.user.from_token(SESSION, sessionID)
     user = re.sub(r'.*[/#]', '', user)
 
@@ -188,54 +152,10 @@ async def course(cid: str,
         virtuoso.user.insert(SESSION, user, action, cid)
 
 
-
-
-@app.get('/browse/{category}')
-async def browse(request: Request,
-                 category: str,
-                 sessionID: Optional[str] = Cookie(None),
-                 profileID: Optional[str] = Cookie(None)):
-    if not sessionID:
-        return RedirectResponse(url=app.url_path_for('login'))
-
-
-
-    if category == 'explore':
-        query = """
-        select ?course where {
-         ?course a schema:Course .
-         filter not exists { ssu:%s sso:saw ?course . }
-        } order by rand() limit 20
-        """ % profileID
-        response = SESSION.post(query=query)
-        courses = [item['course'] for item in response]
-
-    if category == 'my-list':
-        query = """
-        select ?course where {
-        ssu:%s sso:likes ?course .
-        }
-        """ % sessionID
-        response = SESSION.post(query=query)
-        courses = [item['course'] for item in response]
-
-
-    return templates.TemplateResponse('dashboard/index.html', context={'request': request})
-
-
-
-@app.post('/browse/{category}/{title}')
-async def browse(request: Request):
-    return templates.TemplateResponse('sign-in/index.html', context={'request': request})
-
-
-@app.get('/title/{title}')
-async def browse(request: Request):
-    return templates.TemplateResponse('sign-in/index.html', context={'request': request})
-
 @atexit.register
 def exit():
     SSH_CLIENT.terminate()
+
 
 if __name__ == '__main__':
     config = ConfigParser(interpolation=ExtendedInterpolation())
@@ -250,6 +170,6 @@ if __name__ == '__main__':
                                           sparql['Port'],
                                           ssh['Host'])
     command = shlex.split(command)
-    SSH_CLIENT = subprocess.Popen(command) # stdout=subprocess.DEVNULL)
+    SSH_CLIENT = subprocess.Popen(command)  # stdout=subprocess.DEVNULL)
     SESSION = virtuoso.Session(URI)
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="127.0.0.1", port=8083)

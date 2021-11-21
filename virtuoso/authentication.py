@@ -2,73 +2,59 @@ import uuid
 import datetime
 
 from virtuoso import core
+from virtuoso.namespace import PREFIX, SSU
 
 
-def create(session: core.Session, user: str) -> tuple:
-    uid = str(uuid.uuid4())
-    expiry_date = datetime.datetime.now().replace(microsecond=0) + datetime.timedelta(days=1)
+def create(session: core.Session, user: str):
+    token = str(uuid.uuid4())
 
     query = """
-    insert in graph <http://www.securesea.ca/conupedia/token/> {
-        sst:%s a sso:Token ;
-            sso:expires "%s" ;
-            rdfs:seeAlso ssu:%s .
+    %s
+    insert in graph %s {
+        ssu:%s sso:hasSession "%s" .
     }
-    """ % (uid, expiry_date, user)
+    """ % (PREFIX, SSU, user, token)
+    session.post(query=query)
+    return token
+
+
+def get(session: core.Session, user: str):
+    query = """
+    %s
+    with %s
+    select ?token {
+        ssu:%s sso:hasSession ?token
+    }
+    """ % (PREFIX, SSU, user)
     retval = session.post(query=query)
-    return retval != [], {'token': uuid, 'expiry_date': expiry_date}
+    return retval[0]['token']
 
 
-def delete(session: core.Session, **kwargs) -> list:
-    if 'user' in kwargs:
-        query = """
-        with <http://www.securesea.ca/conupedia/token/>
-        delete { ?s ?p ?o }
-        where { 
-            ?s rdfs:seeAlso ssu:%s ;
-                ?p ?o .
-        }
-        """ % kwargs['user']
+def delete(session: core.Session, user: str = None, token: str = None) -> list:
+    if not (bool(user) or bool(token)):
+        raise Exception('Token or user not provided')
 
-    elif 'token' in kwargs:
-        query = """
-        with <http://www.securesea.ca/conupedia/token/>
-        delete { sst:%s ?p ?o }
-        where { sst:%s ?p ?o }
-        """ % (kwargs['token'], kwargs['token'])
+    suffix = []
+    if user:
+        suffix.append(f'?user = ssu:{user}')
+    if token:
+        suffix.append(f'?token = "{token}"')
 
-    else:
-        return []
+    if suffix:
+        suffix = 'filter (' + ' && '.join(suffix) + ')'
 
-    return session.post(query=query)
-
-
-def get(session: core.Session, **kwargs) -> list:
-    if 'user' in kwargs:
-        query = """
-        with <http://www.securesea.ca/conupedia/token/>
-        select *
-        where {
-            ?token a sso:Token ;
-                sso:expires ?expiry_date ;
-                rdfs:seeAlso ssu:%s .
-        }  
-        """ % kwargs["user"]
-
-    elif 'token' in kwargs:
-        query = """
-        with <http://www.securesea.ca/conupedia/token/>
-        select *
-        where {
-            sst:%s a sso:Token ;
-                rdfs:seeAlso ?user ;
-                sso:expires ?expiry_date .
-        }     
-        """ % kwargs["token"]
-    else:
-        return []
+    query = """
+    %s
+    with %s
+    delete { ?user sso:hasSession ?token }
+    where { 
+        ?user sso:hasSession ?token 
+        %s
+    }
+    """ % (PREFIX, SSU, suffix)
 
     return session.post(query=query)
+
 
 
 if __name__ == '__main__':

@@ -98,7 +98,7 @@ def exists(session: core.Session, email: str) -> bool:
         ?user rdfs:subClassOf foaf:Person ;
             foaf:mbox "%s" .
     }
-    """ % PREFIX, email
+    """ % (PREFIX, email)
 
     return session.post(query=query) != []
 
