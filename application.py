@@ -120,8 +120,8 @@ async def dashboard(request: Request, sessionID: Optional[str] = Cookie(None)):
     user = virtuoso.user.from_token(SESSION, sessionID)
     user = re.sub(r'.*[/#]', r'', user)
     explore = virtuoso.course.explore(SESSION, user)
-
-    context = {'request': request, 'popular': popular, 'latest': latest, 'explore': explore}
+    likes = virtuoso.course.get(SESSION, user, 'likes')
+    context = {'request': request, 'popular': popular, 'latest': latest, 'explore': explore, 'likes': likes}
     return templates.TemplateResponse('student/dashboard.html', context=context)
 
 

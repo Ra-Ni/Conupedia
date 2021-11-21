@@ -33,8 +33,26 @@ def delete(session: core.Session, course: str) -> list:
     return session.post(query=query)
 
 
-def get(session: core.Session, **kwargs) -> list:
-    raise NotImplemented
+def get(session: core.Session, user: str, predicate: str = None) -> list:
+    suffix = '' if not filter else f'filter (?property = sso:{predicate})'
+
+    query = """
+    %s
+
+     select ?course ?code ?title ?credits ?partOf ?description where {
+        ssu:%s ?property ?c .
+        ?c rdfs:label ?course ;
+            schema:courseCode ?code ;
+            schema:name ?title ;
+            schema:numberOfCredits ?credits ;
+            schema:isPartOf ?partOf ;
+            schema:description ?description .
+        %s
+    }
+    """ % (PREFIX, user, suffix)
+
+    retval = session.post(query=query)
+    return retval
 
 
 def seen(session: core.Session, user: str) -> set:
@@ -135,6 +153,7 @@ def latest(session: core.Session, threshold: int = 50):
 
     return session.post(query=query)
 
+
 def explore(session: core.Session, user: str, threshold: int = 50):
     query = """
     %s
@@ -155,6 +174,8 @@ def explore(session: core.Session, user: str, threshold: int = 50):
     
     """ % (PREFIX, user, threshold)
     return session.post(query=query)
+
+
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
     s = core.Session(u)
@@ -163,5 +184,5 @@ if __name__ == '__main__':
     # print(unseen(s, 'desroot'))
     # print(create(s, **{'schema:name': '"ACCO23012"'}))
     # print(latest(s))
-    #print(recommend(s, 'desroot'))
+    # print(recommend(s, 'desroot'))
     print(explore(s, ''))
