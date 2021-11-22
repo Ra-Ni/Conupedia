@@ -8974,95 +8974,6 @@ header .header_inner,
   position: absolute;
 }
 
-@media (min-width: 1024px) {
-  .course-watch .sidebar {
-    width: 360px;
-    -webkit-box-shadow: inset -36px 0 40px -32px rgba(0, 0, 0, 0.05);
-            box-shadow: inset -36px 0 40px -32px rgba(0, 0, 0, 0.05);
-    margin: 0;
-    z-index: 10020;
-  }
-  .course-watch .sidebar .sidebar_inner {
-    margin: 0 -1rem;
-  }
-  .course-watch .sidebar ul.course-curriculum-list li > a {
-    padding-left: 45px;
-  }
-  .course-watch .sidebar ul.course-curriculum-list li > a span {
-    margin-left: auto;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-  .course-watch .sidebar ul.course-curriculum-list li > a::before {
-    content: "";
-    left: 8px;
-    text-align: center;
-    width: 23px;
-    height: 23px;
-    top: 20%;
-    line-height: 26px;
-    z-index: 2;
-    position: absolute;
-    background: url(../images/icon-play.svg);
-    background-color: #585757;
-    border-radius: 100%;
-  }
-  .course-watch .main_content {
-    margin-left: 360px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .course-watch .sidebar {
-    height: auto;
-    width: 100%;
-    margin: 0;
-    padding: 10px 15px;
-    position: fixed;
-    overflow: visible;
-    background: white;
-    -webkit-box-shadow: 0 1px 0 0 rgba(139, 141, 157, 0.05), 10px 1px 7px 0 rgba(65, 71, 108, 0.15);
-            box-shadow: 0 1px 0 0 rgba(139, 141, 157, 0.05), 10px 1px 7px 0 rgba(65, 71, 108, 0.15);
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-  }
-  .course-watch .sidebar .sidebar_inner {
-    width: 350px;
-    height: 100% !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin-left: -350px;
-  }
-  .course-watch.is-active .sidebar_inner {
-    margin-left: 0px;
-  }
-  .course-watch .btn-close-mobi {
-    display: block !important;
-  }
-  .course-watch.is-active .btn-close-mobi {
-    z-index: 6;
-    top: 10px;
-    left: 332px;
-    position: fixed !important;
-    color: white;
-    background: #1438ff;
-  }
-  .course-watch.is-active .btn-close-mobi::before {
-    content: '\ea02';
-  }
-}
-
-@media (max-width: 400px) {
-  .course-watch .main_content {
-    padding-top: 97px;
-  }
-}
-
 .tabcontent:not(.tab-default-open) {
   display: none !important;
 }
@@ -9202,28 +9113,6 @@ input[type="button"].dark1, input[type="submit"].dark1 {
   background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
   border-radius: .5rem;
   border-width: 1px;
-}
-
-/* play button on hover course card image*/
-.icon-play {
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: url(../images/icon-play.svg) no-repeat;
-  background-size: auto 50%;
-  background-position: center;
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: opacity 150ms ease-in-out;
-  transition: opacity 150ms ease-in-out;
-  -webkit-transition: -webkit-transform 150ms ease-in-out;
-  transition: -webkit-transform 150ms ease-in-out;
-  transition: transform 150ms ease-in-out;
-  transition: transform 150ms ease-in-out, -webkit-transform 150ms ease-in-out;
-  -webkit-transform: scale(0);
-          transform: scale(0);
 }
 
 .card:hover .icon-play,
