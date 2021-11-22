@@ -28,36 +28,6 @@ def get(session: core.Session, user: str, predicate: str = None) -> list:
     return retval
 
 
-def seen(session: core.Session, user: str) -> set:
-    query = """
-    %s
-    with %s
-    select ?course where {
-        ssu:%s sso:saw ?course . 
-    }
-    """ % (PREFIX, SSU, user)
-
-    courses = session.post(query=query)
-    if not courses:
-        return set()
-
-    courses = set([result['course'] for result in courses])
-    return courses
-
-
-def unseen(session: core.Session, user: str) -> list:
-    query = """
-    %s
-    select ?course where {
-        ?course a schema:Course .
-        filter not exists { ssu:%s sso:saw ?course . }
-    }
-    """ % (PREFIX, user)
-    courses = session.post(query=query)
-    courses = [course['course'] for course in courses]
-    return courses
-
-
 def mark(session: core.Session, user: str, course: str, cmd: str):
     query = """
     %s
