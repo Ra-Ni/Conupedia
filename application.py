@@ -117,16 +117,18 @@ async def dashboard(request: Request, sessionID: Optional[str] = Cookie(None)):
     categories = dict()
     user_info = virtuoso.user.basic_information(SESSION, sessionID)
     user = user_info['user']
+
+    categories['Recommended'] = virtuoso.course.recommend(SESSION, user)
     categories['Popular'] = virtuoso.course.popular(SESSION)
     categories['Latest'] = virtuoso.course.latest(SESSION, user)
     categories['Explore'] = virtuoso.course.explore(SESSION, user)
     categories['Likes'] = virtuoso.course.get(SESSION, user, 'likes')
-    categories['Recommended'] = virtuoso.course.recommend(SESSION, user)
 
     context = {'request': request,
                'categories': categories,
                'user_info': user_info}
     return templates.TemplateResponse('student/dashboard.html', context=context)
+
 
 @app.get('/course/{cuid}/rating')
 async def rating(cuid: str, sessionID: Optional[str] = Cookie(None)):
