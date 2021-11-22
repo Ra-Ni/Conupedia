@@ -6,34 +6,6 @@ from virtuoso import core
 from virtuoso.namespace import *
 
 
-def create(session: core.Session, **kwargs) -> list:
-    course = uuid.uuid4()
-    date = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
-    triples = ';'.join([f'{k} {v}' for k, v in kwargs.items()])
-
-    query = """
-    %s
-    insert in graph %s {
-    ssc:%s rdf:type schema:Course ;
-        schema:dateCreated "%s"^^xsd:dateTime ;
-        %s .
-    }
-    """ % (PREFIX, SSC, course, str(date), triples)
-
-    return session.post(query=query)
-
-
-def delete(session: core.Session, course: str) -> list:
-    query = """
-    %s
-    with %s
-    delete { ssc:%s ?p ?o }
-    where { ssc:%s ?p ?o }
-    """ % (PREFIX, SSC, course, course)
-
-    return session.post(query=query)
-
-
 def get(session: core.Session, user: str, predicate: str = None) -> list:
     suffix = '' if not filter else f'filter (?property = sso:{predicate})'
 

@@ -34,12 +34,17 @@ SSH_CLIENT = None
 SESSION = None
 
 
+@app.get('/')
+def root():
+    return RedirectResponse(url=app.url_path_for('dashboard'))
+
+
 @app.get('/signup')
 def signup(request: Request, sessionID: Optional[str] = Cookie(None)):
     if sessionID:
         return RedirectResponse(url=app.url_path_for('dashboard'))
 
-    return templates.TemplateResponse('portal/signup.html', context={'request': request})
+    return templates.TemplateResponse('signup.html', context={'request': request})
 
 
 @app.post('/signup')
@@ -52,7 +57,7 @@ def signup(request: Request,
            ):
     if virtuoso.user.exists(SESSION, email):
         email_feedback = 'Email already exists'
-        return templates.TemplateResponse('portal/signup.html',
+        return templates.TemplateResponse('signup.html',
                                           context={'request': request, 'email_feedback': email_feedback})
 
     virtuoso.user.create(SESSION, fName, lName, email, hash_password(password))
@@ -64,7 +69,7 @@ async def login(request: Request, response: Response, sessionID: Optional[str] =
     if sessionID:
         return RedirectResponse(url=app.url_path_for('dashboard'))
 
-    return templates.TemplateResponse('portal/login.html', context={'request': request})
+    return templates.TemplateResponse('login.html', context={'request': request})
 
 
 @app.post('/login')
@@ -75,7 +80,7 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
 
     if not profile:
         context['email_feedback'] = " The email you entered isn't connected to an account. "
-        return templates.TemplateResponse('portal/login.html', context=context)
+        return templates.TemplateResponse('login.html', context=context)
 
     profile = profile[0]
     user = re.sub(r'.*[/#]', '', profile['user'])
@@ -84,7 +89,7 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
 
     if db_password != io_password:
         context['password_feedback'] = " The password you entered is incorrect. "
-        return templates.TemplateResponse('portal/login.html', context=context)
+        return templates.TemplateResponse('login.html', context=context)
 
     virtuoso.authentication.delete(SESSION, user)
     token = virtuoso.authentication.create(SESSION, user=user)
@@ -127,7 +132,7 @@ async def dashboard(request: Request, sessionID: Optional[str] = Cookie(None)):
     context = {'request': request,
                'categories': categories,
                'user_info': user_info}
-    return templates.TemplateResponse('student/dashboard.html', context=context)
+    return templates.TemplateResponse('dashboard.html', context=context)
 
 
 @app.get('/course/{cuid}/rating')
@@ -162,11 +167,12 @@ async def profile(request: Request, sessionID: Optional[str] = Cookie(None), pro
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
     user_info = virtuoso.user.basic_information(SESSION, sessionID)
-    return templates.TemplateResponse('student/setting.html', context={'request': request, 'user_info': user_info})
+    return templates.TemplateResponse('setting.html', context={'request': request, 'user_info': user_info})
 
 
 @app.post('/profile')
-async def profile(request: Request, sessionID: Optional[str] = Cookie(None), profileID: Optional[str] = Cookie(None)):
+async def profile(request: Request,
+                  sessionID: Optional[str] = Cookie(None)):
     raise NotImplementedError()
 
 
