@@ -120,6 +120,25 @@ def from_token(session: core.Session, token: str):
         return response[0]['user']
 
 
+def basic_information(session: core.Session, token: str):
+    query = """
+    %s
+    select ?user ?fName ?lName ?email ?password
+    where {
+        ?u rdfs:subClassOf foaf:Person ;
+            rdfs:label ?user ;
+            sso:hasSession "%s" ;
+            foaf:firstName ?fName ;
+            foaf:lastName ?lName ;
+            foaf:mbox ?email ;
+            schema:accessCode ?password . 
+    }
+    """ % (PREFIX, token)
+    response = session.post(query=query)
+
+    return response[0] if response else None
+
+
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
     s = core.Session(u)

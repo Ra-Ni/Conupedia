@@ -17,7 +17,7 @@ def process_href(src: str, dst: str = None):
 
 if __name__ == '__main__':
     dir = '../web/'
-    files = ['portal/signup.html']
+    files = ['student/setting.html']
     for file in files:
         path = dir + file
         process_href(path)

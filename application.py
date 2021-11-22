@@ -50,7 +50,6 @@ def signup(request: Request,
            password: str = Form(...),
            sessionID: Optional[str] = Cookie(None)
            ):
-
     if virtuoso.user.exists(SESSION, email):
         email_feedback = 'Email already exists'
         return templates.TemplateResponse('portal/signup.html',
@@ -115,33 +114,58 @@ async def dashboard(request: Request, sessionID: Optional[str] = Cookie(None)):
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'))
 
-    popular = virtuoso.course.popular(SESSION)
-    latest = virtuoso.course.latest(SESSION)
-    user = virtuoso.user.from_token(SESSION, sessionID)
-    user = re.sub(r'.*[/#]', r'', user)
-    explore = virtuoso.course.explore(SESSION, user)
-    likes = virtuoso.course.get(SESSION, user, 'likes')
-    context = {'request': request, 'popular': popular, 'latest': latest, 'explore': explore, 'likes': likes}
+    categories = dict()
+    user_info = virtuoso.user.basic_information(SESSION, sessionID)
+    user = user_info['user']
+    categories['Popular'] = virtuoso.course.popular(SESSION)
+    categories['Latest'] = virtuoso.course.latest(SESSION, user)
+    categories['Explore'] = virtuoso.course.explore(SESSION, user)
+    categories['Likes'] = virtuoso.course.get(SESSION, user, 'likes')
+    categories['Recommended'] = virtuoso.course.recommend(SESSION, user)
+
+    context = {'request': request,
+               'categories': categories,
+               'user_info': user_info}
     return templates.TemplateResponse('student/dashboard.html', context=context)
 
+@app.get('/course/{cuid}/rating')
+async def rating(cuid: str, sessionID: Optional[str] = Cookie(None)):
+    user = virtuoso.user.from_token(SESSION, sessionID)
+    user = re.sub(r'.*[/#]', '', user)
+    retval = virtuoso.course.rating(SESSION, user, cuid)
+    return retval
 
-@app.post('/course/{cid}')
-async def course(cid: str,
-                 action: str = Form(...),
-                 overwrite: str = Form(...),
+
+@app.post('/course/{cuid}/rating')
+async def course(cuid: str,
+                 rating: str = Form(...),
                  sessionID: Optional[str] = Cookie(None)):
     if not sessionID:
         return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 
     user = virtuoso.user.from_token(SESSION, sessionID)
     user = re.sub(r'.*[/#]', '', user)
+    db_rating = virtuoso.course.rating(SESSION, user, cuid)
 
-    if overwrite:
-        virtuoso.user.revert_actions(SESSION, user, cid)
+    virtuoso.course.remove_rating(SESSION, user, cuid)
+    if rating == str(db_rating):
+        return
 
-    if action in ['like', 'dislike']:
-        action += 's'
-        virtuoso.user.insert(SESSION, user, action, cid)
+    virtuoso.course.add_rating(SESSION, user, cuid, rating)
+
+
+
+@app.get('/profile')
+async def profile(request: Request, sessionID: Optional[str] = Cookie(None), profileID: Optional[str] = Cookie(None)):
+    if not sessionID:
+        return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
+    user_info = virtuoso.user.basic_information(SESSION, sessionID)
+    return templates.TemplateResponse('student/setting.html', context={'request': request, 'user_info': user_info})
+
+
+@app.post('/profile')
+async def profile(request: Request, sessionID: Optional[str] = Cookie(None), profileID: Optional[str] = Cookie(None)):
+    raise NotImplementedError()
 
 
 @atexit.register

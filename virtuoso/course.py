@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 import uuid
 
@@ -95,21 +96,26 @@ def mark(session: core.Session, user: str, course: str, cmd: str):
     session.post(query=query)
 
 
-def recommend(session: core.Session, user: str):
+def recommend(session: core.Session, user: str, threshold: int = 50):
     query = """
     %s
-    select distinct ?course where {
-        ssu:%s sso:likes ?c .
-        ?c rdfs:seeAlso ?course .
-        filter not exists { ssu:%s sso:likes ?course . }
-    }
-    """ % (PREFIX, user, user)
+    select distinct ?course ?code ?title ?credits ?partOf ?description 
+    where {
+        ssu:%s sso:likes [ a schema:Course ; rdfs:seeAlso ?c ] .
+        ?c  rdfs:label ?course ;
+            schema:courseCode ?code ;
+            schema:name ?title ;
+            schema:numberOfCredits ?credits ;
+            schema:isPartOf ?partOf ;
+            schema:description ?description .
+        filter not exists { ssu:%s [] ?c }
+    } limit %s
+    """ % (PREFIX, user, user, threshold)
 
-    courses = session.post(query=query)
-    return [item['course'] for item in courses]
+    return session.post(query=query)
 
 
-def popular(session: core.Session):
+def popular(session: core.Session, threshold: int = 50):
     query = """
     %s
     select ?course ?code ?title ?credits ?partOf ?description 
@@ -126,14 +132,14 @@ def popular(session: core.Session):
             where { [] sso:likes ?c .} 
             group by ?c 
             order by desc(?count)
-            limit 50
+            limit %s
         }
     }
-    """ % PREFIX
+    """ % (PREFIX, threshold)
     return session.post(query=query)
 
 
-def latest(session: core.Session, threshold: int = 50):
+def latest(session: core.Session, user: str, threshold: int = 50):
     query = """
     %s
     select *
@@ -146,10 +152,11 @@ def latest(session: core.Session, threshold: int = 50):
         schema:isPartOf ?partOf ;
         schema:description ?description ;
         schema:dateCreated ?date .
+    filter not exists { ssu:%s [] ?c }
     } 
     order by desc(?date) 
     limit %s 
-    """ % (PREFIX, threshold)
+    """ % (PREFIX, user, threshold)
 
     return session.post(query=query)
 
@@ -157,7 +164,7 @@ def latest(session: core.Session, threshold: int = 50):
 def explore(session: core.Session, user: str, threshold: int = 50):
     query = """
     %s
-    select *
+    select ?course ?code ?title ?credits ?partOf ?description
     where {
     ?c a schema:Course ;
         rdfs:label ?course ;
@@ -165,15 +172,60 @@ def explore(session: core.Session, user: str, threshold: int = 50):
         schema:name ?title ;
         schema:numberOfCredits ?credits ;
         schema:isPartOf ?partOf ;
-        schema:description ?description ;
-        schema:dateCreated ?date .
-        filter not exists { ssu:%s ?p ?c }
+        schema:description ?description .
+        filter not exists { ssu:%s [] ?c }
     } 
     order by rand()
     limit %s 
     
     """ % (PREFIX, user, threshold)
     return session.post(query=query)
+
+
+def rating(session: core.Session, user: str, course: str):
+    query = """
+    %s
+    with %s
+    select ?property 
+    where { ssu:%s ?property ssc:%s }
+    """ % (PREFIX, SSU, user, course)
+
+    retval = session.post(query=query)
+    if not retval:
+        return 0
+
+    retval = re.sub(r'.*[/#]', '', retval[0]['property'])
+    if retval == 'likes':
+        return 2
+    elif retval == 'dislikes':
+        return 1
+
+    return 0
+
+
+def remove_rating(session: core.Session, user: str, course: str):
+    query = """
+    %s
+    with %s
+    delete { ssu:%s ?p ssc:%s }
+    where { ssu:%s ?p ssc:%s }
+    """ % (PREFIX, SSU, user, course, user, course)
+    session.post(query=query)
+
+
+def add_rating(session: core.Session, user: str, course: str, rating: str):
+    if rating == '1':
+        rating = 'dislikes'
+    elif rating == '2':
+        rating = 'likes'
+    else:
+        return
+
+    query = """
+    %s
+    insert in graph %s { ssu:%s sso:%s ssc:%s }
+    """ % (PREFIX, SSU, user, rating, course)
+    session.post(query=query)
 
 
 if __name__ == '__main__':

@@ -1,76 +1,53 @@
 const action_log = {};
+const _course = '';
 
-function voteHover(reference) {
-    let path = reference.getAttribute('href');
-    let like_button = reference.childNodes[3];
-    let dislike_button = reference.childNodes[1];
-
-    if(path in action_log) {
-        let state = action_log[path];
-
-        if(state === 'like') {
-            if(!like_button.classList.contains('voted')) {
-                like_button.classList.add('voted');
-            }
-            dislike_button.classList.remove('voted');
-            console.log('liked');
-        } else if(state === 'dislike') {
-            if(!dislike_button.classList.contains('voted')) {
-                dislike_button.classList.add('voted');
-            }
-            like_button.classList.remove('voted');
-            console.log('disliked');
-        }
-    } else {
-        like_button.classList.remove('voted');
-        dislike_button.classList.remove('voted');
-        console.log('nothing');
-    }
-
-}
-
-function voteClick(reference, action_type) {
-    let path = reference.getAttribute('href');
-    let overwrite = 'overwrite=';
-    let action = 'action=';
+function _update(reference) {
+    let children = reference.childNodes
+    let thumbs_down = children[1]
+    let thumbs_up = children[3]
     let http = new XMLHttpRequest();
+    let cuid = reference.getAttribute('value')
 
-    if (path in action_log) {
-        overwrite += 'True';
-        if(action_type === action_log[path]) {
-            delete action_log[path];
-            action += 'None';
-        } else {
-            action_log[path] = action_type;
-            action += action_type;
-        }
-
-        voteHover(reference);
-    } else {
-            overwrite += 'False';
-            action_log[path] = action_type;
-            action += action_type;
-            voteHover(reference);
-
-    }
-
-    http.open("POST", path);
-    http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    http.send(action + '&' + overwrite);
+    http.open("GET", '/course/' + cuid + '/rating');
+    http.send();
+    thumbs_down.classList.remove('voted')
+    thumbs_up.classList.remove('voted')
     http.onreadystatechange = (e) => {
-        console.log('done');
-        console.log(http.responseText);
+        let rating  = http.responseText;
+        if (rating === "1") {
+            thumbs_down.classList.add('voted')
+        } else if (rating === "2") {
+            thumbs_up.classList.add('voted')
+        }
+    }
+}
+
+function getVote(reference) {
+    let children = reference
+        .childNodes[1]
+        .childNodes[1]
+        .childNodes[3]
+
+    _update(children)
+
+}
+
+function vote(reference, rating) {
+    let cuid = reference.getAttribute('value')
+    let children = reference.childNodes
+    let thumbs_down = children[1]
+    let thumbs_up = children[3]
+    let http = new XMLHttpRequest();
+    http.open("POST", '/course/' + cuid + '/rating');
+    http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    http.send('rating=' + rating);
+
+    http.onreadystatechange = (e) => {
+        _update(reference)
     }
 
+
+
+
+
 }
-
-function dev(reference) {
-    console.log(reference)
-
-}
-
-function dev2(reference) {
-    reference.classList.remove('voted')
-    console.log(reference)
-}
-

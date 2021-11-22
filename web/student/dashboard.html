@@ -5,7 +5,7 @@
 
     <!-- Basic Page Needs
     ================================================== -->
-    <title>Courseplus Template</title>
+    <title>Conupedia</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Courseplus is - Professional A unique and beautiful collection of UI elements">
@@ -31,16 +31,15 @@
     <div id="wrapper" class="horizontal">
         
         <!--  Header  -->
-        <header class="is-transparent is-dark border-b backdrop-filter backdrop-blur-2xl" uk-sticky="cls-inactive: is-dark is-transparent border-b">
+        <header class="border-b backdrop-filter backdrop-blur-xl" uk-sticky="cls-inactive: border-b">
             <div class="header_inner">
                 <div class="left-side">
     
                     <!-- Logo -->
                     <div id="logo">
-                        <a href="dashboard.html">
-                            <img src= " {{ url_for('web', path='assets/images/logo.png') }} "  alt="">
-                            <img src= " {{ url_for('web', path='assets/images/logo-light.png') }} "  class="logo_inverse" alt="">
-                            <img src= " {{ url_for('web', path='assets/images/logo-mobile.png') }} "  class="logo_mobile" alt="">
+                        <a href="/dashboard">
+                            <img src= " {{ url_for('web', path='assets/images/Concordia-logo.png') }} "  alt="">
+                            <img src= " {{ url_for('web', path='assets/images/Concordia-logo.png') }} "  class="logo_mobile" alt="">
                         </a>
                     </div>
     
@@ -51,9 +50,11 @@
                     <!-- menu bar for mobile -->
                     <nav class="header_menu">
                         <ul>
-                            <li> <a href="categories.html" class="active"> Home </a></li>
-                            <li> <a href="categories.html" class="active"> New & Popular </a></li>
-                            <li> <a href="episodes.html"> My List  </a></li>
+                            <li> <a href="#Recommended" class="active"> Recommended </a></li>
+                            <li> <a href="#Popular" class="active"> Popular </a></li>
+                            <li> <a href="#Latest" class="active"> Latest </a></li>
+                            <li> <a href="#Explore" class="active"> Explore </a></li>
+                            <li> <a href="#Likes"> Likes  </a></li>
                         </ul>
                     </nav>
     
@@ -62,131 +63,27 @@
     
                 </div>
                 <div class="right-side">
-    
-                    <!-- notification -->
-                    <a href="#" class="header_widgets">
-                        <ion-icon name="notifications-outline" class="is-icon"></ion-icon>
-                        <span> 2 </span>
-                    </a>
-                    <div uk-drop="mode: click" class="header_dropdown"> 
-                        <div class="drop_headline">
-                            <h4>Notifications </h4>
-                            <div class="btn_action">
-                                <div class="btn_action">
-                                    <a href="#">
-                                        <ion-icon name="settings-outline" uk-tooltip="title: Notifications settings ; pos: left"></ion-icon>
-                                    </a>
-                                    <a href="#">
-                                        <ion-icon name="checkbox-outline" uk-tooltip="title: Mark as read all ; pos: left"></ion-icon>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <ul class="dropdown_scrollbar" data-simplebar>
-                            <li>
-                                <a href="#">
-                                    <div class="drop_avatar"> <img src= " {{ url_for('web', path='assets/images/avatars/avatar-1.jpg') }} "  alt="">
-                                    </div>
-                                    <div class="drop_content">
-                                        <p> <strong>Adrian Mohani</strong> Like Your Comment On Course
-                                            <span class="text-link">Javascript Introduction </span>
-                                        </p>
-                                        <span class="time-ago"> 2 hours ago </span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="drop_avatar"> <img src= " {{ url_for('web', path='assets/images/avatars/avatar-2.jpg') }} "  alt="">
-                                    </div>
-                                    <div class="drop_content">
-                                        <p>
-                                            <strong>Stella Johnson</strong> Replay Your Comments in
-                                            <span class="text-link">Programming for Games</span>
-                                        </p>
-                                        <span class="time-ago"> 9 hours ago </span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="drop_avatar"> <img src= " {{ url_for('web', path='assets/images/avatars/avatar-3.jpg') }} "  alt="">
-                                    </div>
-                                    <div class="drop_content">
-                                        <p>
-                                            <strong>Alex Dolgove</strong> Added New Review In Course
-                                            <span class="text-link">Full Stack PHP Developer</span>
-                                        </p>
-                                        <span class="time-ago"> 12 hours ago </span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="drop_avatar"> <img src= " {{ url_for('web', path='assets/images/avatars/avatar-1.jpg') }} "  alt="">
-                                    </div>
-                                    <div class="drop_content">
-                                        <p>
-                                            <strong>Jonathan Madano</strong> Shared Your Discussion On Course
-                                            <span class="text-link">Css Flex Box </span>
-                                        </p>
-                                        <span class="time-ago"> Yesterday </span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="#" class="see-all">See all</a>
-                    </div>
 
                      <!-- profile -->
+
                     <a href="#">
-                        <img src= " {{ url_for('web', path='assets/images/avatars/placeholder.png') }} "  class="header_widgets_avatar" alt="">
+                        <img src= " {{ url_for('web', path='assets/images/user.svg') }} "  class="header_widgets_avatar" alt="">
                     </a>
                     <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
                         <ul>   
                             <li>
-                                <a href="#" class="user">
-                                    <div class="user_avatar">
-                                        <img src= " {{ url_for('web', path='assets/images/avatars/avatar-2.jpg') }} "  alt="">
-                                    </div>
+                                <a class="user">
                                     <div class="user_name">
-                                        <div> Stella Johnson </div>
-                                        <span> @Johnson </span>
+                                        <div> {{ user_info.fName }} {{ user_info.lName }} </div>
+                                        <span> {{ user_info.email }} </span>
                                     </div>
                                 </a>
                             </li>
                             <li> 
                                 <hr>
-                            </li>
-                            <li> 
-                                <a href="#" class="is-link">
-                                    <ion-icon name="rocket-outline" class="is-icon"></ion-icon> <span>  Upgrade Membership  </span>
-                                </a>
-                            </li> 
-                            <li> 
-                                <hr>
-                            </li>
-                            <li> 
-                                <a href="#">
-                                    <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
-                                     My Account 
-                                </a>
-                            </li>
-                            <li> 
-                                <a href="#">
-                                    <ion-icon name="card-outline" class="is-icon"></ion-icon>
-                                    Subscriptions
-                                </a>
-                            </li>
-                            <li> 
-                                <a href="#">
-                                    <ion-icon name="color-wand-outline" class="is-icon"></ion-icon>
-                                    My Billing 
-                                </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/profile">
                                     <ion-icon name="settings-outline" class="is-icon"></ion-icon>
                                     Account Settings  
                                 </a>
@@ -195,16 +92,7 @@
                                 <hr>
                             </li>
                             <li> 
-                                <a href="#" id="night-mode" class="btn-night-mode" onclick="UIkit.notification({ message: 'Hmm...  <strong> Night mode </strong> feature is not available yet. ' , pos: 'bottom-right'  })">
-                                    <ion-icon name="moon-outline" class="is-icon"></ion-icon>
-                                     Night mode
-                                    <span class="btn-night-mode-switch">
-                                        <span class="uk-switch-button"></span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li> 
-                                <a href="#">
+                                <a href="/logout">
                                     <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
                                     Log Out 
                                 </a>
@@ -215,37 +103,7 @@
                 </div> 
             </div>
         </header>
-  
-        <!-- Slideshow -->
-        <div class="uk-position-relative uk-visible-toggle overflow-hidden mb-8 lg:-mt-20" tabindex="-1"
-        uk-slideshow="animation: scale ;min-height: 200; max-height: 500 ;autoplay: true">
-        
-        <ul class="uk-slideshow-items rounded">
-            <li>
-                <div class="uk-position-cover" uk-slideshow-parallax="scale: 1.2,1.2,1">
-                    <img src= " {{ url_for('web', path='assets/images/hero-1.jpg') }} "  class="object-cover" alt="" uk-cover>
-                </div>
-                <div class="container relative p-20 lg:mt-12 h-full"> 
-                  <div uk-slideshow-parallax="scale: 1,1,0.8" class="flex flex-col justify-center h-full w-full space-y-3">
-                      <h1 uk-slideshow-parallax="y: 100,0,0" class="lg:text-4xl text-2xl text-white font-semibold"> Learn from the best1</h1>
-                      <p uk-slideshow-parallax="y: 150,0,0" class="text-base text-white font-medium pb-4 lg:w-1/2"> Choose from 130,000 online video courses with new additions published every month </p>
-                      <a uk-slideshow-parallax="y: 200,0,50" href="#" class="bg-opacity-90 bg-white py-2.5 rounded-md text-base text-center w-32"> Get Started </a> 
-                  </div>
-                </div>
-            </li> 
-            <li>
-              <div class="uk-position-cover" uk-slideshow-parallax="scale: 1.2,1.2,1">
-                  <img src= " {{ url_for('web', path='assets/images/hero-2.jpg') }} "  class="object-cover" alt="" uk-cover>
-              </div>
-              <div class="container relative p-20 lg:mt-12 h-full">  
-                  <div uk-slideshow-parallax="scale: 1,1,0.8" class="flex flex-col justify-center h-full w-full space-y-3">
-                      <h1 uk-slideshow-parallax="y: 100,0,0" class="lg:text-4xl text-2xl text-white font-semibold"> Learn from the best</h1>
-                      <p uk-slideshow-parallax="y: 150,0,0" class="text-base text-white font-medium pb-4 lg:w-1/2"> Choose from 130,000 online video courses with new additions published every month </p>
-                      <a uk-slideshow-parallax="y: 200,0,0" href="#" class="bg-opacity-90 bg-white py-2.5 rounded-md text-base text-center w-32"> Get Started </a> 
-                  </div>
-                </div>
-          </li> 
-        </ul> 
+
         
         <a class="uk-position-center-left-out uk-position-small uk-hidden-hover slidenav-prev" href="#"
             uk-slideshow-item="previous"></a>
@@ -256,227 +114,57 @@
 
         <div class="mx-auto max-w-5xl p-4">
 
-            <!--  slider courses --> 
-            <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
-                    <h2 class="text-2xl font-semibold"> Popular Classes  </h2>
-                <a href="#" class="text-blue-500 sm:block hidden"> See all </a>
-            </div> 
+            {% for category, items in categories.items() %}
+                <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
+                        <h2 class="text-2xl font-semibold" id="{{ category }}"> {{ category }} </h2>
+                </div>
 
-            <div class="mt-3">
+                <div class="mt-3">
 
-                <h4 class="py-3 border-b font-semibold text-grey-700  mx-1 mb-4" hidden> <ion-icon name="star"></ion-icon> Featured today </h4>
+                    <div class="relative" uk-slider="finite: false">
 
-                <div class="relative" uk-slider="finite: true">
-        
-                    <div class="uk-slider-container px-1 py-3">
-                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-2@s uk-grid-small uk-grid">
-                            {% for item in popular %}
+                        <div class="uk-slider-container px-1 py-3">
+                            <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-2@s uk-grid-small uk-grid">
+                                {% for item in items %}
 
-                                <li>
-                                    <a class="uk-link-reset">
-                                        <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
-                                            <div class="w-full h-40 overflow-hidden rounded-t-lg relative">
-                                                <img src= " {{ url_for('web', path='assets/images/courses/img-1.jpg') }} "  alt="" class="w-full h-full absolute inset-0 object-cover">
-                                                <button>
-                                                    <img src= " {{ url_for('web', path='assets/images/icon-dislike.svg') }} "  class="w-8 h-8 uk-position-bottom-right uk-transition-fade" alt="">
+                                    <li>
+                                        <a  class="uk-link-reset" value="{{ item.course }}" onmouseenter="getVote(this)" >
+                                            <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
+                                                <div  class="w-full h-20 overflow-hidden rounded-t-lg relative">
 
-                                                </button>
-                                                <button>
-                                                    <img src= " {{ url_for('web', path='assets/images/icon-like.svg') }} "  class="w-8 h-8 uk-position-bottom-left uk-transition-fade" alt="">
-                                                </button>
-                                            </div>
-                                            <div class="p-4">
-                                                <div class="font-semibold line-clamp-2"> {{ item.code }} - {{ item.title }}</div>
-                                                <div class="flex space-x-2 items-center text-sm pt-2">
-                                                    <div> {{ item.description }} </div>
+                                                    <img src= " {{ url_for('web', path='assets/images/Concordia-card.png') }} "  alt="" class="w-full h-full absolute inset-0 object-cover">
+
+                                                    <button value="{{ item.course }}">
+                                                        <img onclick="vote(this.parentElement, '1')" src= " {{ url_for('web', path='assets/images/thumbs-down.svg') }} "  class="w-8 h-8 uk-position-bottom-right uk-transition-fade" alt="">
+                                                        <img onclick="vote(this.parentElement, '2')" src= " {{ url_for('web', path='assets/images/thumbs-up.svg') }} "  class="w-8 h-8 uk-position-bottom-left uk-transition-fade" alt="">
+                                                    </button>
                                                 </div>
-                                                <div class="pt-1 flex items-center justify-between">
-                                                    <div class="text-sm font-semibold"> {{ item.partOf }} </div>
-                                                    <div class="text-sm font-semibold"> Credits: {{ item.credits }} </div>
+                                                <div class="p-4">
+                                                    <div class="font-semibold line-clamp-2"> {{ item.code }} - {{ item.title }}</div>
+                                                    <div class="flex space-x-2 items-center text-xs pt-2">
+                                                        <div class="line-clamp-10"> {{ item.description }} </div>
+                                                    </div>
+                                                    <div class="pt-1 flex items-center justify-between">
+                                                        <div class="text-sm font-semibold"> {{ item.partOf }} </div>
+                                                        <div class="text-sm font-semibold"> Credits: {{ item.credits }} </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            {% endfor %}
+                                        </a>
+                                    </li>
+                                {% endfor %}
 
-                        </ul>
+                            </ul>
 
-                        <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -left-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="previous"> <i class="icon-feather-chevron-left"></i></a>
-                        <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -right-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="next"> <i class="icon-feather-chevron-right"></i></a>
+                            <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -left-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="previous"> <i class="icon-feather-chevron-left"></i></a>
+                            <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -right-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="next"> <i class="icon-feather-chevron-right"></i></a>
 
+                        </div>
                     </div>
+
                 </div>
-            
-            </div>
-            
-            <!--  books  -->
+            {% endfor %}
 
-            <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
-                    <h2 class="text-2xl font-semibold"> Latest Courses </h2>
-                <a href="#" class="text-blue-500 sm:block hidden"> See all </a>
-            </div> 
-
-            <div class="mt-3">
-
-                <div class="relative" uk-slider="finite: true">
-
-                    <div class="uk-slider-container px-1 py-3">
-                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-2@s uk-grid-small uk-grid">
-                            {% for item in latest %}
-
-                                <li>
-                                    <a  class="uk-link-reset">
-                                        <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
-                                            <div  class="w-full h-40 overflow-hidden rounded-t-lg relative">
-
-                                                <img src= " {{ url_for('web', path='assets/images/courses/img-1.jpg') }} "  alt="" class="w-full h-full absolute inset-0 object-cover">
-
-                                                <button href="/course/{{ item.course }}" onmouseover="voteHover(this)">
-                                                    <img onclick="voteClick(this.parentElement, 'dislike')" src= " {{ url_for('web', path='assets/images/icon-dislike.svg') }} "  class="w-8 h-8 uk-position-bottom-right uk-transition-fade" alt="">
-                                                    <img onclick="voteClick(this.parentElement, 'like')" src= " {{ url_for('web', path='assets/images/icon-like.svg') }} "  class="w-8 h-8 uk-position-bottom-left uk-transition-fade" alt="">
-                                                </button>
-                                            </div>
-                                            <div class="p-4">
-                                                <div class="font-semibold line-clamp-2"> {{ item.code }} - {{ item.title }}</div>
-                                                <div class="flex space-x-2 items-center text-sm pt-2">
-                                                    <div> {{ item.description }} </div>
-                                                </div>
-                                                <div class="pt-1 flex items-center justify-between">
-                                                    <div class="text-sm font-semibold"> {{ item.partOf }} </div>
-                                                    <div class="text-sm font-semibold"> Credits: {{ item.credits }} </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            {% endfor %}
-
-                        </ul>
-
-                        <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -left-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="previous"> <i class="icon-feather-chevron-left"></i></a>
-                        <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -right-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="next"> <i class="icon-feather-chevron-right"></i></a>
-
-                    </div>
-                </div>
-
-            </div>
-
-             <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
-                    <h2 class="text-2xl font-semibold"> Explore </h2>
-                <a href="#" class="text-blue-500 sm:block hidden"> See all </a>
-            </div>
-
-            <div class="mt-3">
-
-                <div class="relative" uk-slider="finite: true">
-
-                    <div class="uk-slider-container px-1 py-3">
-                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-2@s uk-grid-small uk-grid">
-                            {% for item in explore %}
-
-                                <li>
-                                    <a  class="uk-link-reset">
-                                        <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
-                                            <div  class="w-full h-40 overflow-hidden rounded-t-lg relative">
-
-                                                <img src= " {{ url_for('web', path='assets/images/courses/img-1.jpg') }} "  alt="" class="w-full h-full absolute inset-0 object-cover">
-
-                                                <button href="/course/{{ item.course }}" onmouseover="voteHover(this)">
-                                                    <img onclick="voteClick(this.parentElement, 'dislike')" src= " {{ url_for('web', path='assets/images/icon-dislike.svg') }} "  class="w-8 h-8 uk-position-bottom-right uk-transition-fade" alt="">
-                                                    <img onclick="voteClick(this.parentElement, 'like')" src= " {{ url_for('web', path='assets/images/icon-like.svg') }} "  class="w-8 h-8 uk-position-bottom-left uk-transition-fade" alt="">
-                                                </button>
-                                            </div>
-                                            <div class="p-4">
-                                                <div class="font-semibold line-clamp-2"> {{ item.code }} - {{ item.title }}</div>
-                                                <div class="flex space-x-2 items-center text-sm pt-2">
-                                                    <div> {{ item.description }} </div>
-                                                </div>
-                                                <div class="pt-1 flex items-center justify-between">
-                                                    <div class="text-sm font-semibold"> {{ item.partOf }} </div>
-                                                    <div class="text-sm font-semibold"> Credits: {{ item.credits }} </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            {% endfor %}
-
-                        </ul>
-
-                        <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -left-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="previous"> <i class="icon-feather-chevron-left"></i></a>
-                        <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -right-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="next"> <i class="icon-feather-chevron-right"></i></a>
-
-                    </div>
-                </div>
-
-            </div>
-
-             <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
-                    <h2 class="text-2xl font-semibold"> Likes </h2>
-                <a href="#" class="text-blue-500 sm:block hidden"> See all </a>
-            </div>
-
-            <div class="mt-3">
-
-                <div class="relative" uk-slider="finite: true">
-
-                    <div class="uk-slider-container px-1 py-3">
-                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-2@s uk-grid-small uk-grid">
-                            {% for item in likes %}
-
-                                <li>
-                                    <a  class="uk-link-reset">
-                                        <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
-                                            <div  class="w-full h-40 overflow-hidden rounded-t-lg relative">
-
-                                                <img src= " {{ url_for('web', path='assets/images/courses/img-1.jpg') }} "  alt="" class="w-full h-full absolute inset-0 object-cover">
-
-                                                <button href="/course/{{ item.course }}" onmouseover="voteHover(this)">
-                                                    <img onclick="voteClick(this.parentElement, 'dislike')" src= " {{ url_for('web', path='assets/images/icon-dislike.svg') }} "  class="w-8 h-8 uk-position-bottom-right uk-transition-fade" alt="">
-                                                    <img onclick="voteClick(this.parentElement, 'like')" src= " {{ url_for('web', path='assets/images/icon-like.svg') }} "  class="w-8 h-8 uk-position-bottom-left uk-transition-fade" alt="">
-                                                </button>
-                                            </div>
-                                            <div class="p-4">
-                                                <div class="font-semibold line-clamp-2"> {{ item.code }} - {{ item.title }}</div>
-                                                <div class="flex space-x-2 items-center text-sm pt-2">
-                                                    <div> {{ item.description }} </div>
-                                                </div>
-                                                <div class="pt-1 flex items-center justify-between">
-                                                    <div class="text-sm font-semibold"> {{ item.partOf }} </div>
-                                                    <div class="text-sm font-semibold"> Credits: {{ item.credits }} </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            {% endfor %}
-
-                        </ul>
-
-                        <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -left-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="previous"> <i class="icon-feather-chevron-left"></i></a>
-                        <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -right-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="next"> <i class="icon-feather-chevron-right"></i></a>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-
-
-         <!-- footer -->
-         <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
-            <div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
-                <p class="capitalize font-medium"> © copyright 2021  Courseplus</p>
-                <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
-                    <a href="#"> About</a>
-                    <a href="#"> Help</a>
-                    <a href="#"> Terms</a>
-                    <a href="#"> Privacy</a>
-                </div>
-            </div>
-        </div>
 
     </div>
            

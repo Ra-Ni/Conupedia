@@ -8680,8 +8680,6 @@ header .header_inner,
 
 @media (min-width: 1200px) {
   .main_content {
-    margin-left: 300px;
-    margin-top: 0;
   }
   .main_content .container {
     max-width: 1024px;
@@ -9094,7 +9092,8 @@ input[type="button"].dark1, input[type="submit"].dark1 {
 ------------------------------------- */
 .line-clamp-1,
 .line-clamp-2,
-.line-clamp-3 {
+.line-clamp-3,
+.line-clamp-10 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9110,6 +9109,10 @@ input[type="button"].dark1, input[type="submit"].dark1 {
 
 .line-clamp-3 {
   -webkit-line-clamp: 3;
+}
+
+.line-clamp-10 {
+  -webkit-line-clamp: 10;
 }
 
 /* ---------------------------------- */
@@ -9467,4 +9470,3 @@ html ._55r1 {
 .voted {
   filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
 }
-
