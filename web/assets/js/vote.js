@@ -12,7 +12,7 @@ function _update(reference) {
     http.send();
     thumbs_down.classList.remove('voted')
     thumbs_up.classList.remove('voted')
-    http.onreadystatechange = (e) => {
+    http.onreadystatechange = (f) => {
         let rating  = http.responseText;
         if (rating === "1") {
             thumbs_down.classList.add('voted')
@@ -20,6 +20,7 @@ function _update(reference) {
             thumbs_up.classList.add('voted')
         }
     }
+
 }
 
 function getVote(reference) {

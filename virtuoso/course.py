@@ -101,7 +101,8 @@ def recommend(session: core.Session, user: str, threshold: int = 50):
     %s
     select distinct ?course ?code ?title ?credits ?partOf ?description 
     where {
-        ssu:%s sso:likes [ a schema:Course ; rdfs:seeAlso ?c ] .
+        ssu:%s sso:likes ?o .
+        ?o rdfs:seeAlso ?c .
         ?c  rdfs:label ?course ;
             schema:courseCode ?code ;
             schema:name ?title ;
@@ -109,7 +110,10 @@ def recommend(session: core.Session, user: str, threshold: int = 50):
             schema:isPartOf ?partOf ;
             schema:description ?description .
         filter not exists { ssu:%s [] ?c }
-    } limit %s
+    } 
+    group by ?course 
+    order by rand()
+    limit %s
     """ % (PREFIX, user, user, threshold)
 
     return session.post(query=query)
