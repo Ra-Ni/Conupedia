@@ -175,7 +175,6 @@ if __name__ == '__main__':
     config = ConfigParser(interpolation=ExtendedInterpolation())
     config.read('config.ini')
     sparql = config['Sparql']
-    ssh = config['SSH']
 
     URI = sparql['CanonicalPath']
 
