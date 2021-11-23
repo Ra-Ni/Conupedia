@@ -1,5 +1,4 @@
 import uuid
-import datetime
 
 from .core import Session
 from .namespace import PREFIX, SSU

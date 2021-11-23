@@ -1,5 +1,4 @@
 import atexit
-import os
 import shlex
 import subprocess
 from configparser import ConfigParser, ExtendedInterpolation
@@ -15,7 +14,7 @@ from fastapi.staticfiles import StaticFiles
 from starlette import status
 from starlette.responses import RedirectResponse
 
-from src import virtuoso
+import virtuoso
 from password import hash_password
 
 
