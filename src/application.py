@@ -167,8 +167,10 @@ async def profile(request: Request,
 if __name__ == '__main__':
     config = ConfigParser(interpolation=ExtendedInterpolation())
     config.read('config.ini')
-    sparql = config['Sparql']
-    URI = f'http://{sparql["IP"]}:{sparql["PORT"]}{sparql["RelativePath"]}'
 
+    sparql = config['Sparql']
+    URI = f'http://{sparql["IP"]}:{sparql["Port"]}{sparql["RelativePath"]}'
     SESSION = virtuoso.Session(URI)
-    uvicorn.run(app, host="0.0.0.0", port=80)
+
+    server = config['Uvicorn']
+    uvicorn.run(app, host=server['IP'], port=int(server['Port']))
