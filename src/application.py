@@ -20,7 +20,6 @@ templates = Jinja2Templates(directory="web/")
 app.mount('/web', StaticFiles(directory='web'), name='web')
 
 URI = None
-SSH_CLIENT = None
 SESSION = None
 
 
