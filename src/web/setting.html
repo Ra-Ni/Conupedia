@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Conupedia</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link href= " {{ url_for('web', path='assets/images/favicon.png') }} "  rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href= " {{ url_for('web', path='assets/css/icons.css') }} " >
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href= " {{ url_for('web', path='assets/css/uikit.css') }} " >
+    <link rel="stylesheet" href= " {{ url_for('web', path='assets/css/style.css') }} " >
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+ 
+   
+</head>
+
+<body>
+
+    <div id="wrapper" class="horizontal">
+
+        <!--  Header  -->
+        <header class="border-b backdrop-filter backdrop-blur-xl" uk-sticky="cls-inactive: border-b">
+            <div class="header_inner">
+                <div class="left-side">
+
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="/dashboard">
+                            <img src= " {{ url_for('web', path='assets/images/Concordia-logo.png') }} "  alt="">
+                            <img src= " {{ url_for('web', path='assets/images/Concordia-logo.png') }} "  class="logo_mobile" alt="">
+                        </a>
+                    </div>
+
+                    <!-- icon menu for mobile -->
+                    <div class="triger" uk-toggle="target: .header_menu ; cls: is-visible">
+                    </div>
+
+                    <!-- menu bar for mobile -->
+                    <nav class="header_menu">
+                        <ul>
+                            <li> <a href="/dashboard" class="active"> Home </a></li>
+                            <li> <a href="/dashboard#Recommended" class="active"> Recommended </a></li>
+                            <li> <a href="/dashboard#Popular" class="active"> Popular </a></li>
+                            <li> <a href="/dashboard#Latest" class="active"> Latest </a></li>
+                            <li> <a href="/dashboard#Explore" class="active"> Explore </a></li>
+                            <li> <a href="/dashboard#Likes"> Likes  </a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- overly for small devices -->
+                    <div class="overly" uk-toggle="target: .header_menu ; cls: is-visible"></div>
+
+                </div>
+                <div class="right-side">
+
+                     <!-- profile -->
+
+                    <a href="#">
+                        <img src= " {{ url_for('web', path='assets/images/user.svg') }} "  class="header_widgets_avatar" alt="">
+                    </a>
+                    <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
+                        <ul>
+                            <li>
+                                <a class="user">
+                                    <div class="user_name">
+                                        <div> {{ user_info.fName }} {{ user_info.lName }} </div>
+                                        <span> {{ user_info.email }} </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <hr>
+                            </li>
+                            <li>
+                                <a href="/profile">
+                                    <ion-icon name="settings-outline" class="is-icon"></ion-icon>
+                                    Account Settings
+                                </a>
+                            </li>
+                            <li>
+                                <hr>
+                            </li>
+                            <li>
+                                <a href="/logout">
+                                    <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                                    Log Out
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+        <!-- Main Contents -->
+        <div class="main_content">
+ 
+            <div class="container">
+
+                <h3 class="text-2xl font-medium mb-5"> General Setting </h3>
+
+                <!-- Change Password -->
+                <div class="grid lg:grid-cols-3 gap-8 md:mt-12">
+                    <div>
+                        <div uk-sticky="offset:100;bottom:true;media:992">
+                            <h3 class="text-lg mb-2 font-semibold"> Password</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-md lg:shadow-md shadow col-span-2">
+                        <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" method="post">
+
+                                <div>
+                                    <label for="current_password"> Current password</label>
+                                    <input type="password" placeholder="" id="current_password" name="current_password" class="shadow-none with-border">
+                                </div>
+                                <div>
+                                    <label for="new_password"> New password</label>
+                                    <input type="password" placeholder="" id="new_password" name="new_password" class="shadow-none with-border">
+                                </div>
+                                <div>
+                                    <label for="confirm_new_password"> Confirm new password</label>
+                                    <input type="password" placeholder="" id="confirm_new_password" name="confirm_new_password" class="shadow-none with-border">
+                                </div>
+                                <div>
+                                    <a role="button" class="button bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full" href="/profile">
+                                        Save
+                                    </a>
+                                </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+ 
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src= " {{ url_for('web', path='assets/js/uikit.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/tippy.all.min.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/simplebar.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/custom.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/bootstrap-select.min.js') }} " ></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+ 
+</body>
+
+</html>

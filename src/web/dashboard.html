@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Conupedia</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link href= " {{ url_for('web', path='assets/images/favicon.png') }} "  rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href= " {{ url_for('web', path='assets/css/icons.css') }} " >
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href= " {{ url_for('web', path='assets/css/uikit.css') }} " >
+    <link rel="stylesheet" href= " {{ url_for('web', path='assets/css/style.css') }} " >
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <div id="wrapper" class="horizontal">
+        
+        <!--  Header  -->
+        <header class="border-b backdrop-filter backdrop-blur-xl" uk-sticky="cls-inactive: border-b">
+            <div class="header_inner">
+                <div class="left-side">
+    
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="/dashboard">
+                            <img src= " {{ url_for('web', path='assets/images/Concordia-logo.png') }} "  alt="">
+                            <img src= " {{ url_for('web', path='assets/images/Concordia-logo.png') }} "  class="logo_mobile" alt="">
+                        </a>
+                    </div>
+    
+                    <!-- icon menu for mobile -->
+                    <div class="triger" uk-toggle="target: .header_menu ; cls: is-visible">
+                    </div>
+    
+                    <!-- menu bar for mobile -->
+                    <nav class="header_menu">
+                        <ul>
+                            <li> <a href="#Recommended" class="active"> Recommended </a></li>
+                            <li> <a href="#Popular" class="active"> Popular </a></li>
+                            <li> <a href="#Latest" class="active"> Latest </a></li>
+                            <li> <a href="#Explore" class="active"> Explore </a></li>
+                            <li> <a href="#Likes"> Likes  </a></li>
+                        </ul>
+                    </nav>
+    
+                    <!-- overly for small devices -->
+                    <div class="overly" uk-toggle="target: .header_menu ; cls: is-visible"></div>
+    
+                </div>
+                <div class="right-side">
+
+                     <!-- profile -->
+
+                    <a href="#">
+                        <img src= " {{ url_for('web', path='assets/images/user.svg') }} "  class="header_widgets_avatar" alt="">
+                    </a>
+                    <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
+                        <ul>   
+                            <li>
+                                <a class="user">
+                                    <div class="user_name">
+                                        <div> {{ user_info.fName }} {{ user_info.lName }} </div>
+                                        <span> {{ user_info.email }} </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li> 
+                                <hr>
+                            </li>
+                            <li>
+                                <a href="/profile">
+                                    <ion-icon name="settings-outline" class="is-icon"></ion-icon>
+                                    Account Settings  
+                                </a>
+                            </li>
+                            <li> 
+                                <hr>
+                            </li>
+                            <li> 
+                                <a href="/logout">
+                                    <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                                    Log Out 
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+    
+                </div> 
+            </div>
+        </header>
+
+        
+        <a class="uk-position-center-left-out uk-position-small uk-hidden-hover slidenav-prev" href="#"
+            uk-slideshow-item="previous"></a>
+        <a class="uk-position-center-right-out uk-position-small uk-hidden-hover slidenav-next" href="#"
+            uk-slideshow-item="next"></a>
+
+        </div> 
+
+        <div class="mx-auto max-w-5xl p-4">
+
+            {% for category, items in categories.items() %}
+                <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
+                        <h2 class="text-2xl font-semibold" id="{{ category }}"> {{ category }} </h2>
+                </div>
+
+                <div class="mt-3">
+
+                    <div class="relative" uk-slider="finite: false">
+
+                        <div class="uk-slider-container px-1 py-3">
+                            <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-2@s uk-grid-small uk-grid">
+                                {% for item in items %}
+
+                                    <li>
+                                        <a  class="uk-link-reset" value="{{ item.course }}" onmouseenter="getVote(this)" >
+                                            <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
+                                                <div  class="w-full h-20 overflow-hidden rounded-t-lg relative">
+
+                                                    <img src= " {{ url_for('web', path='assets/images/Concordia-card.png') }} "  alt="" class="w-full h-full absolute inset-0 object-cover">
+
+                                                    <button value="{{ item.course }}">
+                                                        <img onclick="vote(this.parentElement, '1')" src= " {{ url_for('web', path='assets/images/thumbs-down.svg') }} "  class="w-5 h-5 uk-position-bottom-right uk-transition-fade" alt="">
+                                                        <img onclick="vote(this.parentElement, '2')" src= " {{ url_for('web', path='assets/images/thumbs-up.svg') }} "  class="w-5 h-5 uk-position-bottom-left uk-transition-fade" alt="">
+                                                    </button>
+                                                </div>
+                                                <div class="p-4">
+                                                    <div class="font-semibold line-clamp-2"> {{ item.code }} - {{ item.title }}</div>
+                                                    <div class="flex space-x-2 items-center text-xs pt-2">
+                                                        <div class="line-clamp-10"> {{ item.description }} </div>
+                                                    </div>
+                                                    <div class="pt-1 flex items-center justify-between">
+                                                        <div class="text-sm font-semibold"> {{ item.partOf }} </div>
+                                                        <div class="text-sm font-semibold"> Credits: {{ item.credits }} </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+
+                            <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -left-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="previous"> <i class="icon-feather-chevron-left"></i></a>
+                            <a class="absolute bg-white top-1/4 flex items-center justify-center p-2 -right-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="next"> <i class="icon-feather-chevron-right"></i></a>
+
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+
+
+    </div>
+           
+    
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   <script src= " {{ url_for('web', path='assets/js/uikit.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/tippy.all.min.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/simplebar.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/custom.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/bootstrap-select.min.js') }} " ></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <script src=" {{ url_for('web', path='assets/js/vote.js') }} "></script>
+</body>
+
+</html>
