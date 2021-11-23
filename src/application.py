@@ -190,4 +190,4 @@ if __name__ == '__main__':
     command = shlex.split(command)
     SSH_CLIENT = subprocess.Popen(command)  # stdout=subprocess.DEVNULL)
     SESSION = virtuoso.Session(URI)
-    uvicorn.run(app, host="127.0.0.1", port=8083)
+    uvicorn.run(app, host="0.0.0.0", port=80)
