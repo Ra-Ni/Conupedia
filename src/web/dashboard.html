@@ -73,8 +73,8 @@
                             <li>
                                 <a class="user">
                                     <div class="user_name">
-                                        <div> {{ user_info.fName }} {{ user_info.lName }} </div>
-                                        <span> {{ user_info.email }} </span>
+                                        <div> {{ user_info.firstName }} {{ user_info.lastName }} </div>
+                                        <span> {{ user_info.mbox }} </span>
                                     </div>
                                 </a>
                             </li>
@@ -134,8 +134,8 @@
                                                     <img src= " {{ url_for('web', path='assets/images/Concordia-card.png') }} "  alt="" class="w-full h-full absolute inset-0 object-cover">
 
                                                     <button value="{{ item.course }}">
-                                                        <img onclick="vote(this.parentElement, '1')" src= " {{ url_for('web', path='assets/images/thumbs-down.svg') }} "  class="w-5 h-5 uk-position-bottom-right uk-transition-fade" alt="">
-                                                        <img onclick="vote(this.parentElement, '2')" src= " {{ url_for('web', path='assets/images/thumbs-up.svg') }} "  class="w-5 h-5 uk-position-bottom-left uk-transition-fade" alt="">
+                                                        <img onclick="vote(this.parentElement, 'dislike')" src= " {{ url_for('web', path='assets/images/thumbs-down.svg') }} "  class="w-5 h-5 uk-position-bottom-right uk-transition-fade" alt="">
+                                                        <img onclick="vote(this.parentElement, 'like')" src= " {{ url_for('web', path='assets/images/thumbs-up.svg') }} "  class="w-5 h-5 uk-position-bottom-left uk-transition-fade" alt="">
                                                     </button>
                                                 </div>
                                                 <div class="p-4">

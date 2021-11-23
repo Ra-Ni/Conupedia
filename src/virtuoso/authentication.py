@@ -1,64 +1,73 @@
 import uuid
-
-from .core import Session
-from .namespace import PREFIX, SSU
-
-
-def create(session: Session, user: str):
-    token = str(uuid.uuid4())
-
-    query = """
-    %s
-    insert in graph %s {
-        ssu:%s sso:hasSession "%s" .
-    }
-    """ % (PREFIX, SSU, user, token)
-    session.post(query=query)
-    return token
+import shortuuid
+import re
+from virtuoso.core import Session
+from virtuoso.namespace import PREFIX, SSU, SST
 
 
-def get(session: Session, user: str):
-    query = """
-    %s
-    with %s
-    select ?token {
-        ssu:%s sso:hasSession ?token
-    }
-    """ % (PREFIX, SSU, user)
-    retval = session.post(query=query)
-    return retval[0]['token']
+class InvalidAuthentication(Exception):
+    pass
 
 
-def delete(session: Session, user: str = None, token: str = None) -> list:
-    if not (bool(user) or bool(token)):
-        raise Exception('Token or user not provided')
+class Authenticator:
+    def __init__(self, session: Session):
+        self._session = session
 
-    suffix = []
-    if user:
-        suffix.append(f'?user = ssu:{user}')
-    if token:
-        suffix.append(f'?token = "{token}"')
+    def add(self, user: str) -> str:
+        id = shortuuid.uuid()
+        token = uuid.uuid4().hex + uuid.uuid4().hex
 
-    if suffix:
-        suffix = 'filter (' + ' && '.join(suffix) + ')'
-
-    query = """
-    %s
-    with %s
-    delete { ?user sso:hasSession ?token }
-    where { 
-        ?user sso:hasSession ?token 
+        query = """
         %s
-    }
-    """ % (PREFIX, SSU, suffix)
+        insert in graph %s {
+            sst:%s a sst:Token ;
+                rdfs:label "%s" ;
+                rdf:value "%s" ;
+                rdfs:seeAlso %s .  
+        }
+        """ % (PREFIX, SST, id, id, token, user)
 
-    return session.post(query=query)
+        self._session.post(query=query)
+        return token
 
+    def delete(self, token: str) -> None:
+        if not token:
+            raise InvalidAuthentication()
+
+        query = """
+        %s
+        with %s
+        delete { ?s ?p ?o }
+        where { ?s ?p ?o ; rdf:value "%s" . }
+        """ % (PREFIX, SST, token)
+        self._session.post(query=query)
+
+    def get(self, token: str) -> str:
+        if not token:
+            raise InvalidAuthentication()
+
+        query = """
+        %s
+        select ?user {
+            [] a sst:Token ;
+                rdf:value "%s" ;
+                rdfs:seeAlso ?user .
+        }
+        """ % (PREFIX, token)
+
+        user = self._session.post(query=query)
+        if not user:
+            raise InvalidAuthentication()
+
+        return '<' + user[0]['user'] + '>'
 
 
 if __name__ == '__main__':
-    u = 'http://192.168.0.4:8890/sparql'
+    u = 'http://192.168.0.7:8890/sparql'
     s = Session(u)
+    a = Authenticator(s)
+    uu = User('123')
+    print(a.add(uu))
     # print(create(s, 'desroot'))
     print(get(s, user='rani'))
     # print(create(s, 'desroot', 'rani123', 'rani', 'rafid', 'ranii.rafid@gmail.com'))

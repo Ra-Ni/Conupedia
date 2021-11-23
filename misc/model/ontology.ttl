@@ -17,3 +17,13 @@
 	rdfs:domain foaf:Person ;
 	rdfs:range schema:Course .
 
+<http://www.securesea.ca/conupedia/ontology/status>
+    rdf:type rdf:Property ;
+    rdfs:domain foaf:Person ;
+    rdfs:range rdfs:Literal .
+
+<http://www.securesea.ca/conupedia/ontology/hasRating>
+    rdf:type rdf:Property ;
+    rdfs:domain foaf:Person ;
+    rdfs:range sso:Rating .
+

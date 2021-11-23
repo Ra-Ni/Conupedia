@@ -1,5 +1,8 @@
 from . import namespace, user, authentication, course
-from .core import Session
+from virtuoso.core import Session
+from virtuoso.user import UserManager
+from virtuoso.course import CourseManager
+from virtuoso.authentication import Authenticator
 
 __all__ = [
     namespace.PREFIX,
@@ -8,17 +11,10 @@ __all__ = [
     namespace.SST,
     namespace.SSC,
     'Session',
+    'UserManager',
+    'CourseManager',
+    'Authenticator',
     user.create,
     user.get,
-    authentication.get,
-    authentication.create,
-    course.get,
-    course.rating,
-    course.add_rating,
-    course.remove_rating,
-    course.mark,
-    course.recommend,
-    course.popular,
-    course.latest,
-    course.explore,
+
 ]

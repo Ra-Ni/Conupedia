@@ -1,9 +1,78 @@
 import re
 import uuid
+import shortuuid
 from collections import defaultdict
 
-from .core import Session
-from .namespace import PREFIX, SSU
+from virtuoso.core import Session
+from virtuoso.namespace import PREFIX, SSU
+
+
+class UserNotFound(Exception):
+    pass
+
+
+class UserManager:
+    def __init__(self, session: Session):
+        self._session = session
+
+    def add(self, first_name: str, last_name: str, email: str, password: str):
+        id = shortuuid.uuid()
+        query = """
+        %s
+        insert in graph %s {
+            ssu:%s a foaf:Person ;
+                rdfs:label "%s" ; 
+                foaf:firstName "%s" ;
+                foaf:lastName "%s" ;
+                foaf:mbox "%s" ;
+                schema:accessCode "%s" ;
+                rdf:value "%s" ;
+                sso:status "active" .
+        }
+        """ % (PREFIX,
+               SSU,
+               id,
+               f'{first_name} {last_name}',
+               first_name,
+               last_name,
+               email,
+               password,
+               id)
+        self._session.post(query=query)
+        return id
+
+    def delete(self, user_id: str):
+        query = """
+        %s
+        insert in graph %s {
+            ssu:%s sso:status "inactive" .
+        }
+        """ % (PREFIX, SSU, user_id)
+
+        self._session.post(query=query)
+
+    def get(self, user: str, simplify: bool = False):
+        query = """
+        %s
+        with %s
+        select ?key ?value 
+        where {
+           %s ?key ?value .
+        }
+        """ % (PREFIX, SSU, user)
+        user = self._session.post(query=query)
+        if not user or not simplify:
+            return user
+
+        simplified = defaultdict(list)
+        for item in user:
+            key = re.sub(r'.*[/#]', '', item['key'])
+            value = re.sub(r'.*[/#]', '', item['value'])
+            simplified[key].append(value)
+        for item in simplified.keys():
+            if len(simplified[item]) == 1:
+                simplified[item] = simplified[item][0]
+        return simplified
 
 
 def create(session: Session,
@@ -39,7 +108,8 @@ def delete(session: Session, user: str) -> None:
     session.post(query=query)
 
 
-def get(session: Session, user: str) -> dict:
+def get(session: Session, user: str, email: str, simplified: bool = False) -> dict:
+
     query = """
     %s
     with %s
@@ -140,13 +210,15 @@ def basic_information(session: Session, token: str):
 
 
 if __name__ == '__main__':
-    u = 'http://192.168.0.4:8890/sparql'
+    u = 'http://192.168.0.7:8890/sparql'
     s = Session(u)
+    uu = UserManager(s)
+    print(uu.get('3f05a29f-10cf-4bb4-977c-ec44f04910bf'))
     # print(get(s, 'desroot2'))
     # print(delete(s, 'desroot2'))
     # print(exists(s, 'desroot2'))
     # print(create(s, 'desroot2', 'ranii.rafid@gmail.com', 'rani', 'rafid'))
     # print(insert(s, 'desroot2', 'saw', '000055'))
     # print(insert(s, 'desroot2', 'saw', '000043'))
-    print(insert(s, 'desroot', 'likes', '000054'))
+    # print(insert(s, 'desroot', 'likes', '000054'))
     # select ?o (count(?o) as ?count) where { [] sso:likes ?o .} group by ?o order by desc(?count)
