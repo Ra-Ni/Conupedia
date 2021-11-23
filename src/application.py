@@ -172,4 +172,4 @@ if __name__ == '__main__':
     config.read('config.ini')
     sparql = config['Sparql']['CanonicalPath']
     SESSION = virtuoso.Session(URI)
-    uvicorn.run(app, host="0.0.0.0", port=80, workers=10)
+    uvicorn.run(app, host="0.0.0.0", port=80)
