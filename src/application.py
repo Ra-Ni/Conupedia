@@ -1,3 +1,6 @@
+import atexit
+import shlex
+import subprocess
 from configparser import ConfigParser, ExtendedInterpolation
 import re
 from typing import Optional
@@ -167,9 +170,24 @@ async def profile(request: Request,
     raise NotImplementedError()
 
 
+@atexit.register
+def exit():
+    SSH_CLIENT.terminate()
+
+
 if __name__ == '__main__':
     config = ConfigParser(interpolation=ExtendedInterpolation())
     config.read('config.ini')
-    sparql = config['Sparql']['CanonicalPath']
+    sparql = config['Sparql']
+    ssh = config['SSH']
+
+    URI = sparql['CanonicalPath']
+
+    command = 'ssh -L {}:{}:{} {}'.format(sparql['Port'],
+                                          ssh['HostName'],
+                                          sparql['Port'],
+                                          ssh['Host'])
+    command = shlex.split(command)
+    SSH_CLIENT = subprocess.Popen(command)  # stdout=subprocess.DEVNULL)
     SESSION = virtuoso.Session(URI)
     uvicorn.run(app, host="0.0.0.0", port=80)
