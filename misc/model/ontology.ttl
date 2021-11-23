@@ -7,11 +7,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix schema: <http://schema.org/version/6.0/#> .
 
-<http://www.securesea.ca/conupedia/ontology/saw>
-	rdf:type rdf:Property ;
-	rdfs:domain foaf:Person ;
-	rdfs:range schema:Course .
-
 <http://www.securesea.ca/conupedia/ontology/likes>
 	rdf:type rdf:Property ;
 	rdfs:domain foaf:Person ;
@@ -22,5 +17,3 @@
 	rdfs:domain foaf:Person ;
 	rdfs:range schema:Course .
 
-<http://www.securesea.ca/conupedia/ontology/expires>
-    rdf:type rdf:Property .

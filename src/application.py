@@ -1,28 +1,23 @@
 import atexit
+import os
 import shlex
 import subprocess
 from configparser import ConfigParser, ExtendedInterpolation
-import datetime
 import re
-from asyncio.log import logger
 from typing import Optional
 
-import paramiko
-import requests
 import uvicorn
-from fastapi import FastAPI, Form, Request, Depends, HTTPException, Response, Cookie
+from fastapi import FastAPI, Form, Request, Response, Cookie
 from fastapi.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
-import uuid
 
 from starlette import status
 from starlette.responses import RedirectResponse
 
-import virtuoso
-import web_tools
+from src import virtuoso
 from password import hash_password
-from virtuoso.namespace import PREFIX, SSU
+
 
 app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")

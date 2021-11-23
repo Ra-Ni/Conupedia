@@ -1,18 +1,13 @@
 import concurrent.futures
 import pickle
 from collections import deque
-from concurrent.futures import ThreadPoolExecutor, Executor
+from concurrent.futures import ThreadPoolExecutor
 from math import ceil
-from time import sleep
-from typing import Union
 
-import pandas as pd
-import xml.etree.ElementTree as ET
 import sparql
 import re
 import pandas as pd
 import numpy as np
-from utils import ProgressBar
 
 
 def _extract_keywords(data: str):

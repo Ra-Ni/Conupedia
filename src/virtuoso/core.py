@@ -1,9 +1,6 @@
-import re
-import urllib.parse
 from json import JSONDecodeError
 
 import requests
-from requests import Response
 
 
 def _beautify_response(response: requests.Response) -> list:
@@ -54,6 +51,7 @@ class Session(requests.Session):
             raise Exception('Bad request')
 
         return _beautify_response(response)
+
 
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'

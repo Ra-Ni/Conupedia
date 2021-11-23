@@ -1,12 +1,10 @@
 import re
-from datetime import datetime
-import uuid
 
-from virtuoso import core
-from virtuoso.namespace import *
+from .core import Session
+from .namespace import PREFIX, SSU
 
 
-def get(session: core.Session, user: str, predicate: str = None) -> list:
+def get(session: Session, user: str, predicate: str = None) -> list:
     suffix = '' if not filter else f'filter (?property = sso:{predicate})'
 
     query = """
@@ -28,7 +26,7 @@ def get(session: core.Session, user: str, predicate: str = None) -> list:
     return retval
 
 
-def mark(session: core.Session, user: str, course: str, cmd: str):
+def mark(session: Session, user: str, course: str, cmd: str):
     query = """
     %s
     insert in graph %s {
@@ -38,7 +36,7 @@ def mark(session: core.Session, user: str, course: str, cmd: str):
     session.post(query=query)
 
 
-def recommend(session: core.Session, user: str, threshold: int = 50):
+def recommend(session: Session, user: str, threshold: int = 50):
     query = """
     %s
     select distinct ?course ?code ?title ?credits ?partOf ?description 
@@ -61,7 +59,7 @@ def recommend(session: core.Session, user: str, threshold: int = 50):
     return session.post(query=query)
 
 
-def popular(session: core.Session, threshold: int = 50):
+def popular(session: Session, threshold: int = 50):
     query = """
     %s
     select ?course ?code ?title ?credits ?partOf ?description 
@@ -85,7 +83,7 @@ def popular(session: core.Session, threshold: int = 50):
     return session.post(query=query)
 
 
-def latest(session: core.Session, user: str, threshold: int = 50):
+def latest(session: Session, user: str, threshold: int = 50):
     query = """
     %s
     select *
@@ -107,7 +105,7 @@ def latest(session: core.Session, user: str, threshold: int = 50):
     return session.post(query=query)
 
 
-def explore(session: core.Session, user: str, threshold: int = 50):
+def explore(session: Session, user: str, threshold: int = 50):
     query = """
     %s
     select ?course ?code ?title ?credits ?partOf ?description
@@ -128,7 +126,7 @@ def explore(session: core.Session, user: str, threshold: int = 50):
     return session.post(query=query)
 
 
-def rating(session: core.Session, user: str, course: str):
+def rating(session: Session, user: str, course: str):
     query = """
     %s
     with %s
@@ -149,7 +147,7 @@ def rating(session: core.Session, user: str, course: str):
     return 0
 
 
-def remove_rating(session: core.Session, user: str, course: str):
+def remove_rating(session: Session, user: str, course: str):
     query = """
     %s
     with %s
@@ -159,7 +157,7 @@ def remove_rating(session: core.Session, user: str, course: str):
     session.post(query=query)
 
 
-def add_rating(session: core.Session, user: str, course: str, rating: str):
+def add_rating(session: Session, user: str, course: str, rating: str):
     if rating == '1':
         rating = 'dislikes'
     elif rating == '2':
@@ -176,7 +174,7 @@ def add_rating(session: core.Session, user: str, course: str, rating: str):
 
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
-    s = core.Session(u)
+    s = Session(u)
     # print(create(s, 'desroot'))
     # print(create(s, **{'schema:name': '"ACCO23012"'}))
     # print(unseen(s, 'desroot'))

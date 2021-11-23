@@ -2,11 +2,11 @@ import re
 import uuid
 from collections import defaultdict
 
-from virtuoso import core
-from virtuoso.namespace import *
+from .core import Session
+from .namespace import PREFIX, SSU
 
 
-def create(session: core.Session,
+def create(session: Session,
            fName: str,
            lName: str,
            email: str,
@@ -28,7 +28,7 @@ def create(session: core.Session,
     return retval != []
 
 
-def delete(session: core.Session, user: str) -> None:
+def delete(session: Session, user: str) -> None:
     query = """
     %s
     with %s 
@@ -39,7 +39,7 @@ def delete(session: core.Session, user: str) -> None:
     session.post(query=query)
 
 
-def get(session: core.Session, user: str) -> dict:
+def get(session: Session, user: str) -> dict:
     query = """
     %s
     with %s
@@ -57,7 +57,7 @@ def get(session: core.Session, user: str) -> dict:
     return retval
 
 
-def insert(session: core.Session, user: str, action: str, course: str):
+def insert(session: Session, user: str, action: str, course: str):
     query = """
     %s
     insert in graph %s {
@@ -68,7 +68,7 @@ def insert(session: core.Session, user: str, action: str, course: str):
     return session.post(query=query)
 
 
-def revert_actions(session: core.Session, user: str, course: str):
+def revert_actions(session: Session, user: str, course: str):
     query = """
     %s
     with %s 
@@ -78,7 +78,7 @@ def revert_actions(session: core.Session, user: str, course: str):
     return session.post(query=query)
 
 
-def from_email(session: core.Session, email: str):
+def from_email(session: Session, email: str):
     query = """
     %s
     with %s
@@ -92,7 +92,7 @@ def from_email(session: core.Session, email: str):
     return session.post(query=query)
 
 
-def exists(session: core.Session, email: str) -> bool:
+def exists(session: Session, email: str) -> bool:
     query = """
     %s
     select ?user where {
@@ -104,7 +104,7 @@ def exists(session: core.Session, email: str) -> bool:
     return session.post(query=query) != []
 
 
-def from_token(session: core.Session, token: str):
+def from_token(session: Session, token: str):
     query = """
     %s
     select ?user 
@@ -120,7 +120,7 @@ def from_token(session: core.Session, token: str):
         return response[0]['user']
 
 
-def basic_information(session: core.Session, token: str):
+def basic_information(session: Session, token: str):
     query = """
     %s
     select ?user ?fName ?lName ?email ?password
@@ -141,7 +141,7 @@ def basic_information(session: core.Session, token: str):
 
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
-    s = core.Session(u)
+    s = Session(u)
     # print(get(s, 'desroot2'))
     # print(delete(s, 'desroot2'))
     # print(exists(s, 'desroot2'))

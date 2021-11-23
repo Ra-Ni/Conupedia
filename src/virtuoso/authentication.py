@@ -1,11 +1,11 @@
 import uuid
 import datetime
 
-from virtuoso import core
-from virtuoso.namespace import PREFIX, SSU
+from .core import Session
+from .namespace import PREFIX, SSU
 
 
-def create(session: core.Session, user: str):
+def create(session: Session, user: str):
     token = str(uuid.uuid4())
 
     query = """
@@ -18,7 +18,7 @@ def create(session: core.Session, user: str):
     return token
 
 
-def get(session: core.Session, user: str):
+def get(session: Session, user: str):
     query = """
     %s
     with %s
@@ -30,7 +30,7 @@ def get(session: core.Session, user: str):
     return retval[0]['token']
 
 
-def delete(session: core.Session, user: str = None, token: str = None) -> list:
+def delete(session: Session, user: str = None, token: str = None) -> list:
     if not (bool(user) or bool(token)):
         raise Exception('Token or user not provided')
 
@@ -59,7 +59,7 @@ def delete(session: core.Session, user: str = None, token: str = None) -> list:
 
 if __name__ == '__main__':
     u = 'http://192.168.0.4:8890/sparql'
-    s = core.Session(u)
+    s = Session(u)
     # print(create(s, 'desroot'))
     print(get(s, user='rani'))
     # print(create(s, 'desroot', 'rani123', 'rani', 'rafid', 'ranii.rafid@gmail.com'))
