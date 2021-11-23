@@ -29,12 +29,12 @@ SESSION = None
 
 
 @app.get('/')
-def root():
+async def root():
     return RedirectResponse(url=app.url_path_for('dashboard'))
 
 
 @app.get('/signup')
-def signup(request: Request, sessionID: Optional[str] = Cookie(None)):
+async def signup(request: Request, sessionID: Optional[str] = Cookie(None)):
     if sessionID:
         return RedirectResponse(url=app.url_path_for('dashboard'))
 
@@ -42,7 +42,7 @@ def signup(request: Request, sessionID: Optional[str] = Cookie(None)):
 
 
 @app.post('/signup')
-def signup(request: Request,
+async def signup(request: Request,
            fName: str = Form(...),
            lName: str = Form(...),
            email: str = Form(...),
