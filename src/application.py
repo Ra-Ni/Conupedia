@@ -175,8 +175,7 @@ if __name__ == '__main__':
     config = ConfigParser(interpolation=ExtendedInterpolation())
     config.read('config.ini')
     sparql = config['Sparql']
-
-    URI = sparql['CanonicalPath']
+    URI = f'http://{sparql["IP"]}:{sparql["PORT"]}{sparql["RelativePath"]}'
 
     SESSION = virtuoso.Session(URI)
     uvicorn.run(app, host="0.0.0.0", port=80)
