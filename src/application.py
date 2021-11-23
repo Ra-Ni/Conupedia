@@ -1,6 +1,3 @@
-import atexit
-import shlex
-import subprocess
 from configparser import ConfigParser, ExtendedInterpolation
 import re
 from typing import Optional
@@ -16,7 +13,6 @@ from starlette.responses import RedirectResponse
 
 import virtuoso
 from password import hash_password
-
 
 app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -43,12 +39,12 @@ async def signup(request: Request, sessionID: Optional[str] = Cookie(None)):
 
 @app.post('/signup')
 async def signup(request: Request,
-           fName: str = Form(...),
-           lName: str = Form(...),
-           email: str = Form(...),
-           password: str = Form(...),
-           sessionID: Optional[str] = Cookie(None)
-           ):
+                 fName: str = Form(...),
+                 lName: str = Form(...),
+                 email: str = Form(...),
+                 password: str = Form(...),
+                 sessionID: Optional[str] = Cookie(None)
+                 ):
     if virtuoso.user.exists(SESSION, email):
         email_feedback = 'Email already exists'
         return templates.TemplateResponse('signup.html',
@@ -155,7 +151,6 @@ async def course(cuid: str,
     virtuoso.course.add_rating(SESSION, user, cuid, rating)
 
 
-
 @app.get('/profile')
 async def profile(request: Request, sessionID: Optional[str] = Cookie(None), profileID: Optional[str] = Cookie(None)):
     if not sessionID:
@@ -168,7 +163,6 @@ async def profile(request: Request, sessionID: Optional[str] = Cookie(None), pro
 async def profile(request: Request,
                   sessionID: Optional[str] = Cookie(None)):
     raise NotImplementedError()
-
 
 
 if __name__ == '__main__':
