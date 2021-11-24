@@ -3,6 +3,7 @@ import re
 from io import StringIO
 from typing import Optional
 
+import fastapi.exceptions
 import httpx
 import pandas as pd
 import uvicorn
@@ -13,6 +14,7 @@ from fastapi.staticfiles import StaticFiles
 
 from starlette import status
 from starlette.responses import RedirectResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 import virtuoso
 from virtuoso import *
@@ -20,7 +22,7 @@ from virtuoso import auth, user
 from virtuoso.namespace import ssu
 from virtuoso.base import build, hash_password, to_frame
 
-app = FastAPI()
+app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 templates = Jinja2Templates(directory="web/")
 app.mount('/web', StaticFiles(directory='web'), name='web')
@@ -249,6 +251,26 @@ async def profile(request: Request,
 
     context['password_feedback'] = "Password updated successfully."
     return templates.TemplateResponse('setting.html', context=context)
+
+
+@app.exception_handler(fastapi.exceptions.HTTPException)
+def http_exception(request: Request, response: Response):
+    return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
+
+
+@app.exception_handler(fastapi.exceptions.ValidationError)
+def validation_exception(request: Request, response: Response):
+    return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
+
+
+@app.exception_handler(StarletteHTTPException)
+def starlette_exception(request: Request, response: Response):
+    return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
+
+
+@app.exception_handler(fastapi.exceptions.RequestValidationError)
+def request_exception(request: Request, response: Response):
+    return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 
 
 if __name__ == '__main__':
