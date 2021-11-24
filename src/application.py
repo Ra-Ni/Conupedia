@@ -17,7 +17,7 @@ from starlette.responses import RedirectResponse
 import virtuoso
 from virtuoso import *
 from virtuoso import auth, user
-from virtuoso.namespace import ssu, reverse_namespaces
+from virtuoso.namespace import ssu
 from virtuoso.base import build, hash_password, to_frame
 
 app = FastAPI()
@@ -90,7 +90,6 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
             return templates.TemplateResponse('login.html', context=context)
 
         response = response.to_dict('records')[0]
-
 
         if response['password'] != hash_password(password):
             context['password_feedback'] = " The password you entered is incorrect. "
