@@ -8,7 +8,8 @@ def exists_email(email: str):
     query = """
     ask from %s { ?s foaf:mbox "%s" }
     """ % (ssu, email)
-    build(query)
+
+    return build(query)
 
 
 def from_token(token: str):
