@@ -9323,6 +9323,10 @@ input[type="button"].dark1, input[type="submit"].dark1 {
   color: red;
 }
 
+.info {
+  color: green;
+}
+
 html ._55r1 {
     background: #FFFFFF repeat-x;
     border: 1px solid #dddfe2;

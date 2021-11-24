@@ -135,10 +135,12 @@
                                     <label for="confirm_new_password"> Confirm new password</label>
                                     <input type="password" placeholder="" id="confirm_new_password" name="confirm_new_password" class="shadow-none with-border">
                                 </div>
+                                <div class="err">{{ password_error }}</div>
+                                <div class="info"> {{ password_feedback }}</div>
                                 <div>
-                                    <a role="button" class="button bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full" href="/profile">
-                                        Save
-                                    </a>
+                                    <button type="submit" class="bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full">
+                                    Save
+                                    </button>
                                 </div>
                         </form>
 
