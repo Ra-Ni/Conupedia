@@ -28,15 +28,6 @@ templates = Jinja2Templates(directory="web/")
 app.mount('/web', StaticFiles(directory='web'), name='web')
 
 
-config = ConfigParser(interpolation=ExtendedInterpolation())
-config.read('config.ini')
-
-sparql = config['Sparql']
-URI = f'http://{sparql["IP"]}:{sparql["Port"]}'
-PATH = sparql["RelativePath"]
-
-server = config['Uvicorn']
-
 @app.get('/')
 async def root():
     return RedirectResponse(url=app.url_path_for('dashboard'))
@@ -280,13 +271,12 @@ def request_exception(request: Request, response: Response):
 
 
 if __name__ == '__main__':
-    pass
-    # config = ConfigParser(interpolation=ExtendedInterpolation())
-    # config.read('config.ini')
-    #
-    # sparql = config['Sparql']
-    # URI = f'http://{sparql["IP"]}:{sparql["Port"]}'
-    # PATH = sparql["RelativePath"]
-    #
-    # server = config['Uvicorn']
-    # uvicorn.run(app, host=server['IP'], port=int(server['Port']))
+    config = ConfigParser(interpolation=ExtendedInterpolation())
+    config.read('config.ini')
+
+    sparql = config['Sparql']
+    URI = f'http://{sparql["IP"]}:{sparql["Port"]}'
+    PATH = sparql["RelativePath"]
+
+    server = config['Uvicorn']
+    uvicorn.run(app, host=server['IP'], port=int(server['Port']))
