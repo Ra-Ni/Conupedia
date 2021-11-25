@@ -16,11 +16,11 @@ from starlette import status
 from starlette.responses import RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-import src.virtuoso
-from src.virtuoso import *
-from src.virtuoso import auth, user
-from src.virtuoso.namespace import ssu
-from src.virtuoso.base import build, hash_password, to_frame
+import virtuoso
+from virtuoso import *
+from virtuoso import auth, user
+from virtuoso.namespace import ssu
+from virtuoso.base import build, hash_password, to_frame
 
 app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
