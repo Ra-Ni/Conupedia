@@ -27,9 +27,15 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 templates = Jinja2Templates(directory="web/")
 app.mount('/web', StaticFiles(directory='web'), name='web')
 
-URI = None
-PATH = None
 
+config = ConfigParser(interpolation=ExtendedInterpolation())
+config.read('config.ini')
+
+sparql = config['Sparql']
+URI = f'http://{sparql["IP"]}:{sparql["Port"]}'
+PATH = sparql["RelativePath"]
+
+server = config['Uvicorn']
 
 @app.get('/')
 async def root():
@@ -274,12 +280,13 @@ def request_exception(request: Request, response: Response):
 
 
 if __name__ == '__main__':
-    config = ConfigParser(interpolation=ExtendedInterpolation())
-    config.read('config.ini')
-
-    sparql = config['Sparql']
-    URI = f'http://{sparql["IP"]}:{sparql["Port"]}'
-    PATH = sparql["RelativePath"]
-
-    server = config['Uvicorn']
-    uvicorn.run(app, host=server['IP'], port=int(server['Port']))
+    pass
+    # config = ConfigParser(interpolation=ExtendedInterpolation())
+    # config.read('config.ini')
+    #
+    # sparql = config['Sparql']
+    # URI = f'http://{sparql["IP"]}:{sparql["Port"]}'
+    # PATH = sparql["RelativePath"]
+    #
+    # server = config['Uvicorn']
+    # uvicorn.run(app, host=server['IP'], port=int(server['Port']))
