@@ -1,30 +1,18 @@
-import re
 from typing import Optional
 import httpx
-import pandas as pd
-from fastapi import APIRouter, Request, Response, Cookie, Form
-from starlette import status
-from starlette.responses import RedirectResponse
-from ..internals.globals import TEMPLATES, SPARQL
-from ..virtuoso import users, base, auth, recommendations
+from fastapi import APIRouter, Request, Cookie, Form
+from ..internals.globals import TEMPLATES
 from ..internals import namespaces
-
+from ..dependencies import auth, core
 
 router = APIRouter()
 
 
 @router.get('/profile')
-async def profile(request: Request, sessionID: Optional[str] = Cookie(None), profileID: Optional[str] = Cookie(None)):
-    if not sessionID:
-        return RedirectResponse(url=router.url_path_for('login'), status_code=status.HTTP_302_FOUND)
-
-    query = users.from_token(sessionID)
-    context = {'request': request, 'user_info': None}
-
+async def profile(request: Request, token: Optional[str] = Cookie(None), profileID: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
-        response = await client.get(SPARQL, params=query)
-        response = base.to_frame(response)
-        context['user_info'] = response.to_dict('records')[0]
+        user = await auth.get_user(client, token)
+        context = {'request': request, 'user_info': user}
 
     return TEMPLATES.TemplateResponse('setting.html', context=context)
 
@@ -34,27 +22,35 @@ async def profile(request: Request,
                   current_password: str = Form(...),
                   new_password: str = Form(...),
                   confirm_new_password: str = Form(...),
-                  sessionID: Optional[str] = Cookie(None)):
-    if not sessionID:
-        return RedirectResponse(url='/login', status_code=status.HTTP_302_FOUND)
-    context = {'request': request, 'password_feedback': None}
-
-    if new_password != confirm_new_password:
-        context['password_error'] = "Passwords do not match."
-        return TEMPLATES.TemplateResponse('setting.html', context=context)
-
-    query = users.from_token(sessionID)
+                  token: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
-        response = await client.get(SPARQL, params=query)
-        response = base.to_frame(response)
-        credentials = context['user_info'] = response.to_dict('records')[0]
+        user = await auth.get_user(client, token)
+        context = {'request': request, 'user_info': user, 'password_feedback': None}
 
-        if credentials['password'] != base.hash_password(current_password):
+        if new_password != confirm_new_password:
+            context['password_error'] = "Passwords do not match."
+            return TEMPLATES.TemplateResponse('setting.html', context=context)
+
+        if user['password'] != core.hash_password(current_password):
             context['password_error'] = "Incorrect input for current password."
             return TEMPLATES.TemplateResponse('setting.html', context=context)
 
-        query = users.update_password(sessionID, new_password)
-        response = await client.get(SPARQL, params=query)
+        query = """
+            modify %s 
+            delete { ?s schema:accessCode ?o }
+            insert { ?s schema:accessCode "%s" }
+            where {
+                graph %s {
+                    [] a sso:Token ;
+                        rdfs:seeAlso ?s ;
+                        rdf:value "%s" .
+                }
+                graph %s {
+                    ?s schema:accessCode ?o .
+                }
+            }
+            """ % (namespaces.ssu, core.hash_password(new_password), namespaces.sst, token, namespaces.ssu)
+        await core.send(client, query)
 
-    context['password_feedback'] = "Password updated successfully."
-    return TEMPLATES.TemplateResponse('setting.html', context=context)
+        context['password_feedback'] = "Password updated successfully."
+        return TEMPLATES.TemplateResponse('setting.html', context=context)

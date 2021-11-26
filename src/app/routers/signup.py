@@ -1,12 +1,11 @@
-import re
 from typing import Optional
 import httpx
-import pandas as pd
-from fastapi import APIRouter, Request, Response, Cookie, Form
+import shortuuid
+from fastapi import APIRouter, Request, Cookie, Form
 from starlette import status
 from starlette.responses import RedirectResponse
-from ..internals.globals import TEMPLATES, SPARQL
-from ..virtuoso import users, base, auth, recommendations
+from ..internals.globals import TEMPLATES
+from ..dependencies import core
 from ..internals import namespaces
 
 
@@ -14,8 +13,8 @@ router = APIRouter()
 
 
 @router.get('/signup')
-async def signup(request: Request, sessionID: Optional[str] = Cookie(None)):
-    if sessionID:
+async def signup(request: Request, token: Optional[str] = Cookie(None)):
+    if token:
         return RedirectResponse(url='/dashboard')
 
     return TEMPLATES.TemplateResponse('signup.html', context={'request': request})
@@ -27,21 +26,32 @@ async def signup(request: Request,
                  lName: str = Form(...),
                  email: str = Form(...),
                  password: str = Form(...),
-                 sessionID: Optional[str] = Cookie(None)
+                 token: Optional[str] = Cookie(None)
                  ):
-    query = users.exists_email(email)
+    if token:
+        return RedirectResponse(url='/dashboard', status_code=302)
 
     async with httpx.AsyncClient() as client:
-        response = await client.get(SPARQL, params=query)
-        response = base.to_frame(response)
-        exists = bool(response.iat[0, 0])
+        query = """
+        ask from %s { ?s foaf:mbox "%s" } 
+        """ % (namespaces.ssu, email)
+        response = await core.send(client, query, 'bool')
+        if response:
+            context = {'request': request, 'email_feedback': 'Email already exists'}
+            return TEMPLATES.TemplateResponse('signup.html', context=context)
 
-        if exists:
-            email_feedback = 'Email already exists'
-            return TEMPLATES.TemplateResponse('signup.html',
-                                              context={'request': request, 'email_feedback': email_feedback})
-
-        query = users.new(fName, lName, email, password)
-        await client.get(SPARQL, params=query)
+        user_id = shortuuid.uuid()
+        query = """
+            insert in graph %s {
+               ssu:%s a foaf:Person ;
+                   rdfs:label "%s" ; 
+                   foaf:firstName "%s" ;
+                   foaf:lastName "%s" ;
+                   foaf:mbox "%s" ;
+                   schema:accessCode "%s" ;
+                   sso:status "active" .
+            }
+            """ % (namespaces.ssu, user_id, user_id, fName, lName, email, base.hash_password(password))
+        await core.send(client, query)
 
     return RedirectResponse(url='/login', status_code=status.HTTP_302_FOUND)

@@ -49,11 +49,9 @@
                     <!-- menu bar for mobile -->
                     <nav class="header_menu">
                         <ul>
-                            <li> <a href="#Recommended" class="active"> Recommended </a></li>
-                            <li> <a href="#Popular" class="active"> Popular </a></li>
-                            <li> <a href="#Latest" class="active"> Latest </a></li>
-                            <li> <a href="#Explore" class="active"> Explore </a></li>
-                            <li> <a href="#Likes"> Likes  </a></li>
+                            {% for category, ignored in categories.items() %}
+                                <li> <a href="#{{ category }}" class="active"> {{ category }} </a></li>
+                            {% endfor %}
                         </ul>
                     </nav>
     

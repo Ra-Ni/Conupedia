@@ -1,62 +1,45 @@
 import re
 from typing import Optional
 import httpx
-import pandas as pd
-from fastapi import APIRouter, Request, Response, Cookie, Form
-from starlette import status
-from starlette.responses import RedirectResponse
-from ..internals.globals import TEMPLATES, SPARQL
-from ..virtuoso import users, base, auth, recommendations
+from fastapi import APIRouter, Cookie, Form
+from ..dependencies import auth, core
 from ..internals import namespaces
 
 router = APIRouter()
 
 
 @router.get('/rating')
-async def rating(id: str, sessionID: Optional[str] = Cookie(None)):
-    if not sessionID:
-        return RedirectResponse(url='/login')
-
-    id = f'ssc:{id.zfill(6)}'
-    query = users.get_reaction(sessionID, id)
-
+async def rating(id: str, token: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
+        user = await auth.get_user(client, token)
+        user_id = user['id']
+        course_id = f'ssc:{id.zfill(6)}'
+        reaction = await _get_rating(client, user_id, course_id)
 
-        reaction = await client.get(SPARQL, params=query)
-        reaction = base.to_frame(reaction)
-
-        if reaction.empty or pd.isna(reaction.iat[0, 1]):
-            return ''
-
-        reaction = re.sub(r'.*:(.*).', r'\1', reaction.iat[0, 1])
+        if not reaction:
+            return reaction
+        reaction = re.sub(r'.*:(.*).', r'\1', reaction)
         return reaction
 
 
 @router.post('/rating')
-async def rating(cid: str = Form(...),
-                 value: str = Form(...),
-                 sessionID: Optional[str] = Cookie(None)):
-    if not sessionID:
-        return RedirectResponse(url='/login', status_code=status.HTTP_302_FOUND)
-
-    value = f'sso:{value}s'
-    course = f'ssc:{cid.zfill(6)}'
-    query = users.get_reaction(sessionID, course)
-
+async def rating(cid: str = Form(...), value: str = Form(...), token: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
-        response = await client.get(SPARQL, params=query)
-        response = base.to_frame(response)
+        user = await auth.get_user(client, token)
 
-        user = response.iat[0, 0]
-        reaction = response.iat[0, 1]
+        user_id = user['id']
+        course_id = f'ssc:{cid.zfill(6)}'
 
-        if reaction == value:
+        reaction = f'sso:{value}s'
+        db_reaction = await _get_rating(client, user_id, course_id)
+
+        if db_reaction == reaction:
             insert = ''
         else:
-            insert = f'{user} {value} {course}'
+            insert = f'{user_id} {reaction} {course_id}'
 
-        if pd.notna(reaction):
-            delete = f'{user} {reaction} {course}'
+        if db_reaction:
+            delete = f'{user_id} {db_reaction} {course_id}'
         else:
             delete = ''
 
@@ -65,5 +48,17 @@ async def rating(cid: str = Form(...),
         delete {%s}
         insert {%s}
         """ % (namespaces.ssu, delete, insert)
-        query = base.build(query)
-        response = await client.get(SPARQL, params=query)
+        await core.send(client, query)
+
+
+async def _get_rating(client: httpx.AsyncClient, user_id: str, course_id: str) -> str:
+    query = """
+        select ?reaction  {
+            graph %s {
+                values ?reaction { sso:likes sso:dislikes }
+                %s ?reaction %s .
+            }
+    }
+    """ % (namespaces.ssu, user_id, course_id)
+    response = await core.send(client, query, format='var')
+    return response
