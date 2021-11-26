@@ -382,7 +382,7 @@
                                 "</span>" +
                                 "</div>" +
                                 niceButtons +
-                                '</header><main class="aks-file-upload-p-main"><div class="aks-file-upload-image"><img src="' +
+                                '</header><main class="aks-file-upload-p-main"><div class="aks-file-upload-image"><img app="' +
                                 e.target.result +
                                 '" alt="' +
                                 fileName +

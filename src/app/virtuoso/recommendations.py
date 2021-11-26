@@ -1,4 +1,4 @@
-from application import build
+from .base import build
 
 
 def get_popular(user: str, threshold: int = 50):

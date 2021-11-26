@@ -2,8 +2,8 @@ import uuid
 
 import shortuuid
 
-from virtuoso.namespace import sst, ssu
-from virtuoso.base import build
+from app.internals.namespaces import sst, ssu
+from .base import build
 
 
 def delete(token: str):

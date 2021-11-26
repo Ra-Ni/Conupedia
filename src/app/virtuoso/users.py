@@ -1,7 +1,7 @@
 import shortuuid
 
-from virtuoso.namespace import ssu, sst
-from virtuoso.base import build, hash_password
+from app.internals.namespaces import ssu, sst
+from .base import build, hash_password
 
 
 def exists_email(email: str):

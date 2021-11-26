@@ -4,7 +4,7 @@ from io import StringIO
 
 import pandas as pd
 
-from virtuoso.namespace import prefix, reverse_namespaces
+from app.internals.namespaces import prefix, reverse_namespaces
 
 
 def build(query, **kwargs):

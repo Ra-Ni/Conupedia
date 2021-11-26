@@ -9903,7 +9903,7 @@
                     if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg|webp)($|\?)/i)) {
 
                         getImage(source).then(
-                            function (img) { return this$1.setItem(item, ("<img width=\"" + (img.width) + "\" height=\"" + (img.height) + "\" src=\"" + source + "\" alt=\"" + (alt ? alt : '') + "\">")); },
+                            function (img) { return this$1.setItem(item, ("<img width=\"" + (img.width) + "\" height=\"" + (img.height) + "\" app=\"" + source + "\" alt=\"" + (alt ? alt : '') + "\">")); },
                             function () { return this$1.setError(item); }
                         );
 
@@ -9925,7 +9925,7 @@
                         // Iframe
                     } else if (type === 'iframe' || source.match(/\.(html|php)($|\?)/i)) {
 
-                        this.setItem(item, ("<iframe class=\"uk-lightbox-iframe\" src=\"" + source + "\" frameborder=\"0\" allowfullscreen></iframe>"));
+                        this.setItem(item, ("<iframe class=\"uk-lightbox-iframe\" app=\"" + source + "\" frameborder=\"0\" allowfullscreen></iframe>"));
 
                         // YouTube
                     } else if ((matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/()youtu\.be\/(.*)/))) {
@@ -10034,7 +10034,7 @@
     };
 
     function getIframe(src, width, height, autoplay) {
-        return ("<iframe src=\"" + src + "\" width=\"" + width + "\" height=\"" + height + "\" style=\"max-width: 100%; box-sizing: border-box;\" frameborder=\"0\" allowfullscreen uk-video=\"autoplay: " + autoplay + "\" uk-responsive></iframe>");
+        return ("<iframe app=\"" + src + "\" width=\"" + width + "\" height=\"" + height + "\" style=\"max-width: 100%; box-sizing: border-box;\" frameborder=\"0\" allowfullscreen uk-video=\"autoplay: " + autoplay + "\" uk-responsive></iframe>");
     }
 
     var Lightbox = {
