@@ -3,7 +3,7 @@ from configparser import ConfigParser, ExtendedInterpolation
 from starlette.templating import Jinja2Templates
 
 config = ConfigParser(interpolation=ExtendedInterpolation())
-config.read('app/config.ini')
+config.read('config.ini')
 
 __buff = config['Sparql']
 SPARQL = f'http://{__buff["IP"]}:{__buff["Port"]}/{__buff["RelativePath"]}'
