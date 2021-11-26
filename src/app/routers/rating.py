@@ -14,6 +14,8 @@ async def rating(id: str, token: Optional[str] = Cookie(None)):
         user = await auth.get_user(client, token)
         user_id = user['id']
         course_id = f'ssc:{id.zfill(6)}'
+        await _verify_course(client, course_id)
+
         reaction = await _get_rating(client, user_id, course_id)
 
         if not reaction:
@@ -26,9 +28,9 @@ async def rating(id: str, token: Optional[str] = Cookie(None)):
 async def rating(cid: str = Form(...), value: str = Form(...), token: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
         user = await auth.get_user(client, token)
-
         user_id = user['id']
         course_id = f'ssc:{cid.zfill(6)}'
+        await _verify_course(client, course_id)
 
         reaction = f'sso:{value}s'
         db_reaction = await _get_rating(client, user_id, course_id)
@@ -49,6 +51,19 @@ async def rating(cid: str = Form(...), value: str = Form(...), token: Optional[s
         insert {%s}
         """ % (namespaces.ssu, delete, insert)
         await core.send(client, query)
+
+
+class InvalidCourse(Exception):
+    pass
+
+
+async def _verify_course(client: httpx.AsyncClient, course_id: str):
+    query = """
+    ask from %s { %s a schema:Course }
+    """ % (namespaces.ssc, course_id)
+    response = await core.send(client, query, format='bool')
+    if not response:
+        raise InvalidCourse("Course %s does not exist." % course_id)
 
 
 async def _get_rating(client: httpx.AsyncClient, user_id: str, course_id: str) -> str:

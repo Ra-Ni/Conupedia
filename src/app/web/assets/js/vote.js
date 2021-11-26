@@ -1,5 +1,3 @@
-const action_log = {};
-const _course = '';
 
 function _update(reference) {
     let children = reference.childNodes
