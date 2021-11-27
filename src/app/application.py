@@ -1,4 +1,3 @@
-from configparser import ConfigParser, ExtendedInterpolation
 from typing import Optional
 
 import fastapi
