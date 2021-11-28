@@ -137,9 +137,10 @@
                                                     </button>
                                                 </div>
                                                 <div class="card-body p-4 noselect">
-                                                    <div class="flex space-x-2 text-sm font-semibold line-clamp-2"> {{ item.code }} - {{ item.title }}</div>
-                                                    <div class="flex space-x-2 items-center text-xs pt-2 line-clamp-10"> {{ item.description }} </div>
-
+                                                    <div class="text-sm font-semibold line-clamp-2"> {{ item.code }} - {{ item.title }}</div>
+                                                    <div class="flex space-x-2 items-center text-xs pt-2">
+                                                        <div class="line-clamp-10"> {{ item.description }} </div>
+                                                    </div>
                                                     <div class="pt-1 flex items-center justify-between">
                                                         <div class="text-sm font-semibold"> {{ item.partOf }} </div>
                                                         <div class="text-sm font-semibold"> Credits: {{ item.credits }} </div>
