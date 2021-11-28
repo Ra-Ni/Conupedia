@@ -30,7 +30,7 @@
         box-shadow: none  !important;
     }
     </style>
-    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
 </head>
 
@@ -89,13 +89,17 @@
 
   <!-- Javascript
   ================================================== -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src= " {{ url_for('web', path='assets/js/uikit.js') }} " ></script>
-  <script src= " {{ url_for('web', path='assets/js/tippy.all.min.js') }} " ></script>
-  <script src= " {{ url_for('web', path='assets/js/simplebar.js') }} " ></script>
-  <script src= " {{ url_for('web', path='assets/js/custom.js') }} " ></script>
-  <script src= " {{ url_for('web', path='assets/js/bootstrap-select.min.js') }} " ></script>
-  <script src= " {{ url_for('web', path='assets/js/button.js') }} " ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src= " {{ url_for('web', path='assets/js/uikit.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/tippy.all.min.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/simplebar.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/custom.js') }} " ></script>
+    <script src= " {{ url_for('web', path='assets/js/bootstrap-select.min.js') }} " ></script>
+    <script type="text/javascript">
+        document.getElementById("login").onclick = function () {
+            window.location.replace('http://www.securesea.ca/login');
+        };
+    </script>
 
 </body>
 </html>
