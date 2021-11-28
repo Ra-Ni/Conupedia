@@ -44,8 +44,8 @@ function vote(reference, rating) {
 
     http.onreadystatechange = (e) => {
 
-        // _update(reference)
-        location.reload()
+        _update(reference)
+        // location.reload()
 
     }
 
