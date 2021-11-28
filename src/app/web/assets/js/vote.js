@@ -41,10 +41,12 @@ function vote(reference, rating) {
     http.open("POST", '/rating');
     http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     http.send('cid=' + course + '&value=' + rating);
-
-    http.onreadystatechange = (e) => {
-        _update(reference)
-    }
+    location.reload()
+    // http.onreadystatechange = (e) => {
+    //
+    //     // _update(reference)
+    //
+    // }
 
 
 
