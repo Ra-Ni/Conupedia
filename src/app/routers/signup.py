@@ -1,3 +1,5 @@
+import os
+import uuid
 from typing import Optional
 import httpx
 import shortuuid
@@ -29,7 +31,7 @@ async def signup(request: Request,
                  token: Optional[str] = Cookie(None)
                  ):
     if token:
-        return RedirectResponse(url='/dashboard', status_code=302)
+        return RedirectResponse(url='/dashboard', status_code=status.HTTP_302_FOUND)
 
     async with httpx.AsyncClient() as client:
         query = """
@@ -41,6 +43,7 @@ async def signup(request: Request,
             return TEMPLATES.TemplateResponse('signup.html', context=context)
 
         user_id = shortuuid.uuid()
+        verification_id = uuid.uuid4().hex
         query = """
             insert in graph %s {
                ssu:%s a foaf:Person ;
@@ -49,9 +52,22 @@ async def signup(request: Request,
                    foaf:lastName "%s" ;
                    foaf:mbox "%s" ;
                    schema:accessCode "%s" ;
-                   sso:status "active" .
+                   sso:hasVerification "%s" ;
+                   sso:status "inactive" .
             }
-            """ % (namespaces.ssu, user_id, user_id, fName, lName, email, core.hash_password(password))
+            """ % (namespaces.ssu, user_id, user_id, fName, lName, email, core.hash_password(password), verification_id)
         await core.send(client, query)
+        _send_mail(verification_id, email, fName, lName)
 
     return RedirectResponse(url='/login', status_code=status.HTTP_302_FOUND)
+
+
+def _send_mail(verification: str, email: str, firstname: str, lastname: str):
+    context = {
+        'verification': verification,
+        'firstname': firstname,
+        'lastname': lastname
+    }
+    response = TEMPLATES.TemplateResponse('email.html', context=context)
+    command = f'echo {response.body} | mail -s "Conupedia Registration" -a "Content-Type: text/html" -a "From: no-reply <mySecureSea@gmail.com>" {email}'
+    os.system(command)
