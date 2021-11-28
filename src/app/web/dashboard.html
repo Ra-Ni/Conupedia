@@ -113,7 +113,8 @@
 
             {% for category, items in categories.items() %}
                 <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
-                        <h2 class="text-2xl font-semibold" id="{{ category }}"> {{ category }} </h2>
+                    <h2 class="text-2xl font-semibold"> {{ category }} </h2>
+                    <a class="anchor" id="{{ category}}"></a>
                 </div>
 
                 <div class="mt-3">
