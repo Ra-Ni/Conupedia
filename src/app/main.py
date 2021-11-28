@@ -8,7 +8,7 @@ from starlette import status
 from starlette.responses import RedirectResponse
 
 from .dependencies.auth import InvalidCredentials
-from .routers import signup, login, logout, profile, rating, dashboard
+from .routers import signup, login, logout, profile, rating, dashboard, verify
 from .routers.rating import InvalidCourse
 
 app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
@@ -21,7 +21,7 @@ app.include_router(logout.router)
 app.include_router(profile.router)
 app.include_router(rating.router)
 app.include_router(dashboard.router)
-
+app.include_router(verify.router)
 
 @app.get('/')
 async def root():
