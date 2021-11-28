@@ -10,6 +10,10 @@ class InvalidCredentials(Exception):
     pass
 
 
+class ActivationError(Exception):
+    pass
+
+
 async def create(client: httpx.AsyncClient, user_id: str) -> str:
     token_id = shortuuid.uuid()
     token = uuid.uuid4().hex + uuid.uuid4().hex
@@ -50,8 +54,11 @@ async def verify(client: httpx.AsyncClient, token: str) -> None:
                 rdf:value "%s" ;
                 rdfs:seeAlso ?id .
         }
+        graph %s {
+            ?id sso:status "active"
+        }
     }
-    """ % (namespaces.sst, token)
+    """ % (namespaces.sst, token, namespaces.ssu)
     response = await core.send(client, query, format='bool')
 
     if not response:
@@ -74,7 +81,8 @@ async def get_user(client: httpx.AsyncClient, token: str) -> dict:
             ?id foaf:firstName ?firstName ;
                 foaf:lastName ?lastName ;
                 foaf:mbox ?mbox ;
-                schema:accessCode ?password .
+                schema:accessCode ?password ;
+                sso:status "active" .
         }
 
     } 

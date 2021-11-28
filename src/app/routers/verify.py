@@ -6,15 +6,11 @@ from fastapi import APIRouter, Request, Cookie, Form
 from starlette import status
 from starlette.responses import RedirectResponse
 from ..internals.globals import TEMPLATES
-from ..dependencies import core
+from ..dependencies import core, auth
 from ..internals import namespaces
 
 
 router = APIRouter()
-
-
-class VerificationError(Exception):
-    pass
 
 
 @router.get('/verify')
@@ -29,7 +25,7 @@ async def verify(id: str):
         response = await core.send(client, query, format='bool')
 
         if not response:
-            raise VerificationError('The user has already been verified')
+            raise auth.ActivationError('The user has already been verified')
 
         query = """
         modify %s
