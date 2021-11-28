@@ -59,7 +59,7 @@
                 <div class="uk-heading-line uk-text-center py-5"><span> or </span></div>
 
                 <div>
-                    <button class="bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full" onclick="location.href = '/signup'">
+                    <button class="submit-button bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full" id="myButton">
                         Sign Up
                     </button>
                 </div>
@@ -83,7 +83,11 @@
 <script src= " {{ url_for('web', path='assets/js/custom.js') }} " ></script>
 <script src= " {{ url_for('web', path='assets/js/bootstrap-select.min.js') }} " ></script>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-
+<script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "http://securesea.ca/signup";
+    };
+</script>
 </body>
 
 </html>
