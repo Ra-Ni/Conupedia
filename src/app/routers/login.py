@@ -32,7 +32,7 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
                     foaf:lastName ?lastName ;
                     foaf:mbox "%s" ;
                     schema:accessCode ?password ;
-                    sso:status ?status ;
+                    sso:status ?status 
             }
         } 
         """ % (namespaces.ssu, email)
