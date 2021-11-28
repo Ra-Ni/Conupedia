@@ -13,7 +13,7 @@ from ..internals import namespaces
 router = APIRouter()
 
 
-@router.get('verify')
+@router.get('/verify')
 async def verify(id: str):
     async with httpx.AsyncClient() as client:
         query = """
