@@ -11,3 +11,6 @@ Currently, in development...
 - uvicorn[standard]
 - pip3
 - python3
+
+
+sudo ss -lptn 'sport = :80'
