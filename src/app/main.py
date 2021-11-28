@@ -7,10 +7,10 @@ from fastapi.staticfiles import StaticFiles
 from starlette import status
 from starlette.responses import RedirectResponse
 
-from .dependencies.auth import InvalidCredentials
+
+from .dependencies.auth import InvalidCredentials, ActivationError
 from .routers import signup, login, logout, profile, rating, dashboard, verify
 from .routers.rating import InvalidCourse
-from .routers.verify import VerificationError
 
 app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -47,7 +47,7 @@ def request_exception(request: Request, response: Response):
     return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 
 
-@app.exception_handler(VerificationError)
+@app.exception_handler(ActivationError)
 def request_exception(request: Request, response: Response):
     return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 

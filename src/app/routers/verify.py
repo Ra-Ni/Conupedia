@@ -1,11 +1,7 @@
-from http.client import HTTPException
-from typing import Optional
 import httpx
-import shortuuid
-from fastapi import APIRouter, Request, Cookie, Form
+from fastapi import APIRouter
 from starlette import status
 from starlette.responses import RedirectResponse
-from ..internals.globals import TEMPLATES
 from ..dependencies import core, auth
 from ..internals import namespaces
 
