@@ -25,13 +25,14 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
     async with httpx.AsyncClient() as client:
         context = {'request': request}
         query = """
-        select ?id ?firstName ?lastName ?password
+        select ?id ?firstName ?lastName ?password ?status
         where { 
             graph %s {
                 ?id foaf:firstName ?firstName ;
                     foaf:lastName ?lastName ;
                     foaf:mbox "%s" ;
-                    schema:accessCode ?password .
+                    schema:accessCode ?password ;
+                    sso:status ?status ;
             }
         } 
         """ % (namespaces.ssu, email)
@@ -39,6 +40,10 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
 
         if not response:
             context['email_feedback'] = " The email you entered isn't connected to an account. "
+            return TEMPLATES.TemplateResponse('login.html', context=context)
+
+        if response['status'] == 'inactive':
+            context['general_feedback'] = " The account you entered has not been activated yet. "
             return TEMPLATES.TemplateResponse('login.html', context=context)
 
         if response['password'] != core.hash_password(password):

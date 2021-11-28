@@ -2,11 +2,15 @@ import httpx
 from fastapi import APIRouter
 from starlette import status
 from starlette.responses import RedirectResponse
-from ..dependencies import core, auth
+from ..dependencies import core
 from ..internals import namespaces
 
 
 router = APIRouter()
+
+
+class ActivationError(Exception):
+    pass
 
 
 @router.get('/verify')
@@ -21,7 +25,7 @@ async def verify(id: str):
         response = await core.send(client, query, format='bool')
 
         if not response:
-            raise auth.ActivationError('The user has already been verified')
+            raise ActivationError('The user has already been verified')
 
         query = """
         modify %s

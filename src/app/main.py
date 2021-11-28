@@ -8,9 +8,10 @@ from starlette import status
 from starlette.responses import RedirectResponse
 
 
-from .dependencies.auth import InvalidCredentials, ActivationError
+from .dependencies.auth import InvalidCredentials
 from .routers import signup, login, logout, profile, rating, dashboard, verify
 from .routers.rating import InvalidCourse
+from .routers.verify import ActivationError
 
 app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
