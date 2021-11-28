@@ -10,6 +10,7 @@ from starlette.responses import RedirectResponse
 from .dependencies.auth import InvalidCredentials
 from .routers import signup, login, logout, profile, rating, dashboard, verify
 from .routers.rating import InvalidCourse
+from .routers.verify import VerificationError
 
 app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -22,6 +23,7 @@ app.include_router(profile.router)
 app.include_router(rating.router)
 app.include_router(dashboard.router)
 app.include_router(verify.router)
+
 
 @app.get('/')
 async def root():
@@ -44,6 +46,10 @@ def course_exception(request: Request, response: Response):
 def request_exception(request: Request, response: Response):
     return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 
+
+@app.exception_handler(VerificationError)
+def request_exception(request: Request, response: Response):
+    return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 
 #
 # @app.exception_handler(fastapi.exceptions.HTTPException)

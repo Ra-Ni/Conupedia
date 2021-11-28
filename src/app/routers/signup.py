@@ -33,6 +33,8 @@ async def signup(request: Request,
     if token:
         return RedirectResponse(url='/dashboard', status_code=status.HTTP_302_FOUND)
 
+    fName = fName.title()
+    lName = lName.title()
     async with httpx.AsyncClient() as client:
         query = """
         ask from %s { ?s foaf:mbox "%s" } 
@@ -59,7 +61,9 @@ async def signup(request: Request,
         await core.send(client, query)
         _send_mail(verification_id, email, fName, lName)
 
-    return RedirectResponse(url='/login', status_code=status.HTTP_302_FOUND)
+    context = {'request': request, 'general_feedback': 'Successfully created account. '
+                                                       'Please check your email for activation.'}
+    return TEMPLATES.TemplateResponse('signup.html', context=context)
 
 
 def _send_mail(verification: str, email: str, firstname: str, lastname: str):

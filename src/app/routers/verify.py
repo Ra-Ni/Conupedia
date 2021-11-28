@@ -13,6 +13,10 @@ from ..internals import namespaces
 router = APIRouter()
 
 
+class VerificationError(Exception):
+    pass
+
+
 @router.get('/verify')
 async def verify(id: str):
     async with httpx.AsyncClient() as client:
@@ -25,7 +29,7 @@ async def verify(id: str):
         response = await core.send(client, query, format='bool')
 
         if not response:
-            raise HTTPException("Verification not found.")
+            raise VerificationError('The user has already been verified')
 
         query = """
         modify %s
