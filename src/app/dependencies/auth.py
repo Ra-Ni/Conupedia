@@ -74,7 +74,7 @@ async def get_user(client: httpx.AsyncClient, token: str) -> dict:
             ?id foaf:firstName ?firstName ;
                 foaf:lastName ?lastName ;
                 foaf:mbox ?mbox ;
-                schema:accessCode ?password ;
+                schema:accessCode ?password .
         }
 
     } 
