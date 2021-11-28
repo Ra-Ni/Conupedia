@@ -1,0 +1,29 @@
+@prefix sst: <http://localhost:8890/token/> .
+@prefix sso: <http://localhost:8890/ontology/> .
+@prefix ssu: <http://localhost:8890/user/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/version/6.0/#> .
+
+<http://localhost:8890/ontology/likes>
+	rdf:type rdf:Property ;
+	rdfs:domain foaf:Person ;
+	rdfs:range schema:Course .
+
+<http://localhost:8890/ontology/dislikes>
+	rdf:type rdf:Property ;
+	rdfs:domain foaf:Person ;
+	rdfs:range schema:Course .
+
+<http://localhost:8890/ontology/status>
+    rdf:type rdf:Property ;
+    rdfs:domain foaf:Person ;
+    rdfs:range rdfs:Literal .
+
+<http://localhost:8890/ontology/hasSession>
+    rdf:type rdf:Property ;
+    rdfs:domain foaf:Person ;
+    rdfs:range sst:Token .
+
