@@ -63,11 +63,15 @@ async def signup(request: Request,
 
 
 def _send_mail(verification: str, email: str, firstname: str, lastname: str):
-    context = {
-        'verification': verification,
-        'firstname': firstname,
-        'lastname': lastname
-    }
-    response = TEMPLATES.TemplateResponse('email.html', context=context)
-    command = f'echo {response.body} | mail -s "Conupedia Registration" -a "Content-Type: text/html" -a "From: no-reply <mySecureSea@gmail.com>" {email}'
+    message = """
+    <html>
+        <body>
+            <h1>Welcome to Conupedia, %s %s!</h1>
+            <p>
+                To complete your registration, please click on this <a href="http://securesea.ca/verify?id=%s">link</a>
+            </p>
+        </body>
+    </html>
+    """ % (firstname, lastname, verification)
+    command = f'echo {message} | mail -s "Conupedia Registration" -a "Content-Type: text/html" -a "From: no-reply <mySecureSea@gmail.com>" {email}'
     os.system(command)
