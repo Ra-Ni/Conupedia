@@ -124,22 +124,21 @@
                 <div class="relative" uk-slider="sets: true; finite: false">
 
                     <div class="uk-slider-container px-1 py-3">
-                        <ul class="data-uk-grid-margin uk-slider-items uk-child-width-1-4@m uk-child-width-1-2@s uk-grid-small uk-grid">
+                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-2@s uk-grid-small uk-grid">
                             {% for item in items %}
 
                                 <li>
-                                    <a  class="card uk-link-reset" value="{{ item.course }}" onmouseenter="getVote(this)" >
+                                    <a  class="uk-card uk-link-reset" value="{{ item.course }}" onmouseenter="getVote(this)" >
                                         <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
-                                            <div  class="w-full h-20 overflow-hidden rounded-t-lg relative">
-
+                                            <div  class="uk-card-media-top w-full h-20 overflow-hidden rounded-t-lg relative">
                                                 <img src= " {{ url_for('web', path='assets/images/Concordia-card.png') }} "  alt="" class="w-full h-full absolute inset-0 object-cover">
-
                                                 <button value="{{ item.course }}">
                                                     <img onclick="vote(this.parentElement, 'dislike')" src= " {{ url_for('web', path='assets/images/thumbs-down.svg') }} "  class="w-5 h-5 uk-position-bottom-right uk-transition-fade" alt="">
                                                     <img onclick="vote(this.parentElement, 'like')" src= " {{ url_for('web', path='assets/images/thumbs-up.svg') }} "  class="w-5 h-5 uk-position-bottom-left uk-transition-fade" alt="">
                                                 </button>
                                             </div>
-                                            <div class="card-body p-4 noselect">
+
+                                            <div class="uk-card-body p-4 noselect">
                                                 <div style="height: 2rem">
                                                         <div class="text-sm font-semibold line-clamp-2"> {{ item.code }} - {{ item.title }}</div>
                                                 </div>
@@ -151,6 +150,7 @@
                                                     <div class="text-sm font-semibold"> Credits: {{ item.credits }} </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </a>
                                 </li>
