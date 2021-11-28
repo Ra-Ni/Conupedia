@@ -51,7 +51,7 @@ async def signup(request: Request,
                    schema:accessCode "%s" ;
                    sso:status "active" .
             }
-            """ % (namespaces.ssu, user_id, user_id, fName, lName, email, base.hash_password(password))
+            """ % (namespaces.ssu, user_id, user_id, fName, lName, email, core.hash_password(password))
         await core.send(client, query)
 
     return RedirectResponse(url='/login', status_code=status.HTTP_302_FOUND)
