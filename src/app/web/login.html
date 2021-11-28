@@ -32,46 +32,43 @@
 </head>
 <body>
 
-  <div id="wrapper" class="flex flex-col justify-between h-screen">
+    <div id="wrapper" class="flex flex-col justify-between h-screen">
 
-      <!-- Content-->
-      <div>
+        <!-- Content-->
+        <div>
 
-        <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-            <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" method="post">
-                <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Welcome back </h1>
+            <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" method="post">
+                    <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Welcome back </h1>
 
-                <div>
-                    <input name="email" type="text" placeholder="Email" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
-                    <div class="err">{{email_feedback}}</div>
-                </div>
-                <div>
-                    <input name="password" type="password" placeholder="Password" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
-                    <div class="err">{{password_feedback}}</div>
-                </div>
-                <div class="err"> {{ general_feedback }}</div>
-                <div>
-                    <button type="submit" class="bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full">
+                    <div>
+                        <input name="email" type="text" placeholder="Email" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+                        <div class="err">{{email_feedback}}</div>
+                    </div>
+                    <div>
+                        <input name="password" type="password" placeholder="Password" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+                        <div class="err">{{password_feedback}}</div>
+                    </div>
+                    <div class="err"> {{ general_feedback }}</div>
+
+                    <div>
+                        <button type="submit" class="bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full">
                         Log In
+                        </button>
+                    </div>
+
+                </form>
+                <div class="uk-heading-line uk-text-center py-5"><span> or </span></div>
+                <div>
+                    <button class="submit-button bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full" id="signup">
+                    Sign Up
                     </button>
                 </div>
-
-
-
-            </form>
-            <div class="uk-heading-line uk-text-center py-5"><span> or </span></div>
-
-            <div>
-                <button class="submit-button bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full" id="myButton">
-                    Sign Up
-                </button>
             </div>
 
         </div>
-    
-      </div>
 
-  </div>
+    </div>
 
 
 
@@ -85,7 +82,7 @@
 <script src= " {{ url_for('web', path='assets/js/bootstrap-select.min.js') }} " ></script>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 <script type="text/javascript">
-    document.getElementById("myButton").onclick = function () {
+    document.getElementById("signup").onclick = function () {
         window.location.replace('http://www.securesea.ca/signup');
     };
 </script>
