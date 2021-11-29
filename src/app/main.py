@@ -8,12 +8,13 @@ from starlette.responses import RedirectResponse
 
 
 from .dependencies.auth import InvalidCredentials
+from .internals.globals import WEB_ASSETS
 from .routers import signup, login, logout, profile, rating, dashboard, verify, admin, course
 from .routers.rating import InvalidCourse
 from .routers.verify import ActivationError
 
 app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
-app.mount('/web', StaticFiles(directory='app/web'), name='web')
+app.mount('/assets', StaticFiles(directory=WEB_ASSETS), name='assets')
 
 app.include_router(signup.router)
 app.include_router(login.router)

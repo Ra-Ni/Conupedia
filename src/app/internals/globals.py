@@ -13,6 +13,10 @@ __buff = config['Uvicorn']
 SERVER_IP = __buff['IP']
 SERVER_PORT = __buff['Port']
 
+__buff = config['Web']
+WEB_ROOT = __buff['RootDir']
+WEB_ASSETS = __buff['Assets']
+
 del __buff
 
-TEMPLATES = Jinja2Templates(directory="app/web/")
+TEMPLATES = Jinja2Templates(directory=WEB_ROOT)

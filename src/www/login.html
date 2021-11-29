@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Favicon -->
-    <link href= " {{ url_for('web', path='assets/images/favicon.png') }} "  rel="icon" type="image/png">
+    <link href= " {{ url_for('assets', path='images/favicon.png') }} "  rel="icon" type="image/png">
 
     <!-- Basic Page Needs
         ================================================== -->
@@ -13,12 +13,12 @@
 
     <!-- icons
     ================================================== -->
-    <link rel="stylesheet" href= " {{ url_for('web', path='assets/css/icons.css') }} " >
+    <link rel="stylesheet" href= " {{ url_for('assets', path='css/icons.css') }} " >
 
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" href= " {{ url_for('web', path='assets/css/uikit.css') }} " >
-    <link rel="stylesheet" href= " {{ url_for('web', path='assets/css/style.css') }} " >
+    <link rel="stylesheet" href= " {{ url_for('assets', path='css/uikit.css') }} " >
+    <link rel="stylesheet" href= " {{ url_for('assets', path='css/style.css') }} " >
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <style>
@@ -77,11 +77,11 @@
 <!-- Javascript
 ================================================== -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src= " {{ url_for('web', path='assets/js/uikit.js') }} " ></script>
-    <script src= " {{ url_for('web', path='assets/js/tippy.all.min.js') }} " ></script>
-    <script src= " {{ url_for('web', path='assets/js/simplebar.js') }} " ></script>
-    <script src= " {{ url_for('web', path='assets/js/custom.js') }} " ></script>
-    <script src= " {{ url_for('web', path='assets/js/bootstrap-select.min.js') }} " ></script>
+    <script src= " {{ url_for('assets', path='js/uikit.js') }} " ></script>
+    <script src= " {{ url_for('assets', path='js/tippy.all.min.js') }} " ></script>
+    <script src= " {{ url_for('assets', path='js/simplebar.js') }} " ></script>
+    <script src= " {{ url_for('assets', path='js/custom.js') }} " ></script>
+    <script src= " {{ url_for('assets', path='js/bootstrap-select.min.js') }} " ></script>
     <script type="text/javascript">
         document.getElementById("signup").onclick = function () {
             window.location.replace('http://www.securesea.ca/signup');
