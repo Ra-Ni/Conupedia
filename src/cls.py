@@ -1,16 +1,8 @@
 from configparser import ConfigParser, ExtendedInterpolation
 import uvicorn
 from app.main import app
-
+from app.internals.globals import SERVER_IP, SERVER_PORT
 
 if __name__ == '__main__':
 
-    config = ConfigParser(interpolation=ExtendedInterpolation())
-    config.read('config.ini')
-
-    sparql = config['Sparql']
-    URI = f'http://{sparql["IP"]}:{sparql["Port"]}'
-    PATH = sparql["RelativePath"]
-
-    server = config['Uvicorn']
-    uvicorn.run(app, host=server['IP'], port=int(server['Port']))
+    uvicorn.run(app, host=SERVER_IP, port=SERVER_PORT)

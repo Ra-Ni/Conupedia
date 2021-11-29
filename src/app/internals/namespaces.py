@@ -1,3 +1,4 @@
+
 ssu = '<http://localhost:8890/user>'
 sso = '<http://localhost:8890/ontology>'
 sst = '<http://localhost:8890/token>'

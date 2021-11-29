@@ -3,7 +3,7 @@ from typing import Optional
 import httpx
 from fastapi import APIRouter, Cookie, Form
 from ..dependencies import auth, core
-from ..internals import namespaces
+from ..internals.globals import SSU, SSC
 
 router = APIRouter()
 
@@ -49,7 +49,7 @@ async def rating(cid: str = Form(...), value: str = Form(...), token: Optional[s
         modify %s
         delete {%s}
         insert {%s}
-        """ % (namespaces.ssu, delete, insert)
+        """ % (SSU, delete, insert)
         await core.send(client, query)
 
 
@@ -60,7 +60,7 @@ class InvalidCourse(Exception):
 async def _verify_course(client: httpx.AsyncClient, course_id: str):
     query = """
     ask from %s { %s a schema:Course }
-    """ % (namespaces.ssc, course_id)
+    """ % (SSC, course_id)
     response = await core.send(client, query, format='bool')
     if not response:
         raise InvalidCourse("Course %s does not exist." % course_id)
@@ -74,6 +74,6 @@ async def _get_rating(client: httpx.AsyncClient, user_id: str, course_id: str) -
                 %s ?reaction %s .
             }
     }
-    """ % (namespaces.ssu, user_id, course_id)
+    """ % (SSU, user_id, course_id)
     response = await core.send(client, query, format='var')
     return response

@@ -11,6 +11,7 @@ Currently, in development...
 - uvicorn[standard]
 - pip3
 - python3
+- lxml
 
 
 sudo ss -lptn 'sport = :80'

@@ -3,8 +3,7 @@ from fastapi import APIRouter
 from starlette import status
 from starlette.responses import RedirectResponse
 from ..dependencies import core
-from ..internals import namespaces
-
+from ..internals.globals import SSU
 
 router = APIRouter()
 
@@ -20,7 +19,7 @@ async def verify(id: str):
         ask from %s {
             ?user sso:hasVerification "%s" 
         }
-        """ % (namespaces.ssu, id)
+        """ % (SSU, id)
 
         response = await core.send(client, query, format='bool')
 
@@ -38,7 +37,7 @@ async def verify(id: str):
             bind("%s" as ?v)
             ?u sso:hasVerification ?v 
         } 
-        """ % (namespaces.ssu, id)
+        """ % (SSU, id)
 
         await core.send(client, query)
 

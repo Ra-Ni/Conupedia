@@ -1,9 +1,8 @@
 import uuid
-
 import httpx
 import shortuuid
-from ..internals import namespaces
 from . import core
+from ..internals.globals import SST, SSU
 
 
 class InvalidCredentials(Exception):
@@ -20,7 +19,7 @@ async def create(client: httpx.AsyncClient, user_id: str) -> str:
             rdf:value "%s" ;
             rdfs:seeAlso %s .
     } 
-    """ % (namespaces.sst, token_id, token_id, token, user_id)
+    """ % (SST, token_id, token_id, token, user_id)
     await core.send(client, query)
     return token
 
@@ -33,7 +32,7 @@ async def delete(client: httpx.AsyncClient, token: str) -> None:
             rdf:value "%s" ;
             ?p ?o .
     } 
-    """ % (namespaces.sst, token)
+    """ % (SST, token)
     await core.send(client, query)
 
 
@@ -47,7 +46,7 @@ async def verify(client: httpx.AsyncClient, token: str, as_root: bool = False) -
         graph %s {
             ?id sso:isAdmin "true"^^xsd:boolean .
         }
-        """ % namespaces.ssu
+        """ % SSU
 
     query = """
     ask { 
@@ -58,7 +57,7 @@ async def verify(client: httpx.AsyncClient, token: str, as_root: bool = False) -
         }
         %s
     }
-    """ % (namespaces.sst, token, suffix)
+    """ % (SST, token, suffix)
     response = await core.send(client, query, format='bool')
 
     if not response:
@@ -90,7 +89,7 @@ async def get_user(client: httpx.AsyncClient, token: str, as_root: bool = False)
         }
 
     } 
-    """ % (namespaces.sst, token, namespaces.ssu, suffix)
+    """ % (SST, token, SSU, suffix)
     response = await core.send(client, query, format='dict')
 
     if not response:

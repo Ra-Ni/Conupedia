@@ -4,8 +4,7 @@ from fastapi import APIRouter, Request, Response, Cookie, Form
 from starlette import status
 from starlette.responses import RedirectResponse
 from ..dependencies import auth, core
-from ..internals.globals import TEMPLATES
-from ..internals import namespaces
+from ..internals.globals import TEMPLATES, SSU
 
 router = APIRouter()
 
@@ -35,7 +34,7 @@ async def login(request: Request, response: Response, email: str = Form(...), pa
                     sso:status ?status 
             }
         } 
-        """ % (namespaces.ssu, email)
+        """ % (SSU, email)
         response = await core.send(client, query, format='dict')
 
         if not response:

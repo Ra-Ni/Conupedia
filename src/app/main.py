@@ -1,7 +1,6 @@
 from typing import Optional
 import fastapi
 from fastapi import FastAPI, Request, Cookie, Response
-from fastapi.security import OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
 from starlette import status
 from starlette.responses import RedirectResponse

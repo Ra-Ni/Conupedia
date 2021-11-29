@@ -6,9 +6,8 @@ import shortuuid
 from fastapi import APIRouter, Request, Cookie, Form
 from starlette import status
 from starlette.responses import RedirectResponse
-from ..internals.globals import TEMPLATES
+from ..internals.globals import TEMPLATES, SSU
 from ..dependencies import core
-from ..internals import namespaces
 
 
 router = APIRouter()
@@ -38,7 +37,7 @@ async def signup(request: Request,
     async with httpx.AsyncClient() as client:
         query = """
         ask from %s { ?s foaf:mbox "%s" } 
-        """ % (namespaces.ssu, email)
+        """ % (SSU, email)
         response = await core.send(client, query, 'bool')
         if response:
             context = {'request': request, 'email_feedback': 'Email already exists'}
@@ -57,7 +56,7 @@ async def signup(request: Request,
                    sso:hasVerification "%s" ;
                    sso:status "inactive" .
             }
-            """ % (namespaces.ssu, user_id, user_id, fName, lName, email, core.hash_password(password), verification_id)
+            """ % (SSU, user_id, user_id, fName, lName, email, core.hash_password(password), verification_id)
         await core.send(client, query)
         _send_mail(verification_id, email, fName, lName)
 

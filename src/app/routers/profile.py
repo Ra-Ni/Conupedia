@@ -1,8 +1,7 @@
 from typing import Optional
 import httpx
 from fastapi import APIRouter, Request, Cookie, Form
-from ..internals.globals import TEMPLATES
-from ..internals import namespaces
+from ..internals.globals import TEMPLATES, SSU, SST
 from ..dependencies import auth, core
 
 router = APIRouter()
@@ -49,7 +48,7 @@ async def profile(request: Request,
                     ?s schema:accessCode ?o .
                 }
             }
-            """ % (namespaces.ssu, core.hash_password(new_password), namespaces.sst, token, namespaces.ssu)
+            """ % (SSU, core.hash_password(new_password), SST, token, SSU)
         await core.send(client, query)
 
         context['password_feedback'] = "Password updated successfully."

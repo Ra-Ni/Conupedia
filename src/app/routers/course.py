@@ -2,8 +2,9 @@ import datetime
 from typing import Optional
 import httpx
 from fastapi import APIRouter, Request, Cookie, Response, Form
-from ..internals import namespaces
 from ..dependencies import auth, core
+from ..internals.globals import SSC
+
 
 router = APIRouter()
 
@@ -30,7 +31,7 @@ async def course(id: str, token: Optional[str] = Cookie(None)):
                     ?id schema:description ?description .
                 }
         }
-        """ % (namespaces.ssc, str(id).zfill(6))
+        """ % (SSC, str(id).zfill(6))
 
         response = await core.send(client, query, format='dict')
 
@@ -75,7 +76,7 @@ async def admin(request: Request,
                 ?p ?o .
             filter ( ?p != rdfs:seeAlso )
         }
-        """ % (namespaces.ssc,
+        """ % (SSC,
                course_id,
                code,
                requisites,
@@ -107,7 +108,7 @@ async def course(course_id: str,
             ?s rdfs:label "%s" ; 
                 ?p ?o . 
         }
-        """ % (namespaces.ssc, course_id)
+        """ % (SSC, course_id)
         response = await core.send(client, query)
 
     return response

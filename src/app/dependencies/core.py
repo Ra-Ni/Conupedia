@@ -1,16 +1,13 @@
 import hashlib
 import re
 from io import StringIO
-
 import httpx
 import pandas as pd
-
-from app.internals.globals import SPARQL
-from app.internals.namespaces import prefix, reverse_namespaces
+from app.internals.globals import SPARQL, NAMESPACES_REVERSED, NAMESPACE_PREFIX
 
 
 def build(query, **kwargs):
-    query = f'{prefix}\n{query}'
+    query = f'{NAMESPACE_PREFIX}\n\n{query}'
     request = {
         'default-graph-uri': '',
         'query': query,
@@ -42,10 +39,10 @@ def to_namespaces(resource):
 
     match = match.group()
 
-    if match not in reverse_namespaces:
+    if match not in NAMESPACES_REVERSED:
         return resource
 
-    return resource.replace(match, f'{reverse_namespaces[match]}:')
+    return resource.replace(match, f'{NAMESPACES_REVERSED[match]}:')
 
 
 def to_frame(response):
