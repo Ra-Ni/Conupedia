@@ -39,9 +39,17 @@ async def delete(client: httpx.AsyncClient, token: str) -> None:
     await core.send(client, query)
 
 
-async def verify(client: httpx.AsyncClient, token: str) -> None:
+async def verify(client: httpx.AsyncClient, token: str, as_root: bool = False) -> None:
     if not token:
         raise InvalidCredentials('Token supplied not in database: "%s"' % token)
+
+    suffix = ''
+    if as_root:
+        suffix = """
+        graph %s {
+            ?id sso:isAdmin "true"^^xsd:boolean .
+        }
+        """ % namespaces.ssu
 
     query = """
     ask { 
@@ -50,8 +58,9 @@ async def verify(client: httpx.AsyncClient, token: str) -> None:
                 rdf:value "%s" ;
                 rdfs:seeAlso ?id .
         }
+        %s
     }
-    """ % (namespaces.sst, token)
+    """ % (namespaces.sst, token, suffix)
     response = await core.send(client, query, format='bool')
 
     if not response:

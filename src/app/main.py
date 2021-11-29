@@ -1,6 +1,8 @@
+from configparser import ConfigParser, ExtendedInterpolation
 from typing import Optional
 
 import fastapi
+import uvicorn
 from fastapi import FastAPI, Request, Cookie, Response
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
@@ -9,7 +11,7 @@ from starlette.responses import RedirectResponse
 
 
 from .dependencies.auth import InvalidCredentials
-from .routers import signup, login, logout, profile, rating, dashboard, verify
+from .routers import signup, login, logout, profile, rating, dashboard, verify, admin, course
 from .routers.rating import InvalidCourse
 from .routers.verify import ActivationError
 
@@ -24,6 +26,8 @@ app.include_router(profile.router)
 app.include_router(rating.router)
 app.include_router(dashboard.router)
 app.include_router(verify.router)
+app.include_router(admin.router)
+app.include_router(course.router)
 
 
 @app.get('/')
@@ -69,6 +73,7 @@ def request_exception(request: Request, response: Response):
 #
 #
 # if __name__ == '__main__':
+#
 #     config = ConfigParser(interpolation=ExtendedInterpolation())
 #     config.read('config.ini')
 #
