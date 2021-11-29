@@ -25,7 +25,7 @@ __buff = config['Web']
 WEB_ROOT = __buff['RootDir']
 WEB_ASSETS = __buff['Assets']
 
-__buff = config['Namespaces']
+__buff = config['Graphs']
 SSU = __buff['ssu']
 SSO = __buff['sso']
 SST = __buff['sst']
