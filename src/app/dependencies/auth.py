@@ -27,13 +27,11 @@ async def create(client: httpx.AsyncClient, user_id: str) -> str:
 
 async def delete(client: httpx.AsyncClient, token: str) -> None:
     query = """
-    delete { ?s ?p ?o }
+    delete from %s { ?s ?p ?o }
     where { 
-        graph %s {
-            ?s a sso:Token ;
-                rdf:value "%s" ;
-                ?p ?o .
-        }
+        ?s a sso:Token ;
+            rdf:value "%s" ;
+            ?p ?o .
     } 
     """ % (namespaces.sst, token)
     await core.send(client, query)
@@ -67,9 +65,13 @@ async def verify(client: httpx.AsyncClient, token: str, as_root: bool = False) -
         raise InvalidCredentials('Token supplied not in database: "%s"' % token)
 
 
-async def get_user(client: httpx.AsyncClient, token: str) -> dict:
+async def get_user(client: httpx.AsyncClient, token: str, as_root: bool = False) -> dict:
     if not token:
         raise InvalidCredentials('Token supplied not in database: "%s"' % token)
+
+    suffix = ''
+    if as_root:
+        suffix = '?id sso:isAdmin "true"^^xsd:boolean .'
 
     query = """
     select ?id ?firstName ?lastName ?mbox ?password
@@ -84,10 +86,11 @@ async def get_user(client: httpx.AsyncClient, token: str) -> dict:
                 foaf:lastName ?lastName ;
                 foaf:mbox ?mbox ;
                 schema:accessCode ?password .
+                %s
         }
 
     } 
-    """ % (namespaces.sst, token, namespaces.ssu)
+    """ % (namespaces.sst, token, namespaces.ssu, suffix)
     response = await core.send(client, query, format='dict')
 
     if not response:

@@ -15,7 +15,7 @@ from .routers import signup, login, logout, profile, rating, dashboard, verify, 
 from .routers.rating import InvalidCourse
 from .routers.verify import ActivationError
 
-app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
+app = FastAPI() # docs_url=None, openapi_url=None, redoc_url=None
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 app.mount('/web', StaticFiles(directory='app/web'), name='web')
 

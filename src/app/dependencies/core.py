@@ -63,6 +63,7 @@ async def send(client: httpx.AsyncClient, query: str, format=None):
     if not format:
         return
     response = to_frame(response)
+    response.fillna('', inplace=True)
 
     if format == 'pandas':
         return response

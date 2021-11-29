@@ -1,7 +1,8 @@
-import asyncio
 from typing import Optional
 import httpx
-from fastapi import APIRouter, Request, Cookie, Response
+from fastapi import APIRouter, Request, Cookie, Response, Form
+from starlette.responses import RedirectResponse
+
 from ..internals.globals import TEMPLATES
 from ..dependencies import auth, core
 
@@ -11,7 +12,7 @@ router = APIRouter()
 @router.get('/admin')
 async def admin(request: Request, response: Response, token: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
-        await auth.verify(client, token, as_root=True)
+        user = await auth.get_user(client, token, as_root=True)
         query = """
         select ?id ?course 
         where {
@@ -24,5 +25,6 @@ async def admin(request: Request, response: Response, token: Optional[str] = Coo
         """
 
         response = await core.send(client, query, format='records')
-        context = {'request': request, 'entries': response}
+        context = {'request': request, 'entries': response, 'user_info': user}
     return TEMPLATES.TemplateResponse('admin.html', context=context)
+
