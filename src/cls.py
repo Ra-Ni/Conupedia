@@ -1,9 +1,8 @@
 from configparser import ConfigParser, ExtendedInterpolation
-
 import uvicorn
-
-import app
 from app.main import app
+
+
 if __name__ == '__main__':
 
     config = ConfigParser(interpolation=ExtendedInterpolation())

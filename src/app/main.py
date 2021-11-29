@@ -15,7 +15,7 @@ from .routers import signup, login, logout, profile, rating, dashboard, verify, 
 from .routers.rating import InvalidCourse
 from .routers.verify import ActivationError
 
-app = FastAPI() # docs_url=None, openapi_url=None, redoc_url=None
+app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 app.mount('/web', StaticFiles(directory='app/web'), name='web')
 
@@ -72,14 +72,3 @@ def request_exception(request: Request, response: Response):
 #     return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
 #
 #
-# if __name__ == '__main__':
-#
-#     config = ConfigParser(interpolation=ExtendedInterpolation())
-#     config.read('config.ini')
-#
-#     sparql = config['Sparql']
-#     URI = f'http://{sparql["IP"]}:{sparql["Port"]}'
-#     PATH = sparql["RelativePath"]
-#
-#     server = config['Uvicorn']
-#     uvicorn.run(app, host=server['IP'], port=int(server['Port']))

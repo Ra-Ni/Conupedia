@@ -1,10 +1,9 @@
 from typing import Optional
 import httpx
-from fastapi import APIRouter, Request, Cookie, Response, Form
-from starlette.responses import RedirectResponse
-
+from fastapi import APIRouter, Request, Cookie, Response
 from ..internals.globals import TEMPLATES
 from ..dependencies import auth, core
+
 
 router = APIRouter()
 
