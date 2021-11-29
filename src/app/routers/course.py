@@ -11,7 +11,7 @@ router = APIRouter()
 @router.get('/course')
 async def course(id: str, token: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
-        await auth.verify(client, token, as_root=True)
+        await auth.verify(client, token)
 
         query = """
         with %s
@@ -73,6 +73,7 @@ async def admin(request: Request,
         where {
             ?s rdfs:label "%s" ;
                 ?p ?o .
+            filter ( ?p != rdfs:seeAlso )
         }
         """ % (namespaces.ssc,
                course_id,
