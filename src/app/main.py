@@ -1,8 +1,5 @@
-from configparser import ConfigParser, ExtendedInterpolation
 from typing import Optional
-
 import fastapi
-import uvicorn
 from fastapi import FastAPI, Request, Cookie, Response
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
