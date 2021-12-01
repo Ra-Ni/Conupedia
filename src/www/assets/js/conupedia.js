@@ -2,7 +2,7 @@
 function new_course_obj(course) {
     //Cover Image
     let cover_image = document.createElement('img')
-    cover_image.setAttribute('src', 'http://127.0.0.1/assets/images/Concordia-card.png')
+    cover_image.setAttribute('src', '/assets/images/Concordia-card.png')
     cover_image.setAttribute('alt', '')
     cover_image.setAttribute('class', 'w-full h-full absolute inset-0 object-cover')
 
