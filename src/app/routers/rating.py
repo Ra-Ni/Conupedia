@@ -14,7 +14,7 @@ async def rating(id: str, request: Request, token: Optional[str] = Cookie(None))
         course_id = f'ssc:{id.zfill(6)}'
         await _verify_course(client, course_id)
         uid = f'ssu:{request.state.user["id"]}'
-        reaction = await _get_rating(client, uid , course_id)
+        reaction = await _get_rating(client, uid, course_id)
 
         if not reaction:
             return reaction

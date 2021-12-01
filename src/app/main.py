@@ -9,7 +9,8 @@ from starlette.responses import RedirectResponse
 from .dependencies import auth
 from .dependencies.auth import InvalidCredentials
 from .internals.globals import WEB_ASSETS, TEMPLATES
-from .routers import signup, login, logout, profile, rating, admin, course
+from .routers import rating, course
+from .routers.features import login, logout, signup, setting, filters
 from .routers.rating import InvalidCourse
 
 app = FastAPI()  # docs_url=None, openapi_url=None, redoc_url=None)
@@ -18,10 +19,10 @@ app.mount('/assets', StaticFiles(directory=WEB_ASSETS), name='assets')
 app.include_router(signup.router)
 app.include_router(login.router)
 app.include_router(logout.router)
-app.include_router(profile.router)
+app.include_router(setting.router)
 app.include_router(rating.router)
-app.include_router(admin.router)
 app.include_router(course.router)
+app.include_router(filters.router)
 
 
 @app.middleware("http")
@@ -49,7 +50,7 @@ async def authenticate(request: Request, call_next):
 @app.get('/')
 async def root(request: Request):
     user_profile = request.state.user
-    response = await course.get_explore()
+    response = await filters.get_explore()
     response = json.loads(response.body)
     context = {'request': request, 'items': response, 'title': 'Explore', 'user_profile': user_profile}
 

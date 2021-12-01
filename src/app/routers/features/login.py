@@ -5,10 +5,10 @@ from fastapi import APIRouter, Request, Response, Cookie, Form
 from starlette import status
 from starlette.responses import RedirectResponse
 
-from . import user
-from ..dependencies import auth, core
-from ..dependencies.core import hash_password
-from ..internals.globals import TEMPLATES, SSU
+from .. import user
+from app.dependencies import auth, core
+from app.dependencies.core import hash_password
+from app.internals.globals import TEMPLATES, SSU
 
 router = APIRouter()
 

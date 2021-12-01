@@ -1,8 +1,8 @@
 from typing import Optional
 import httpx
 from fastapi import APIRouter, Request, Cookie, Form
-from ..internals.globals import TEMPLATES, SSU, SST
-from ..dependencies import auth, core
+from app.internals.globals import TEMPLATES, SSU, SST
+from app.dependencies import auth, core
 
 router = APIRouter()
 

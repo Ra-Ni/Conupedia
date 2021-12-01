@@ -7,10 +7,10 @@ from fastapi import APIRouter, Request, Cookie, Form
 from starlette import status
 from starlette.responses import RedirectResponse
 
-from . import user
-from ..dependencies.core import hash_password
-from ..internals.globals import TEMPLATES, SSU
-from ..dependencies import core, auth
+from app.routers import user
+from app.dependencies.core import hash_password
+from app.internals.globals import TEMPLATES, SSU
+from app.dependencies import core, auth
 
 router = APIRouter()
 
@@ -28,7 +28,6 @@ async def signup(request: Request,
                  password: str = Form(...),
                  token: Optional[str] = Cookie(None)
                  ):
-
     first_name = first_name.title()
     last_name = last_name.title()
     password = hash_password(password)
@@ -54,7 +53,7 @@ async def signup(request: Request,
         context['general_feedback'] = 'Oops. Something went wrong.'
     # _send_mail(verification_id, email, fName, lName)
     else:
-        context['general_feedback'] ='Successfully created account. Please check your email for activation.'
+        context['general_feedback'] = 'Successfully created account. Please check your email for activation.'
         return TEMPLATES.TemplateResponse('signup.html', context=context)
 
 
