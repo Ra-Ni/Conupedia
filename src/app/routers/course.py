@@ -2,11 +2,28 @@ import datetime
 from typing import Optional
 import httpx
 from fastapi import APIRouter, Request, Cookie, Response, Form
+from fastapi.encoders import jsonable_encoder
+
 from ..dependencies import auth, core
 from ..internals.globals import SSC
 
 
 router = APIRouter()
+
+
+@router.get('/course')
+async def course(toke: Optional[str] = Cookie(None)):
+    async with httpx.AsyncClient() as client:
+        query = """
+        with %s
+        select ?id 
+        where { 
+            [] a schema:Course ;
+                rdfs:label ?id .
+        }
+        """ % SSC
+        response = await core.send(client, query, format='dict')
+        return jsonable_encoder(response)
 
 
 @router.get('/course')
@@ -16,26 +33,22 @@ async def course(id: str, token: Optional[str] = Cookie(None)):
 
         query = """
         with %s
-        select ?code ?title ?degree ?credits ?requisites ?description
+        select ?id ?code ?title ?degree ?credit ?requisite ?description
         where {
-            ?id a schema:Course ;
-                rdfs:label "%s" ;
+            ?c a schema:Course ;
+                rdfs:label ?id ;
                 schema:courseCode ?code ;
                 schema:name ?title ;
                 schema:isPartOf ?degree ;
-                schema:numberOfCredits ?credits .
-                optional {
-                    ?id schema:coursePrerequisites ?requisites .
-                }
-                optional {
-                    ?id schema:description ?description .
-                }
+                schema:numberOfCredits ?credit .
+                optional {?c schema:coursePrerequisites ?requisite .}
+                optional {?c schema:description ?description .}
+                filter("%s" = ?id)
         }
         """ % (SSC, str(id).zfill(6))
 
         response = await core.send(client, query, format='dict')
-
-        return response
+        return jsonable_encoder(response)
 
 
 @router.post('/course')

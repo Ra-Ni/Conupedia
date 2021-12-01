@@ -55,3 +55,5 @@ function vote(reference, rating) {
     http.send('cid=' + course + '&value=' + rating)
 
 }
+
+
