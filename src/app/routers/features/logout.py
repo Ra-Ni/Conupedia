@@ -1,8 +1,5 @@
-from typing import Optional
-import httpx
-from fastapi import APIRouter, Cookie
+from fastapi import APIRouter
 from starlette.responses import RedirectResponse
-from app.dependencies import auth
 
 router = APIRouter()
 

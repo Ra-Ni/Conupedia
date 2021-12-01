@@ -1,4 +1,5 @@
 import json
+import re
 from typing import Optional
 import fastapi
 from fastapi import FastAPI, Request, Cookie, Response
@@ -13,7 +14,7 @@ from .routers import rating, course
 from .routers.features import login, logout, signup, setting, filters
 from .routers.rating import InvalidCourse
 
-app = FastAPI()  # docs_url=None, openapi_url=None, redoc_url=None)
+app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
 app.mount('/assets', StaticFiles(directory=WEB_ASSETS), name='assets')
 
 app.include_router(signup.router)
@@ -23,6 +24,8 @@ app.include_router(setting.router)
 app.include_router(rating.router)
 app.include_router(course.router)
 app.include_router(filters.router)
+
+restricted = ['/course', '/rating', '/']
 
 
 @app.middleware("http")

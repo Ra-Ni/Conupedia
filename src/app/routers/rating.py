@@ -2,7 +2,7 @@ import re
 from typing import Optional
 import httpx
 from fastapi import APIRouter, Cookie, Form, Request
-from ..dependencies import auth, core
+from ..dependencies import core
 from ..internals.globals import SSU, SSC
 
 router = APIRouter()
@@ -46,8 +46,7 @@ async def rating(request: Request, cid: str = Form(...), value: str = Form(...),
         delete {%s}
         insert {%s}
         """ % (SSU, delete, insert)
-        resposne = await core.send(client, query)
-        return None
+        await core.send(client, query)
 
 
 class InvalidCourse(Exception):

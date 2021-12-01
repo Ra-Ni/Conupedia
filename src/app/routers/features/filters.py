@@ -1,14 +1,10 @@
-import datetime
 from typing import Optional
 import httpx
-from fastapi import APIRouter, Request, Cookie, Response, Form
-from fastapi.encoders import jsonable_encoder
+from fastapi import APIRouter, Request, Response
 from starlette import status
 from starlette.responses import JSONResponse
+from ...dependencies import core
 
-from .. import user
-from ...dependencies import auth, core
-from ...internals.globals import SSC
 
 router = APIRouter()
 
@@ -18,7 +14,7 @@ async def get_explore(threshold: Optional[int] = 50):
     query = """
         select ?id
         where {
-        [] a schema:Course ;
+        ?c a schema:Course ;
             rdfs:label ?id .
         } 
         order by rand()
@@ -89,7 +85,7 @@ async def latest(request: Request, threshold: Optional[int] = 50):
     ?c a schema:Course ;
         rdfs:label ?id ;
         schema:dateCreated ?date .
-    filter not exists { ssu:%s [] ?c }
+    filter not exists { ssu:%s ?p ?c }
     } 
     order by rand() desc(?date) 
     limit %s 

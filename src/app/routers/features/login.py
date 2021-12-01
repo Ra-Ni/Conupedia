@@ -6,9 +6,9 @@ from starlette import status
 from starlette.responses import RedirectResponse
 
 from .. import user
-from app.dependencies import auth, core
-from app.dependencies.core import hash_password
-from app.internals.globals import TEMPLATES, SSU
+from ...dependencies import auth
+from ...dependencies.core import hash_password
+from ...internals.globals import TEMPLATES
 
 router = APIRouter()
 

@@ -1,14 +1,11 @@
-import datetime
-from typing import Optional
 import httpx
 import shortuuid
-from fastapi import APIRouter, Request, Cookie, Response, Form
+from fastapi import Response
 from fastapi.encoders import jsonable_encoder
 from starlette import status
 from starlette.responses import JSONResponse
-
-from ..dependencies import auth, core
-from ..internals.globals import SSC, SSU
+from ..dependencies import core
+from ..internals.globals import SSU
 
 
 async def get_user(id: str):
