@@ -198,3 +198,7 @@ document.getElementById('logout').onclick = () => {
     http.open('GET', '/logout')
     http.send()
 }
+
+
+document.getElementById('back').setAttribute('--tw-text-opacity', '1')
+document.getElementById('back').setAttribute('color', 'rgba(59,130,246,var(--tw-text-opacity))')

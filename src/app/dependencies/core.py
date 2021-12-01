@@ -7,7 +7,7 @@ from app.internals.globals import SPARQL, NAMESPACES_REVERSED, NAMESPACE_PREFIX
 
 
 def build(query, **kwargs):
-    # query = f'{NAMESPACE_PREFIX}\n\n{query}'
+    query = f'{NAMESPACE_PREFIX}\n\n{query}'
     request = {
         'default-graph-uri': '',
         'query': query,
