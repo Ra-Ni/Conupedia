@@ -7,30 +7,31 @@ from ..dependencies import auth, core
 router = APIRouter()
 
 
-@router.get('/profile')
+@router.get('/setting')
 async def profile(request: Request, token: Optional[str] = Cookie(None), profileID: Optional[str] = Cookie(None)):
+    user_profile = request.state.user
     async with httpx.AsyncClient() as client:
-        user = await auth.get_user(client, token)
-        context = {'request': request, 'user_info': user}
+        context = {'request': request, 'user_profile': user_profile}
 
     return TEMPLATES.TemplateResponse('setting.html', context=context)
 
 
-@router.post('/profile')
+@router.post('/setting')
 async def profile(request: Request,
                   current_password: str = Form(...),
                   new_password: str = Form(...),
                   confirm_new_password: str = Form(...),
                   token: Optional[str] = Cookie(None)):
+    user_profile = request.state.user
+
     async with httpx.AsyncClient() as client:
-        user = await auth.get_user(client, token)
-        context = {'request': request, 'user_info': user, 'password_feedback': None}
+        context = {'request': request, 'user_profile': user_profile, 'password_feedback': None}
 
         if new_password != confirm_new_password:
             context['password_error'] = "Passwords do not match."
             return TEMPLATES.TemplateResponse('setting.html', context=context)
 
-        if user['password'] != core.hash_password(current_password):
+        if user_profile['password'] != core.hash_password(current_password):
             context['password_error'] = "Incorrect input for current password."
             return TEMPLATES.TemplateResponse('setting.html', context=context)
 

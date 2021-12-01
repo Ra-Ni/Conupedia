@@ -6,63 +6,56 @@ import shortuuid
 from fastapi import APIRouter, Request, Cookie, Form
 from starlette import status
 from starlette.responses import RedirectResponse
-from ..internals.globals import TEMPLATES, SSU
-from ..dependencies import core
 
+from . import user
+from ..dependencies.core import hash_password
+from ..internals.globals import TEMPLATES, SSU
+from ..dependencies import core, auth
 
 router = APIRouter()
 
 
 @router.get('/signup')
 async def signup(request: Request, token: Optional[str] = Cookie(None)):
-    if token:
-        return RedirectResponse(url='/dashboard')
-
     return TEMPLATES.TemplateResponse('signup.html', context={'request': request})
 
 
 @router.post('/signup')
 async def signup(request: Request,
-                 fName: str = Form(...),
-                 lName: str = Form(...),
+                 first_name: str = Form(...),
+                 last_name: str = Form(...),
                  email: str = Form(...),
                  password: str = Form(...),
                  token: Optional[str] = Cookie(None)
                  ):
-    if token:
-        return RedirectResponse(url='/dashboard', status_code=status.HTTP_302_FOUND)
 
-    fName = fName.title()
-    lName = lName.title()
-    async with httpx.AsyncClient() as client:
-        query = """
-        ask from %s { ?s foaf:mbox "%s" } 
-        """ % (SSU, email)
-        response = await core.send(client, query, 'bool')
-        if response:
-            context = {'request': request, 'email_feedback': 'Email already exists'}
-            return TEMPLATES.TemplateResponse('signup.html', context=context)
+    first_name = first_name.title()
+    last_name = last_name.title()
+    password = hash_password(password)
 
-        user_id = shortuuid.uuid()
-        verification_id = uuid.uuid4().hex
-        query = """
-            insert in graph %s {
-               ssu:%s a foaf:Person ;
-                   rdfs:label "%s" ; 
-                   foaf:firstName "%s" ;
-                   foaf:lastName "%s" ;
-                   foaf:mbox "%s" ;
-                   schema:accessCode "%s" ;
-                   sso:hasVerification "%s" ;
-                   sso:status "inactive" .
-            }
-            """ % (SSU, user_id, user_id, fName, lName, email, core.hash_password(password), verification_id)
-        await core.send(client, query)
-        _send_mail(verification_id, email, fName, lName)
+    context = {'request': request}
+    response = await user.exists(email)
+    if response.status_code != status.HTTP_200_OK:
+        context['email_feedback'] = 'Email already exists'
+        return TEMPLATES.TemplateResponse('signup.html', context=context)
 
-    context = {'request': request, 'general_feedback': 'Successfully created account. '
-                                                       'Please check your email for activation.'}
-    return TEMPLATES.TemplateResponse('signup.html', context=context)
+    uid = await user.post(email, password, first_name, last_name)
+    profile = {
+        'id': uid,
+        'first_name': first_name,
+        'last_name': last_name,
+        'email': email,
+        'password': password,
+        'state': 'inactive'
+    }
+    response = await auth.post(profile)
+    verification_id = response.background
+    if response.status_code != status.HTTP_200_OK:
+        context['general_feedback'] = 'Oops. Something went wrong.'
+    # _send_mail(verification_id, email, fName, lName)
+    else:
+        context['general_feedback'] ='Successfully created account. Please check your email for activation.'
+        return TEMPLATES.TemplateResponse('signup.html', context=context)
 
 
 def _send_mail(verification: str, email: str, firstname: str, lastname: str):

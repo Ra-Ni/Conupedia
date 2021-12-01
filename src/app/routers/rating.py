@@ -1,7 +1,7 @@
 import re
 from typing import Optional
 import httpx
-from fastapi import APIRouter, Cookie, Form
+from fastapi import APIRouter, Cookie, Form, Request
 from ..dependencies import auth, core
 from ..internals.globals import SSU, SSC
 
@@ -9,14 +9,12 @@ router = APIRouter()
 
 
 @router.get('/rating')
-async def rating(id: str, token: Optional[str] = Cookie(None)):
+async def rating(id: str, request: Request, token: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
-        user = await auth.get_user(client, token)
-        user_id = user['id']
         course_id = f'ssc:{id.zfill(6)}'
         await _verify_course(client, course_id)
-
-        reaction = await _get_rating(client, user_id, course_id)
+        uid = f'ssu:{request.state.user["id"]}'
+        reaction = await _get_rating(client, uid , course_id)
 
         if not reaction:
             return reaction
@@ -25,13 +23,11 @@ async def rating(id: str, token: Optional[str] = Cookie(None)):
 
 
 @router.post('/rating')
-async def rating(cid: str = Form(...), value: str = Form(...), token: Optional[str] = Cookie(None)):
+async def rating(request: Request, cid: str = Form(...), value: str = Form(...), token: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
-        user = await auth.get_user(client, token)
-        user_id = user['id']
         course_id = f'ssc:{cid.zfill(6)}'
         await _verify_course(client, course_id)
-
+        user_id = f'ssu:{request.state.user["id"]}'
         reaction = f'sso:{value}s'
         db_reaction = await _get_rating(client, user_id, course_id)
 
@@ -50,7 +46,8 @@ async def rating(cid: str = Form(...), value: str = Form(...), token: Optional[s
         delete {%s}
         insert {%s}
         """ % (SSU, delete, insert)
-        await core.send(client, query)
+        resposne = await core.send(client, query)
+        return None
 
 
 class InvalidCourse(Exception):
@@ -68,7 +65,7 @@ async def _verify_course(client: httpx.AsyncClient, course_id: str):
 
 async def _get_rating(client: httpx.AsyncClient, user_id: str, course_id: str) -> str:
     query = """
-        select ?reaction  {
+        select ?reaction where {
             graph %s {
                 values ?reaction { sso:likes sso:dislikes }
                 %s ?reaction %s .

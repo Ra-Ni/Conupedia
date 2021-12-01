@@ -48,10 +48,10 @@
 
                     <div class="grid lg:grid-cols-2 gap-3">
                         <div>
-                            <input type="text" placeholder="First Name"  name="fName" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+                            <input type="text" placeholder="First Name"  name="first_name" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
                         </div>
                         <div>
-                            <input type="text" placeholder="Last Name"  name="lName" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+                            <input type="text" placeholder="Last Name"  name="last_name" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
                         </div>
                     </div>
 
@@ -97,7 +97,7 @@
     <script src= " {{ url_for('assets', path='js/bootstrap-select.min.js') }} " ></script>
     <script type="text/javascript">
         document.getElementById("login").onclick = function () {
-            window.location.replace('http://www.securesea.ca/login');
+            window.location.replace('/login');
         };
     </script>
 

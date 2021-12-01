@@ -126,9 +126,9 @@
     </style>
     <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <script src=" {{ url_for('assets', path='js/vote.js') }} "></script>
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-<input name="ccourse" id="ccourses" type="hidden" value="{{ items }}"></input>
 
 <div class="hero">
 
@@ -142,9 +142,11 @@
             <div class="flex items-center space-x-4">
                 <nav>
                     <ul class="md:flex items-center space-x-3 hidden">
-                        <li><a href="#overview" uk-scroll> Overview</a></li>
-                        <li><a href="#demo" uk-scroll> Demo</a></li>
-                        <li><a href="#features" uk-scroll> Features</a></li>
+                        <li><a id='recommendations' href="#" uk-scroll>Recommendations</a></li>
+                        <li><a id='explore' href="#" uk-scroll>Explore</a></li>
+                        <li><a id='latest' href="#" uk-scroll>Latest</a></li>
+                        <li><a id='popular' href="#" uk-scroll>Popular</a></li>
+                        <li><a id='likes' href="#" uk-scroll>Likes</a></li>
                         <li><a href="#"></a></li>
                     </ul>
                 </nav>
@@ -157,21 +159,21 @@
                         <li>
                             <a class="user">
                                 <div class="user_name">
-                                    <div> <!--  user_info.firstName  user_info.lastName --></div>
-                                    <span><!--user_info.mbox--></span>
+                                    <div id="full_name">{{user_profile.first_name}} {{user_profile.last_name}}</div>
+                                    <span id="email">{{user_profile.email}}</span>
                                 </div>
                             </a>
                         </li>
                         <li>
                             <hr>
                         </li>
-                        <li><a href="/profile">
-                            <ion-icon name="settings-outline" class="is-icon"></ion-icon>
+                        <li><a href="/setting">
+                            <ion-icon href="/setting" name="settings-outline" class="is-icon"></ion-icon>
                             Account Settings</a></li>
                         <li>
                             <hr>
                         </li>
-                        <li><a href="/logout">
+                        <li><a id="logout" href="/logout">
                             <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
                             Log Out</a></li>
                     </ul>
@@ -191,7 +193,7 @@
                       aria-label="chevron back outline"></ion-icon>
             back
         </a>
-        <div class="lg:text-3xl text-xl leading-snug font-bold text-black">{{ title }}</div>
+        <div id="category" class="lg:text-3xl text-xl leading-snug font-bold text-black">{{ title }}</div>
 
     </div>
 </div>
@@ -218,17 +220,21 @@
 <script src="{{url_for('assets', path='js/simplebar.js')}}"></script>
 <script src="{{url_for('assets', path='js/custom.js')}}"></script>
 <script src="{{url_for('assets', path='js/bootstrap-select.min.js')}}"></script>
+<script src="{{url_for('assets', path='js/rating.js')}}"></script>
 <script src="{{url_for('assets', path='js/test.js')}}"></script>
 <script type="text/javascript">
+
     document.getElementById('back').onclick = function () {
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    courses = eval(document.getElementById('ccourses').value)
-    container = document.getElementById('container')
-    load_courses(container, courses)
+    load_courses()
 
 </script>
+<script type="text/javascript">
+    feather.replace()
+</script>
+
 
 </body>
 </html>

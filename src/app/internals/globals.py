@@ -31,6 +31,11 @@ SSO = __buff['sso']
 SST = __buff['sst']
 SSC = __buff['ssc']
 
+__buff = config['Authentication']
+ENCRYPTION_SECRET_KEY = __buff['SecretKey']
+ENCRYPTION_ALGORITHM = __buff['Algorithm']
+TOKEN_KEEP_ALIVE = int(__buff['KeepAlive'])
+
 TEMPLATES = Jinja2Templates(directory=WEB_ROOT)
 
 del __buff

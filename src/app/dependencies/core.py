@@ -7,7 +7,7 @@ from app.internals.globals import SPARQL, NAMESPACES_REVERSED, NAMESPACE_PREFIX
 
 
 def build(query, **kwargs):
-    query = f'{NAMESPACE_PREFIX}\n\n{query}'
+    # query = f'{NAMESPACE_PREFIX}\n\n{query}'
     request = {
         'default-graph-uri': '',
         'query': query,
@@ -58,7 +58,7 @@ async def send(client: httpx.AsyncClient, query: str, format=None):
     query = build(query)
     response = await client.get(SPARQL, params=query)
     if not format:
-        return
+        return response.status_code
     response = to_frame(response)
     response.fillna('', inplace=True)
 
