@@ -125,8 +125,8 @@
         }
     </style>
     <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-    <script src=" {{ url_for('assets', path='js/vote.js') }} "></script>
-    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="{{url_for('assets', path='js/feather.js')}}"></script>
+    <!--<script src="https://unpkg.com/feather-icons"></script>-->
 </head>
 <body>
 
@@ -135,22 +135,21 @@
     <!--  Header -->
     <div class="container mx-auto">
         <div class="flex items-center justify-between mx-auto py-5">
-            <a href="#" class="flex font-semibold items-center lg:text-2xl text-xl text-black">
+            <a href="/" class="flex font-semibold items-center lg:text-2xl text-xl text-black">
                 <ion-icon name="book" class="mr-2 lg:text-3xl text-xl"></ion-icon>
                 Conupedia
             </a>
             <div class="flex items-center space-x-4">
                 <nav>
                     <ul class="md:flex items-center space-x-3 hidden">
-                        <li><a id='recommendations' href="#" uk-scroll>Recommendations</a></li>
-                        <li><a id='explore' href="#" uk-scroll>Explore</a></li>
-                        <li><a id='latest' href="#" uk-scroll>Latest</a></li>
-                        <li><a id='popular' href="#" uk-scroll>Popular</a></li>
-                        <li><a id='likes' href="#" uk-scroll>Likes</a></li>
-                        <li><a href="#"></a></li>
+                        <li><a id='recommendations' href="" uk-scroll>Recommendations</a></li>
+                        <li><a id='explore' href="" uk-scroll>Explore</a></li>
+                        <li><a id='latest' href="" uk-scroll>Latest</a></li>
+                        <li><a id='popular' href="" uk-scroll>Popular</a></li>
+                        <li><a id='likes' href="" uk-scroll>Likes</a></li>
+                        <li><a href=""></a></li>
                     </ul>
                 </nav>
-                <!-- <a href="#" class="bg-black font-medium px-4 py-1.5 rounded-full text-sm text-white"> Buy Now</a> -->
                 <a href="#">
                     <img src=" {{ url_for('assets', path='images/user.svg') }} " class="header_widgets_avatar" alt="">
                 </a>
@@ -188,7 +187,7 @@
      uk-sticky="cls-active: bg delimiter-bottom ; cls-inactive: delimiter-top pt-12">
     <div class="container">
 
-        <a id="back" class="flex items-center mb-2 text-blue-500 text-sm">
+        <a id="back" href="" class="flex items-center mb-2 text-blue-500 text-sm">
             <ion-icon name="chevron-back-outline" class="text-lg md hydrated" role="img"
                       aria-label="chevron back outline"></ion-icon>
             back
@@ -220,8 +219,8 @@
 <script src="{{url_for('assets', path='js/simplebar.js')}}"></script>
 <script src="{{url_for('assets', path='js/custom.js')}}"></script>
 <script src="{{url_for('assets', path='js/bootstrap-select.min.js')}}"></script>
-<script src="{{url_for('assets', path='js/rating.js')}}"></script>
-<script src="{{url_for('assets', path='js/test.js')}}"></script>
+<script src="{{url_for('assets', path='js/conupedia.js')}}"></script>
+
 <script type="text/javascript">
 
     document.getElementById('back').onclick = function () {
@@ -231,9 +230,7 @@
     load_courses()
 
 </script>
-<script type="text/javascript">
-    feather.replace()
-</script>
+
 
 
 </body>

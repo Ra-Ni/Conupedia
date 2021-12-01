@@ -1,3 +1,4 @@
+
 function new_course_obj(course) {
     //Cover Image
     let cover_image = document.createElement('img')
@@ -7,12 +8,15 @@ function new_course_obj(course) {
 
     /*************************************** THUMBS ***************************************/
     let thumbs_down_icon, thumbs_up_icon, thumbs_down, thumbs_up
-
-    thumbs_down_icon = document.createElement('i')
-    thumbs_down_icon.setAttribute('data-feather', 'thumbs-down')
-
-    thumbs_up_icon = document.createElement('i')
-    thumbs_up_icon.setAttribute('data-feather', 'thumbs-up')
+    //
+    // thumbs_down_icon = document.createElement('i')
+    // thumbs_down_icon.setAttribute('data-feather', 'thumbs-down')
+    thumbs_down_icon = document.createElement('img')
+    thumbs_down_icon.setAttribute('src', 'assets/images/thumbs-down.svg')
+    //thumbs_up_icon = document.createElement('i')
+    //thumbs_up_icon.setAttribute('data-feather', 'thumbs-up')
+    thumbs_up_icon = document.createElement('img')
+    thumbs_up_icon.setAttribute('src', 'assets/images/thumbs-up.svg')
 
     thumbs_down = document.createElement('button')
     thumbs_down.setAttribute('class', 'w-5 h-5 uk-position-bottom-right uk-transition-fade')
@@ -122,10 +126,56 @@ function load_courses() {
             for (i = 0; i < courses.length; i++) {
                 load_course(container, courses[i].id)
             }
+
         }
     }
 
     http.open('GET', '/' + category)
+    http.send()
+}
+
+function post_rating(course, rating, button, other) {
+    let http
+    http = new XMLHttpRequest()
+
+    http.onreadystatechange = () => {
+        if (http.readyState === 4 && http.status === 200) {
+            if (other.classList.contains('voted')) {
+                other.classList.remove('voted')
+            }
+            button.classList.toggle('voted')
+        }
+    }
+    http.open('POST', '/rating')
+    http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    http.send('cid=' + course + '&value=' + rating)
+
+}
+
+
+function get_rating(id, thumbs_up, thumbs_down) {
+    let http, response
+    http = new XMLHttpRequest()
+
+    http.onreadystatechange = () => {
+        if (http.readyState === 4 && http.status === 200) {
+            response = JSON.parse(http.responseText)
+            response = response['rating']
+
+            if (response === 'like') {
+                if (thumbs_down.classList.contains('voted')) {
+                    thumbs_down.classList.remove('voted')
+                }
+                thumbs_up.classList.toggle('voted')
+            } else if (response === 'dislike') {
+                if (thumbs_up.classList.contains('voted')) {
+                    thumbs_up.classList.remove('voted')
+                }
+                thumbs_down.classList.toggle('voted')
+            }
+        }
+    }
+    http.open('GET', '/rating?id=' + id)
     http.send()
 }
 
@@ -148,19 +198,3 @@ document.getElementById('logout').onclick = () => {
     http.open('GET', '/logout')
     http.send()
 }
-
-
-
-//
-// function isScrolledIntoView(elem)
-// {
-//     var docViewTop = $(window).scrollTop();
-//     var docViewBottom = docViewTop + $(window).height();
-//
-//     var elemTop = $(elem).offset().top;
-//     var elemBottom = elemTop + $(elem).height();
-//
-//     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-// }
-
-
