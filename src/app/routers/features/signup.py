@@ -34,11 +34,12 @@ async def signup(request: Request,
 
     context = {'request': request}
     response = await user.exists(email)
-    if response.status_code != status.HTTP_200_OK:
+    if response.status_code == status.HTTP_200_OK:
         context['email_feedback'] = 'Email already exists'
         return TEMPLATES.TemplateResponse('signup.html', context=context)
 
     uid = await user.post(email, password, first_name, last_name)
+    uid = uid.background
     profile = {
         'id': uid,
         'first_name': first_name,
@@ -49,18 +50,19 @@ async def signup(request: Request,
     }
     response = await auth.post(profile)
     verification_id = response.background
-    if response.status_code != status.HTTP_200_OK:
+    if response.status_code != status.HTTP_201_CREATED:
         context['general_feedback'] = 'Oops. Something went wrong.'
-    # _send_mail(verification_id, email, fName, lName)
     else:
         context['general_feedback'] = 'Successfully created account. Please check your email for activation.'
-        return TEMPLATES.TemplateResponse('signup.html', context=context)
+        _send_mail(verification_id, email, profile['first_name'], profile['last_name'])
+
+    return TEMPLATES.TemplateResponse('signup.html', context=context)
 
 
-def _send_mail(verification: str, email: str, firstname: str, lastname: str):
+def _send_mail(verification: str, email: str, first_name: str, last_name: str):
     message = """<b>Welcome to Conupedia, %s %s!</b><br>\
     <p>To complete your registration, please click on this \
-    <a href="http://securesea.ca/verify?id=%s">link</a></p>""" % (firstname, lastname, verification)
+    <a href="http://securesea.ca/verify?id=%s">link</a></p>""" % (first_name, last_name, verification)
 
     command = """echo "%s" | mail -s "Conupedia Registration" \
     -a "Content-Type: text/html" \

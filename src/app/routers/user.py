@@ -82,9 +82,9 @@ async def post(email: str, password: str, first_name: str, last_name: str):
 
 
 async def exists(email: str):
-    query = """ask from %s { [] foaf:mbox "%s" }""" % (SSU, email)
+    query = """ask from %s { ?s foaf:mbox "%s" }""" % (SSU, email)
     async with httpx.AsyncClient() as client:
-        response = core.send(client, query, format='bool')
+        response = await core.send(client, query, format='bool')
 
         if response:
             return Response(status_code=status.HTTP_200_OK)

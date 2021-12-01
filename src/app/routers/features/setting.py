@@ -23,34 +23,26 @@ async def profile(request: Request,
                   confirm_new_password: str = Form(...),
                   token: Optional[str] = Cookie(None)):
     user_profile = request.state.user
+    uid = user_profile['id']
+    password = user_profile['password']
+    context = {'request': request, 'user_profile': user_profile, 'password_feedback': None}
+
+    if password != core.hash_password(current_password):
+        context['password_error'] = "Incorrect input for current password."
+        return TEMPLATES.TemplateResponse('setting.html', context=context)
+
+    if new_password != confirm_new_password:
+        context['password_error'] = "Passwords do not match."
+        return TEMPLATES.TemplateResponse('setting.html', context=context)
+
+    new_password = core.hash_password(new_password)
+    query = """
+    modify %s 
+    delete { ssu:%s schema:accessCode "%s" }
+    insert { ssu:%s schema:accessCode "%s" }
+    """ % (SSU, uid, password, uid, new_password)
 
     async with httpx.AsyncClient() as client:
-        context = {'request': request, 'user_profile': user_profile, 'password_feedback': None}
-
-        if new_password != confirm_new_password:
-            context['password_error'] = "Passwords do not match."
-            return TEMPLATES.TemplateResponse('setting.html', context=context)
-
-        if user_profile['password'] != core.hash_password(current_password):
-            context['password_error'] = "Incorrect input for current password."
-            return TEMPLATES.TemplateResponse('setting.html', context=context)
-
-        query = """
-            modify %s 
-            delete { ?s schema:accessCode ?o }
-            insert { ?s schema:accessCode "%s" }
-            where {
-                graph %s {
-                    [] a sso:Token ;
-                        rdfs:seeAlso ?s ;
-                        rdf:value "%s" .
-                }
-                graph %s {
-                    ?s schema:accessCode ?o .
-                }
-            }
-            """ % (SSU, core.hash_password(new_password), SST, token, SSU)
         await core.send(client, query)
-
         context['password_feedback'] = "Password updated successfully."
         return TEMPLATES.TemplateResponse('setting.html', context=context)
