@@ -31,7 +31,7 @@ app.include_router(activate.router)
 async def authenticate(request: Request, call_next):
     cookies = request.cookies
     if 'token' not in cookies:
-        if request.url.path not in ['/course', '/rating', '/']:
+        if request.url.path not in ['/course', '/rating', '/', '/explore', '/popular', '/likes', '/recommendations', '/latest']:
             response = await call_next(request)
             return response
         return RedirectResponse(url='/login', status_code=status.HTTP_302_FOUND)
