@@ -13,7 +13,8 @@ async def get_user(id: str):
     with %s
     select ?id ?firstName ?lastName ?email ?password ?status
     where { 
-        ?id a foaf:Person ;
+        [] a foaf:Person ;
+            rdfs:label ?id ;
             foaf:firstName ?firstName ;
             foaf:lastName ?lastName ;
             foaf:mbox ?email ;
