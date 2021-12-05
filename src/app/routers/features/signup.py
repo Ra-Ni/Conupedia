@@ -41,11 +41,8 @@ async def signup(request: Request,
     uid = await user.post(email, password, first_name, last_name)
     uid = uid.background
 
-    if response.status_code != status.HTTP_201_CREATED:
-        context['general_feedback'] = 'Oops. Something went wrong.'
-    else:
-        context['general_feedback'] = 'Successfully created account. Please check your email for activation.'
-        _send_mail(uid, email, first_name, last_name)
+    context['general_feedback'] = 'Successfully created account. Please check your email for activation.'
+    _send_mail(uid, email, first_name, last_name)
 
     return TEMPLATES.TemplateResponse('signup.html', context=context)
 
