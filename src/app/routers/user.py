@@ -29,7 +29,7 @@ async def get_user(id: str):
     if not response:
         return Response(status_code=status.HTTP_404_NOT_FOUND)
 
-    return Response(status_code=status.HTTP_200_OK, content=jsonable_encoder(response))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(response))
 
 
 async def get(email: str):
