@@ -11,7 +11,7 @@ from .dependencies import auth
 from .dependencies.auth import InvalidCredentials
 from .internals.globals import WEB_ASSETS, TEMPLATES
 from .routers import rating, course
-from .routers.features import login, logout, signup, setting, filters
+from .routers.features import login, logout, signup, setting, filters, activate
 from .routers.rating import InvalidCourse
 
 app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
@@ -24,8 +24,7 @@ app.include_router(setting.router)
 app.include_router(rating.router)
 app.include_router(course.router)
 app.include_router(filters.router)
-
-restricted = ['/course', '/rating', '/']
+app.include_router(activate.router)
 
 
 @app.middleware("http")
