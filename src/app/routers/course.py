@@ -19,7 +19,6 @@ async def get(id: str, token: Optional[str] = Cookie(None)):
     id = str(id).zfill(6)
     course = Course(uri='?c', id=id)
     course.fill_var(exclude=['description', 'requisite', 'similar'])
-
     query = """
             with %s
             select %s ?requisite ?description
