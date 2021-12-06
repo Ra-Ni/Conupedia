@@ -1,18 +1,14 @@
 import json
-import re
-from typing import Optional
+
 import fastapi
-from fastapi import FastAPI, Request, Cookie, Response
+from fastapi import FastAPI, Request, Response
 from fastapi.staticfiles import StaticFiles
 from starlette import status
 from starlette.responses import RedirectResponse
 
 from .dependencies import auth
-from .dependencies.auth import InvalidCredentials
 from .internals.globals import WEB_ASSETS, TEMPLATES
-from .routers import rating, course
-from .routers.features import login, logout, signup, setting, filters, activate
-from .routers.rating import InvalidCourse
+from .routers import rating, course, activate, setting, login, signup, logout
 
 app = FastAPI(docs_url=None, openapi_url=None, redoc_url=None)
 app.mount('/assets', StaticFiles(directory=WEB_ASSETS), name='assets')
@@ -23,7 +19,6 @@ app.include_router(logout.router)
 app.include_router(setting.router)
 app.include_router(rating.router)
 app.include_router(course.router)
-app.include_router(filters.router)
 app.include_router(activate.router)
 
 
@@ -31,7 +26,7 @@ app.include_router(activate.router)
 async def authenticate(request: Request, call_next):
     cookies = request.cookies
     if 'token' not in cookies:
-        if request.url.path not in ['/course', '/rating', '/', '/explore', '/popular', '/likes', '/recommendations', '/latest']:
+        if request.url.path not in ['/courses', '/ratings', '/', '/explore']:
             response = await call_next(request)
             return response
         return RedirectResponse(url='/login', status_code=status.HTTP_302_FOUND)
@@ -59,35 +54,6 @@ async def root(request: Request):
     return TEMPLATES.TemplateResponse('course.html', context=context)
 
 
-@app.exception_handler(InvalidCredentials)
-def invalid_exception(response: Response, token: Optional[Cookie] = None):
-    response = RedirectResponse(url='/login', status_code=status.HTTP_302_FOUND)
-    response.delete_cookie('token')
-    return response
-
-
-@app.exception_handler(InvalidCourse)
-def course_exception(request: Request, response: Response):
-    return RedirectResponse(url=app.url_path_for('dashboard'), status_code=status.HTTP_302_FOUND)
-
-
 @app.exception_handler(fastapi.exceptions.RequestValidationError)
 def request_exception(request: Request, response: Response):
     return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
-
-#
-# @app.exception_handler(fastapi.exceptions.HTTPException)
-# def http_exception(request: Request, response: Response):
-#     return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
-#
-#
-# @app.exception_handler(fastapi.exceptions.ValidationError)
-# def validation_exception(request: Request, response: Response):
-#     return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
-#
-#
-# @app.exception_handler(StarletteHTTPException)
-# def starlette_exception(request: Request, response: Response):
-#     return RedirectResponse(url=app.url_path_for('login'), status_code=status.HTTP_302_FOUND)
-#
-#

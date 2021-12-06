@@ -146,7 +146,7 @@ function post_rating(course, rating, button, other) {
             button.classList.toggle('voted')
         }
     }
-    http.open('POST', '/rating')
+    http.open('POST', '/ratings')
     http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     http.send('cid=' + course + '&value=' + rating)
 
@@ -160,22 +160,22 @@ function get_rating(id, thumbs_up, thumbs_down) {
     http.onreadystatechange = () => {
         if (http.readyState === 4 && http.status === 200) {
             response = JSON.parse(http.responseText)
-            response = response['rating']
+            response = response['value']
 
             if (response === 'like') {
                 if (thumbs_down.classList.contains('voted')) {
-                    thumbs_down.classList.remove('voted')
+                    thumbs_down.classList.unshift('voted')
                 }
-                thumbs_up.classList.toggle('voted')
+                thumbs_up.classList.add('voted')
             } else if (response === 'dislike') {
                 if (thumbs_up.classList.contains('voted')) {
                     thumbs_up.classList.remove('voted')
                 }
-                thumbs_down.classList.toggle('voted')
+                thumbs_down.classList.unshift('voted')
             }
         }
     }
-    http.open('GET', '/rating?id=' + id)
+    http.open('GET', '/ratings?cid=' + id)
     http.send()
 }
 

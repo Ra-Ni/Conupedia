@@ -1,23 +1,13 @@
-import uuid
+from datetime import datetime, timedelta
 from typing import Optional
 
-import httpx
-import shortuuid
 from fastapi import Response, Cookie
-from fastapi.encoders import jsonable_encoder
 from jose import jwt, JWTError, ExpiredSignatureError
 from jose.exceptions import JWTClaimsError
-from passlib.context import CryptContext
 from starlette import status
-from starlette.responses import RedirectResponse
 
-from . import core
-from ..internals.globals import SST, SSU, ENCRYPTION_SECRET_KEY, ENCRYPTION_ALGORITHM, TOKEN_KEEP_ALIVE
-from datetime import datetime, timedelta
-
-
-class InvalidCredentials(Exception):
-    pass
+from ..internals.globals import ENCRYPTION_SECRET_KEY, ENCRYPTION_ALGORITHM, TOKEN_KEEP_ALIVE
+from ..routers import user
 
 
 async def post(data: dict):
@@ -41,7 +31,6 @@ async def get(token: Optional[str] = Cookie(None)) -> Response:
     if not token:
         return Response(status_code=status.HTTP_403_FORBIDDEN)
 
-
     try:
         payload = jwt.decode(token, ENCRYPTION_SECRET_KEY, algorithms=[ENCRYPTION_ALGORITHM])
     except (JWTError, ExpiredSignatureError, JWTClaimsError) as _:
@@ -50,20 +39,9 @@ async def get(token: Optional[str] = Cookie(None)) -> Response:
     uid: str = payload.get('id')
     email: str = payload.get('email')
     password: str = payload.get('password')
+    response = await user.exists(uri=uid, email=email, password=password)
 
-    query = """
-    ask from %s {
-        ssu:%s a foaf:Person ;
-            foaf:mbox "%s" ;
-            schema:accessCode "%s" .
-    }
-    """ % (SSU, uid, email, password)
-
-    async with httpx.AsyncClient() as client:
-        response = await core.send(client, query, format='bool')
-
-    if not response:
+    if response.status_code != status.HTTP_200_OK:
         return Response(status_code=status.HTTP_403_FORBIDDEN)
 
     return Response(status_code=status.HTTP_200_OK, background=payload)
-

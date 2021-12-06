@@ -1,9 +1,11 @@
 import hashlib
 import re
 from io import StringIO
+
 import httpx
 import pandas as pd
-from app.internals.globals import SPARQL, NAMESPACES_REVERSED, NAMESPACE_PREFIX
+
+from ..internals.globals import SPARQL, NAMESPACES_REVERSED, NAMESPACE_PREFIX
 
 
 def build(query, **kwargs):
@@ -78,4 +80,3 @@ async def send(client: httpx.AsyncClient, query: str, format=None):
         return response.iat[0, 0]
     else:
         raise NotImplementedError('Format %s has not been implemented' % format)
-

@@ -1,33 +1,39 @@
-import datetime
-import http
-from enum import Enum
 from typing import Optional
+
 import httpx
-from fastapi import APIRouter, Request, Cookie, Response, Form, Depends
-from fastapi.encoders import jsonable_encoder
+from fastapi import APIRouter, Request, Cookie, Response
 from starlette import status
 from starlette.responses import JSONResponse
+
 from ..dependencies import core
+from ..dependencies.models.course import Course
+from ..dependencies.models.rating import Rating
 from ..internals.globals import SSC
 
 router = APIRouter()
 categories = {}
 
 
-def _gets(request: Request, threshold: int = 50):
+@router.get('/courses/{id}')
+async def get(id: str, token: Optional[str] = Cookie(None)):
+    id = str(id).zfill(6)
+    course = Course(uri='?c', id=id)
+    course.fill_var(exclude=['description', 'requisite', 'similar'])
+
     query = """
-    select ?id
-    where {
-        [] a foaf:Person ;
-            rdfs:label ?id .
-    }
-    order by rand()
-    limit %s
-    """ % threshold
-    return query
+            with %s
+            select %s ?requisite ?description
+            where {
+                    %s 
+                    optional {?c schema:coursePrerequisites ?requisite .}
+                    optional {?c schema:description ?description .}
+            }
+            """ % (SSC, course.vars(), course.to_rdf())
 
-
-categories[None] = _gets
+    async with httpx.AsyncClient() as client:
+        response = await core.send(client, query, format='dict')
+        course.update(response)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=course.dict())
 
 
 @router.get('/courses')
@@ -42,98 +48,116 @@ async def gets(request: Request, category: Optional[str] = None):
     return JSONResponse(status_code=status.HTTP_200_OK, content=response)
 
 
-@router.get('/courses/{id}')
-async def get(id: str, token: Optional[str] = Cookie(None)):
+async def exists(id: str):
+    course = Course(uri=id)
+    query = """
+    ask from %s { %s }
+    """ % (SSC, course.to_rdf())
+
     async with httpx.AsyncClient() as client:
-        query = """
-        with %s
-        select ?id ?code ?title ?degree ?credit ?requisite ?description
-        where {
-            ?c a schema:Course ;
-                rdfs:label ?id ;
-                schema:courseCode ?code ;
-                schema:name ?title ;
-                schema:isPartOf ?degree ;
-                schema:numberOfCredits ?credit .
-                optional {?c schema:coursePrerequisites ?requisite .}
-                optional {?c schema:description ?description .}
-                filter("%s" = ?id)
+        response = await core.send(client, query, format='bool')
+        if response:
+            status_code = status.HTTP_200_OK
+        else:
+            status_code = status.HTTP_404_NOT_FOUND
+
+    return Response(status_code=status_code)
+
+
+def explore(request: Request, threshold: Optional[int] = 50):
+    course = Course(id='?id')
+    query = """
+        select ?id
+        where { %s } 
+        order by rand()
+        limit %s 
+        """ % (course.to_rdf(), threshold)
+    return query
+
+
+def popular(request: Request, threshold: Optional[int] = 50):
+    course = Course(uri='?c', id='?id')
+    rating = Rating(value='like', subject='?c')
+    query = """
+    select ?id 
+    where {
+        %s
+        {
+            select ?c (count(?c) as ?count)
+            where { %s } 
+            group by ?c 
+            order by desc(?count)
+            limit %s
         }
-        """ % (SSC, str(id).zfill(6))
+    }
+    """ % (course.to_rdf(), rating.to_rdf(), threshold)
+    return query
 
-        response = await core.send(client, query, format='dict')
-        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(response))
+
+def recommendations(request: Request, threshold: Optional[int] = 50):
+    uid = request.state.user['id']
+    first_rating = Rating(owner=uid, value='like', subject='?o').to_rdf()
+    first = Course(uri='?o', similar='?c').to_rdf()
+    second = Course(uri='?c', id='?id').to_rdf()
+    second_rating = Rating(owner=uid, subject='?c').to_rdf()
+    query = """
+    select distinct ?id 
+    where {
+        %s
+        %s
+        %s
+        filter not exists { 
+            %s
+        }
+    } 
+    group by ?id 
+    order by rand()
+    limit %s
+    """ % (first_rating, first, second, second_rating, threshold)
+    return query
 
 
-#
-# @router.post('/course')
-# async def admin(request: Request,
-#                 response: Response,
-#                 token: Optional[str] = Cookie(None),
-#                 course_id: str = Form(...),
-#                 code: str = Form(...),
-#                 title: str = Form(...),
-#                 credit: str = Form(...),
-#                 degree: str = Form(...),
-#                 requisites: Optional[str] = Form(None),
-#                 description: Optional[str] = Form(None),
-#                 ):
-#     async with httpx.AsyncClient() as client:
-#         current_time = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
-#         course_id = course_id.zfill(6)
-#         requisites = requisites or ''
-#         description = description or ''
-#         query = """
-#         modify %s
-#         delete { ?s ?p ?o }
-#         insert {
-#             ?s rdfs:label "%s" ;
-#             schema:courseCode "%s" ;
-#             schema:coursePrerequisites "%s" ;
-#             schema:description "%s" ;
-#             schema:isPartOf "%s" ;
-#             schema:name "%s" ;
-#             schema:numberOfCredits "%s"^^xsd:float ;
-#             schema:provider dbr:Concordia_University ;
-#             schema:dateCreated "%s"^^xsd:dateTime .
-#         }
-#         where {
-#             ?s rdfs:label "%s" ;
-#                 ?p ?o .
-#             filter ( ?p != rdfs:seeAlso )
-#         }
-#         """ % (SSC,
-#                course_id,
-#                code,
-#                requisites,
-#                description,
-#                degree,
-#                title,
-#                credit,
-#                current_time,
-#                course_id
-#                )
-#
-#         response = await core.send(client, query)
-#
-#     return response
-#
-#
-# @router.delete('/course/{course_id}')
-# async def course(course_id: str,
-#                  request: Request,
-#                  response: Response,
-#                  token: Optional[str] = Cookie(None),
-#                  ):
-#     async with httpx.AsyncClient() as client:
-#         course_id = course_id.zfill(6)
-#         query = """
-#         delete from %s { ?s ?p ?o . }
-#         where {
-#             ?s rdfs:label "%s" ;
-#                 ?p ?o .
-#         }
-#         """ % (SSC, course_id)
-#         response = await core.send(client, query)
-#
-#     return response
+def latest(request: Request, threshold: Optional[int] = 50):
+    uid = request.state.user['id']
+    course = Course(uri='?c', id='?id', dateCreated='?date')
+    query = """
+    select ?id
+    where { %s } 
+    order by rand() desc(?date) 
+    limit %s 
+    """ % (course.to_rdf(), threshold)
+    return query
+
+
+def likes(request: Request, threshold: Optional[int] = 50):
+    uid = request.state.user['id']
+    rating = Rating(owner=uid, value='like', subject='?c')
+    course = Course(uri='?c', id='?id')
+    query = """
+    select distinct ?id
+    where { %s %s }
+    order by rand()
+    limit %s
+    """ % (rating.to_rdf(), course.to_rdf(), threshold)
+    return query
+
+
+def landing(request: Request, threshold: int = 50):
+    course = Course(id='?id')
+    query = """
+    select *
+    where { %s }
+    order by rand()
+    limit %s
+    """ % (course.to_rdf(), threshold)
+    return query
+
+
+categories.update({
+    None: landing,
+    'likes': likes,
+    'popular': popular,
+    'recommendations': recommendations,
+    'latest': latest,
+    'explore': explore
+})

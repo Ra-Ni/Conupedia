@@ -1,6 +1,7 @@
 from configparser import ConfigParser, ExtendedInterpolation
-from starlette.templating import Jinja2Templates
+
 import pandas as pd
+from starlette.templating import Jinja2Templates
 
 config = ConfigParser(interpolation=ExtendedInterpolation())
 config.read('config.ini')
@@ -28,13 +29,15 @@ WEB_ASSETS = __buff['Assets']
 __buff = config['Graphs']
 SSU = __buff['ssu']
 SSO = __buff['sso']
-SST = __buff['sst']
 SSC = __buff['ssc']
+SSR = __buff['ssr']
 
 __buff = config['Authentication']
 ENCRYPTION_SECRET_KEY = __buff['SecretKey']
 ENCRYPTION_ALGORITHM = __buff['Algorithm']
 TOKEN_KEEP_ALIVE = int(__buff['KeepAlive'])
+
+VOCABULARY = config['Vocabulary']
 
 TEMPLATES = Jinja2Templates(directory=WEB_ROOT)
 

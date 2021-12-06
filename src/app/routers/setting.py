@@ -1,17 +1,17 @@
-from typing import Optional
-import httpx
-from fastapi import APIRouter, Request, Cookie, Form
-from app.internals.globals import TEMPLATES, SSU
+
+from fastapi import APIRouter, Request, Form
+
 from app.dependencies import core
+from app.internals.globals import TEMPLATES
+from app.routers import user
 
 router = APIRouter()
 
 
 @router.get('/setting')
-async def profile(request: Request, token: Optional[str] = Cookie(None), profileID: Optional[str] = Cookie(None)):
+async def profile(request: Request):
     user_profile = request.state.user
-    async with httpx.AsyncClient() as client:
-        context = {'request': request, 'user_profile': user_profile}
+    context = {'request': request, 'user_profile': user_profile}
 
     return TEMPLATES.TemplateResponse('setting.html', context=context)
 
@@ -20,8 +20,7 @@ async def profile(request: Request, token: Optional[str] = Cookie(None), profile
 async def profile(request: Request,
                   current_password: str = Form(...),
                   new_password: str = Form(...),
-                  confirm_new_password: str = Form(...),
-                  token: Optional[str] = Cookie(None)):
+                  confirm_new_password: str = Form(...)):
     user_profile = request.state.user
     uid = user_profile['id']
     password = user_profile['password']
@@ -36,13 +35,7 @@ async def profile(request: Request,
         return TEMPLATES.TemplateResponse('setting.html', context=context)
 
     new_password = core.hash_password(new_password)
-    query = """
-    modify %s 
-    delete { ssu:%s schema:accessCode "%s" }
-    insert { ssu:%s schema:accessCode "%s" }
-    """ % (SSU, uid, password, uid, new_password)
+    await user.patch(uid, password=new_password)
 
-    async with httpx.AsyncClient() as client:
-        await core.send(client, query)
-        context['password_feedback'] = "Password updated successfully."
-        return TEMPLATES.TemplateResponse('setting.html', context=context)
+    context['password_feedback'] = "Password updated successfully."
+    return TEMPLATES.TemplateResponse('setting.html', context=context)

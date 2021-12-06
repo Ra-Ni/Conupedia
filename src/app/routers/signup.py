@@ -1,22 +1,19 @@
 import os
-import uuid
 from typing import Optional
-import httpx
-import shortuuid
+
 from fastapi import APIRouter, Request, Cookie, Form
 from starlette import status
-from starlette.responses import RedirectResponse
 
-from app.routers import user
-from app.dependencies.core import hash_password
-from app.internals.globals import TEMPLATES, SSU
-from app.dependencies import core, auth
+from . import user
+from ..dependencies import core
+from ..internals.globals import TEMPLATES
+
 
 router = APIRouter()
 
 
 @router.get('/signup')
-async def signup(request: Request, token: Optional[str] = Cookie(None)):
+async def signup(request: Request):
     return TEMPLATES.TemplateResponse('signup.html', context={'request': request})
 
 
@@ -25,15 +22,13 @@ async def signup(request: Request,
                  first_name: str = Form(...),
                  last_name: str = Form(...),
                  email: str = Form(...),
-                 password: str = Form(...),
-                 token: Optional[str] = Cookie(None)
-                 ):
+                 password: str = Form(...)):
     first_name = first_name.title()
     last_name = last_name.title()
-    password = hash_password(password)
+    password = core.hash_password(password)
 
     context = {'request': request}
-    response = await user.exists(email)
+    response = await user.exists(email=email)
     if response.status_code == status.HTTP_200_OK:
         context['email_feedback'] = 'Email already exists'
         return TEMPLATES.TemplateResponse('signup.html', context=context)

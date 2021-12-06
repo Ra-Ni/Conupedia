@@ -3,131 +3,74 @@ from typing import Optional
 import httpx
 import shortuuid
 from fastapi import Response
-from fastapi.encoders import jsonable_encoder
 from starlette import status
 from starlette.responses import JSONResponse
+
 from ..dependencies import core
+from ..dependencies.models.user import User
 from ..internals.globals import SSU
 
 
-class Term:
-    def __init__(self, predicate, value, type= str):
-        self.predicate = predicate
-        self.value = value
-        self.type = type
-
-    def __str__(self):
-        if not self.value:
-            return ''
-
-        if ':' in self.value or self.value.startswith('?'):
-            value = f'{self.value}'
-        else:
-            value = f'"{self.value}"'
-            if self.type == float:
-                value += '^^xsd:float'
-
-        return f'{self.predicate} {value}'
-
-    def empty(self):
-        return not self.value
-
-
-class User:
-    def __init__(self, id: Optional[str] = None,
-                 label: Optional[str] = None,
-                 first_name: Optional[str] = None,
-                 last_name: Optional[str] = None,
-                 email: Optional[str] = None,
-                 password: Optional[str] = None,
-                 status: Optional[str] = None):
-        self.id = id
-        self.type = Term('a', 'foaf:Person')
-        self.label = Term('rdfs:label', label)
-        self.first_name = Term('foaf:firstName', first_name)
-        self.last_name = Term('foaf:lastName', last_name)
-        self.email = Term('foaf:mbox', email)
-        self.password = Term('schema:accessCode', password)
-        self.status = Term('sso:status', status)
-
-    def to_rdf(self):
-        rdf = [str(v) for v in self.__dict__.values() if isinstance(v, Term) and not v.empty()]
-
-        if not self.id:
-            id = '[]'
-        elif not self.id.startswith('?'):
-            id = f'ssu:{self.id}'
-        else:
-            id = self.id
-
-        return id + ' ' + ';'.join(rdf) + '.'
-
-    @classmethod
-    def query(cls):
-        return User(label='?id',
-                    first_name='?firstName',
-                    last_name='?lastName',
-                    email='?email',
-                    password='?password',
-                    status='?status')
-
-
-async def get_user(id: str):
+async def get(id: str):
+    user = User(id=id)
     query = """
     with %s
-    select ?id ?firstName ?lastName ?email ?password ?status
-    where { 
-        %s
-        filter (?id = "%s")
-    } 
-    """ % (SSU, User.query().to_rdf(), id)
+    select *
+    where { %s } 
+    """ % (SSU, user.to_rdf())
+
     async with httpx.AsyncClient() as client:
         response = await core.send(client, query, 'dict')
+        if response:
+            user.update(response)
+            return JSONResponse(status_code=status.HTTP_200_OK, content=user.dict())
 
-    if not response:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)
-
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(response))
+    return Response(status_code=status.HTTP_404_NOT_FOUND)
 
 
-async def get(email: str):
+async def gets(id: Optional[str] = None,
+               first_name: Optional[str] = None,
+               last_name: Optional[str] = None,
+               email: Optional[str] = None,
+               password: Optional[str] = None,
+               status_: Optional[str] = None):
+    user = User(id=id,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                password=password,
+                status=status_)
+    user.fill_var(exclude=['dislikes', 'likes'])
+
     query = """
+    with %s
     select *
-    where {
-        graph %s {
-            [] a foaf:Person ;
-                rdfs:label ?id ; 
-                foaf:firstName ?first_name ;
-                foaf:lastName ?last_name ;
-                foaf:mbox ?email ;
-                schema:accessCode ?password ;
-                sso:status ?status .
-            filter ("%s" = ?email)
-        }
-    }
-    """ % (SSU, email)
+    where { %s }
+    """ % (SSU, user.to_rdf())
+
     async with httpx.AsyncClient() as client:
         response = await core.send(client, query, format='dict')
-
         if response:
-            return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(response))
+            user.update(response)
+            return JSONResponse(status_code=status.HTTP_200_OK, content=user.dict())
 
     return Response(status_code=status.HTTP_404_NOT_FOUND)
 
 
 async def post(email: str, password: str, first_name: str, last_name: str):
     uid = shortuuid.uuid()
+    user = User(email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name,
+                status='inactive',
+                id=uid,
+                uri=uid)
+
     query = """
-    insert in graph %s {
-        ssu:%s a foaf:Person ;
-        rdfs:label "%s" ; 
-        foaf:firstName "%s" ;
-        foaf:lastName "%s" ;
-        foaf:mbox "%s" ;
-        schema:accessCode "%s" ;
-        sso:status "inactive" .
-    }
-    """ % (SSU, uid, uid, first_name, last_name, email, password)
+    insert in graph %s { %s }
+    """ % (SSU, user.to_rdf())
+
     async with httpx.AsyncClient() as client:
         response = await core.send(client, query)
 
@@ -137,32 +80,60 @@ async def post(email: str, password: str, first_name: str, last_name: str):
     return Response(status_code=status.HTTP_400_BAD_REQUEST)
 
 
-async def exists(email: str):
-    query = """ask from %s { ?s foaf:mbox "%s" }""" % (SSU, email)
+async def patch(id: str,
+                first_name: Optional[str] = None,
+                last_name: Optional[str] = None,
+                email: Optional[str] = None,
+                password: Optional[str] = None,
+                status_: Optional[str] = None):
+    insert = User(uri=id,
+                  first_name=first_name,
+                  last_name=last_name,
+                  email=email,
+                  password=password,
+                  status=status_)
+    delete = insert.to_query(exclude=['uri', 'type'])
+
+    insert = insert.to_rdf(exclude=['type'])
+    delete = delete.to_rdf(exclude=['type'])
+
+    query = """
+    modify %s
+    delete { %s }
+    insert { %s }
+    where { %s }
+    """ % (SSU, delete, insert, delete)
+    print(query)
+    async with httpx.AsyncClient() as client:
+        response = await core.send(client, query)
+
+        if response == status.HTTP_200_OK:
+            return Response(status_code=status.HTTP_200_OK)
+
+    return Response(status_code=status.HTTP_400_BAD_REQUEST)
+
+
+async def exists(uri: Optional[str] = None,
+                 id: Optional[str] = None,
+                 first_name: Optional[str] = None,
+                 last_name: Optional[str] = None,
+                 email: Optional[str] = None,
+                 password: Optional[str] = None,
+                 status_: Optional[str] = None):
+    user = User(uri=uri,
+                id=id,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                password=password,
+                status=status_)
+    user = user.to_rdf()
+    query = """ask from %s { %s }""" % (SSU, user)
+
     async with httpx.AsyncClient() as client:
         response = await core.send(client, query, format='bool')
 
         if response:
             return Response(status_code=status.HTTP_200_OK)
-
-    return Response(status_code=status.HTTP_404_NOT_FOUND)
-
-
-async def info():
-    query = """
-    with %s
-    select ?id
-    where {
-        [] a foaf:Person ;
-            rdfs:label ?id .
-    }
-    """ % SSU
-
-    async with httpx.AsyncClient() as client:
-        response = await core.send(client, query, format='var')
-
-        if response:
-            response = {'id': response}
-            return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(response))
 
     return Response(status_code=status.HTTP_404_NOT_FOUND)

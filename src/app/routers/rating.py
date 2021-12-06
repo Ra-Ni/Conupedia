@@ -1,75 +1,127 @@
-import re
+import json
 from typing import Optional
+
 import httpx
-from fastapi import APIRouter, Cookie, Form, Request
+import shortuuid
+from fastapi import APIRouter, Form, Request
+from starlette import status
+from starlette.responses import JSONResponse, Response
+
+from . import course
 from ..dependencies import core
-from ..internals.globals import SSU, SSC
+from ..dependencies.models.rating import Rating
+from ..internals.globals import SSR
 
 router = APIRouter()
 
 
-@router.get('/rating')
-async def rating(id: str, request: Request, token: Optional[str] = Cookie(None)):
+async def get(id: str):
+    rating = Rating(uri=id)
+    rating.fill_var()
+    rating = rating.to_rdf()
+    query = """
+    with %s
+    select *
+    where { %s }
+    """ % (SSR, rating)
+
     async with httpx.AsyncClient() as client:
-        course_id = f'ssc:{id.zfill(6)}'
-        await _verify_course(client, course_id)
-        uid = f'ssu:{request.state.user["id"]}'
-        reaction = await _get_rating(client, uid, course_id)
-
-        if not reaction:
-            return reaction
-        reaction = re.sub(r'.*:(.*).', r'\1', reaction)
-        return reaction
+        response = await core.send(client, query, format='dict')
+        return JSONResponse(content=response)
 
 
-@router.post('/rating')
-async def rating(request: Request, cid: str = Form(...), value: str = Form(...), token: Optional[str] = Cookie(None)):
+@router.post('/ratings')
+async def post(request: Request, cid: str = Form(...), value: str = Form(...)):
+    cid = cid.zfill(6)
+    uid = request.state.user["id"]
+    r = Rating(owner=uid, subject=cid, value=value)
+
+    response = await course.exists(cid)
+    if response.status_code != status.HTTP_200_OK:
+        return Response(status_code=status.HTTP_400_BAD_REQUEST)
+
+    response = await gets(request, cid=cid)
+    response = json.loads(response.body)
+    if 'id' in response:
+        id = response['id']
+
+        if response['value'] != value:
+            return await patch(id=id, value=value)
+        else:
+            return await delete_(id=id)
+
+    id = shortuuid.uuid()
+    rating = Rating(uri=id, id=id, value=value, owner=uid, subject=cid).to_rdf()
+    query = """
+    insert in %s { %s }
+    """ % (SSR, rating)
     async with httpx.AsyncClient() as client:
-        course_id = f'ssc:{cid.zfill(6)}'
-        await _verify_course(client, course_id)
-        user_id = f'ssu:{request.state.user["id"]}'
-        reaction = f'sso:{value}s'
-        db_reaction = await _get_rating(client, user_id, course_id)
-
-        if db_reaction == reaction:
-            insert = ''
-        else:
-            insert = f'{user_id} {reaction} {course_id}'
-
-        if db_reaction:
-            delete = f'{user_id} {db_reaction} {course_id}'
-        else:
-            delete = ''
-
-        query = """
-        modify %s
-        delete {%s}
-        insert {%s}
-        """ % (SSU, delete, insert)
         await core.send(client, query)
 
 
-class InvalidCourse(Exception):
-    pass
-
-
-async def _verify_course(client: httpx.AsyncClient, course_id: str):
+@router.get('/ratings')
+async def gets(request: Request,
+               id: Optional[str] = None,
+               cid: Optional[str] = None,
+               value: Optional[str] = None):
+    uid = request.state.user['id']
+    rating = Rating(id=id, owner=uid, subject=cid, value=value)
+    rating.fill_var()
+    rating = rating.to_rdf()
     query = """
-    ask from %s { %s a schema:Course }
-    """ % (SSC, course_id)
-    response = await core.send(client, query, format='bool')
-    if not response:
-        raise InvalidCourse("Course %s does not exist." % course_id)
+    with %s
+    select * 
+    where { %s }
+    """ % (SSR, rating)
+    async with httpx.AsyncClient() as client:
+        response = await core.send(client, query, format='records')
+        if len(response) == 1:
+            response = response[0]
+
+        return JSONResponse(content=response)
 
 
-async def _get_rating(client: httpx.AsyncClient, user_id: str, course_id: str) -> str:
+async def patch(id: str, value: str):
+    insert = Rating(uri=id, value=value).to_rdf()
+    delete = Rating(uri=id, value='?value').to_rdf()
     query = """
-        select ?reaction where {
-            graph %s {
-                values ?reaction { sso:likes sso:dislikes }
-                %s ?reaction %s .
-            }
-    }
-    """ % (SSU, user_id, course_id)
-    response = await core.send(client, query, format='var')
-    return response
+    modify %s
+    delete { %s }
+    insert { %s }
+    where { %s }
+    """ % (SSR, delete, insert, delete)
+
+    async with httpx.AsyncClient() as client:
+        await core.send(client, query)
+
+
+async def delete_(id: str):
+    rating = Rating(uri=id, id=id)
+    rating.fill_var()
+    rating = rating.to_rdf()
+    query = """
+    delete from %s { %s }
+    where { %s }
+    """ % (SSR, rating, rating)
+    async with httpx.AsyncClient() as client:
+        await core.send(client, query)
+
+
+async def exists(id: Optional[str] = None,
+                 uid: Optional[str] = None,
+                 cid: Optional[str] = None,
+                 value: Optional[str] = None):
+    rating = Rating(id=id, owner=uid, subject=cid, value=value)
+    rating.fill_var()
+    query = """
+        ask from %s { %s }
+        """ % (SSR, rating.to_rdf())
+    async with httpx.AsyncClient() as client:
+        response = await core.send(client, query, format='bool')
+
+        if not response:
+            status_code = status.HTTP_404_NOT_FOUND
+        else:
+            status_code = status.HTTP_200_OK
+
+    return Response(status_code=status_code)

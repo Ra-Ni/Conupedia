@@ -1,28 +1,28 @@
 import json
 from typing import Optional
-import httpx
+
 from fastapi import APIRouter, Request, Response, Cookie, Form
 from starlette import status
 from starlette.responses import RedirectResponse
 
-from .. import user
-from ...dependencies import auth
-from ...dependencies.core import hash_password
-from ...internals.globals import TEMPLATES
+from . import user
+from ..dependencies import auth, core
+from ..internals.globals import TEMPLATES
 
 router = APIRouter()
 
 
 @router.get('/login')
-async def login(request: Request, token: Optional[str] = Cookie(None)):
+async def login(request: Request):
     return TEMPLATES.TemplateResponse('login.html', context={'request': request})
 
 
 @router.post('/login')
 async def login(request: Request, response: Response, email: str = Form(...), password: str = Form(...)):
     context = {'request': request}
-    password = hash_password(password)
-    response = await user.get(email)
+    password = core.hash_password(password)
+    response = await user.gets(email=email)
+
     if response.status_code != status.HTTP_200_OK:
         context['email_feedback'] = "The email you entered isn't connected to an account."
         return TEMPLATES.TemplateResponse('login.html', context=context)
