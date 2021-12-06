@@ -1,13 +1,11 @@
 import os
-from typing import Optional
 
-from fastapi import APIRouter, Request, Cookie, Form
+from fastapi import APIRouter, Request, Form
 from starlette import status
 
 from . import user
 from ..dependencies import core
 from ..internals.globals import TEMPLATES
-
 
 router = APIRouter()
 
@@ -46,7 +44,6 @@ def _send_mail(verification: str, email: str, first_name: str, last_name: str):
     message = """<b>Welcome to Conupedia, %s %s!</b><br>\
     <p>To complete your registration, please click on this \
     <a href="http://securesea.ca/activate?id=%s">link</a></p>""" % (first_name, last_name, verification)
-
     command = """echo "%s" | mail -s "Conupedia Registration" \
     -a "Content-Type: text/html" \
     -a "From: no-reply <mySecureSea@gmail.com>" %s""" % (message, email)
