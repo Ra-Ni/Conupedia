@@ -1,3 +1,5 @@
+from typing import Optional
+
 import httpx
 import shortuuid
 from fastapi import Response
@@ -8,21 +10,77 @@ from ..dependencies import core
 from ..internals.globals import SSU
 
 
+class Term:
+    def __init__(self, predicate, value, type= str):
+        self.predicate = predicate
+        self.value = value
+        self.type = type
+
+    def __str__(self):
+        if not self.value:
+            return ''
+
+        if ':' in self.value or self.value.startswith('?'):
+            value = f'{self.value}'
+        else:
+            value = f'"{self.value}"'
+            if self.type == float:
+                value += '^^xsd:float'
+
+        return f'{self.predicate} {value}'
+
+    def empty(self):
+        return not self.value
+
+
+class User:
+    def __init__(self, id: Optional[str] = None,
+                 label: Optional[str] = None,
+                 first_name: Optional[str] = None,
+                 last_name: Optional[str] = None,
+                 email: Optional[str] = None,
+                 password: Optional[str] = None,
+                 status: Optional[str] = None):
+        self.id = id
+        self.type = Term('a', 'foaf:Person')
+        self.label = Term('rdfs:label', label)
+        self.first_name = Term('foaf:firstName', first_name)
+        self.last_name = Term('foaf:lastName', last_name)
+        self.email = Term('foaf:mbox', email)
+        self.password = Term('schema:accessCode', password)
+        self.status = Term('sso:status', status)
+
+    def to_rdf(self):
+        rdf = [str(v) for v in self.__dict__.values() if isinstance(v, Term) and not v.empty()]
+
+        if not self.id:
+            id = '[]'
+        elif not self.id.startswith('?'):
+            id = f'ssu:{self.id}'
+        else:
+            id = self.id
+
+        return id + ' ' + ';'.join(rdf) + '.'
+
+    @classmethod
+    def query(cls):
+        return User(label='?id',
+                    first_name='?firstName',
+                    last_name='?lastName',
+                    email='?email',
+                    password='?password',
+                    status='?status')
+
+
 async def get_user(id: str):
     query = """
     with %s
     select ?id ?firstName ?lastName ?email ?password ?status
     where { 
-        [] a foaf:Person ;
-            rdfs:label ?id ;
-            foaf:firstName ?firstName ;
-            foaf:lastName ?lastName ;
-            foaf:mbox ?email ;
-            schema:accessCode ?password ;
-            sso:status ?status 
+        %s
         filter (?id = "%s")
     } 
-    """ % (SSU, id)
+    """ % (SSU, User.query().to_rdf(), id)
     async with httpx.AsyncClient() as client:
         response = await core.send(client, query, 'dict')
 
