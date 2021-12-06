@@ -105,7 +105,7 @@ function load_course(container, id) {
             container.appendChild(response)
         }
     }
-    http.open('GET', '/course?id=' + id)
+    http.open('GET', '/courses/' + id)
     http.send()
 }
 
@@ -130,7 +130,7 @@ function load_courses() {
         }
     }
 
-    http.open('GET', '/' + category)
+    http.open('GET', '/courses?category=' + category)
     http.send()
 }
 

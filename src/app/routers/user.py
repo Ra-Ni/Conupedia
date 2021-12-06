@@ -88,3 +88,23 @@ async def exists(email: str):
             return Response(status_code=status.HTTP_200_OK)
 
     return Response(status_code=status.HTTP_404_NOT_FOUND)
+
+
+async def info():
+    query = """
+    with %s
+    select ?id
+    where {
+        [] a foaf:Person ;
+            rdfs:label ?id .
+    }
+    """ % SSU
+
+    async with httpx.AsyncClient() as client:
+        response = await core.send(client, query, format='var')
+
+        if response:
+            response = {'id': response}
+            return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(response))
+
+    return Response(status_code=status.HTTP_404_NOT_FOUND)

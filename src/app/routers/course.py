@@ -1,18 +1,48 @@
 import datetime
+import http
+from enum import Enum
 from typing import Optional
 import httpx
-from fastapi import APIRouter, Request, Cookie, Response, Form
+from fastapi import APIRouter, Request, Cookie, Response, Form, Depends
 from fastapi.encoders import jsonable_encoder
 from starlette import status
 from starlette.responses import JSONResponse
 from ..dependencies import core
 from ..internals.globals import SSC
 
-
 router = APIRouter()
+categories = {}
 
 
-@router.get('/course')
+def _gets(request: Request, threshold: int = 50):
+    query = """
+    select ?id
+    where {
+        [] a foaf:Person ;
+            rdfs:label ?id .
+    }
+    order by rand()
+    limit %s
+    """ % threshold
+    return query
+
+
+categories[None] = _gets
+
+
+@router.get('/courses')
+async def gets(request: Request, category: Optional[str] = None):
+    func = categories[None if category not in categories else category]
+    query = func(request)
+    async with httpx.AsyncClient() as client:
+        response = await core.send(client, query, format='records')
+        if not response:
+            return Response(status_code=status.HTTP_404_NOT_FOUND)
+
+    return JSONResponse(status_code=status.HTTP_200_OK, content=response)
+
+
+@router.get('/courses/{id}')
 async def get(id: str, token: Optional[str] = Cookie(None)):
     async with httpx.AsyncClient() as client:
         query = """
@@ -33,6 +63,7 @@ async def get(id: str, token: Optional[str] = Cookie(None)):
 
         response = await core.send(client, query, format='dict')
         return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(response))
+
 
 #
 # @router.post('/course')

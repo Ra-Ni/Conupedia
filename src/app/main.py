@@ -52,7 +52,7 @@ async def authenticate(request: Request, call_next):
 @app.get('/')
 async def root(request: Request):
     user_profile = request.state.user
-    response = await filters.get_explore()
+    response = await course.gets(request)
     response = json.loads(response.body)
     context = {'request': request, 'items': response, 'title': 'Explore', 'user_profile': user_profile}
 

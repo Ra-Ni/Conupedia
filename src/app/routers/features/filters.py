@@ -3,14 +3,14 @@ import httpx
 from fastapi import APIRouter, Request, Response
 from starlette import status
 from starlette.responses import JSONResponse
-from ...dependencies import core
 
+from .. import course
+from ...dependencies import core
 
 router = APIRouter()
 
 
-@router.get('/explore')
-async def get_explore(threshold: Optional[int] = 50):
+def explore(request: Request, threshold: Optional[int] = 50):
     query = """
         select ?id
         where {
@@ -19,17 +19,11 @@ async def get_explore(threshold: Optional[int] = 50):
         } 
         order by rand()
         limit %s 
-        """ % (threshold)
-    async with httpx.AsyncClient() as client:
-        response = await core.send(client, query, format='records')
-        if not response:
-            return Response(status_code=status.HTTP_404_NOT_FOUND)
-
-        return JSONResponse(status_code=status.HTTP_200_OK, content=response)
+        """ % threshold
+    return query
 
 
-@router.get('/popular')
-async def popular(threshold: Optional[int] = 50):
+def popular(request: Request, threshold: Optional[int] = 50):
     query = """
     select ?id 
     where {
@@ -44,16 +38,10 @@ async def popular(threshold: Optional[int] = 50):
         }
     }
     """ % threshold
-    async with httpx.AsyncClient() as client:
-        response = await core.send(client, query, format='records')
-    if not response:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)
-
-    return JSONResponse(status_code=status.HTTP_200_OK, content=response)
+    return query
 
 
-@router.get('/recommendations')
-async def recommendations(request: Request, threshold: Optional[int] = 50):
+def recommendations(request: Request, threshold: Optional[int] = 50):
     uid = request.state.user['id']
     query = """
     select distinct ?id 
@@ -67,17 +55,10 @@ async def recommendations(request: Request, threshold: Optional[int] = 50):
     order by rand()
     limit %s
     """ % (uid, uid, threshold)
-
-    async with httpx.AsyncClient() as client:
-        response = await core.send(client, query, format='records')
-    if not response:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)
-
-    return JSONResponse(status_code=status.HTTP_200_OK, content=response)
+    return query
 
 
-@router.get('/latest')
-async def latest(request: Request, threshold: Optional[int] = 50):
+def latest(request: Request, threshold: Optional[int] = 50):
     uid = request.state.user['id']
     query = """
     select ?id
@@ -90,16 +71,10 @@ async def latest(request: Request, threshold: Optional[int] = 50):
     order by rand() desc(?date) 
     limit %s 
     """ % (uid, threshold)
-    async with httpx.AsyncClient() as client:
-        response = await core.send(client, query, format='records')
-        if not response:
-            return Response(status_code=status.HTTP_404_NOT_FOUND)
-
-        return JSONResponse(status_code=status.HTTP_200_OK, content=response)
+    return query
 
 
-@router.get('/likes')
-async def latest(request: Request, threshold: Optional[int] = 50):
+def likes(request: Request, threshold: Optional[int] = 50):
     uid = request.state.user['id']
     query = """
     select distinct ?id
@@ -110,9 +85,13 @@ async def latest(request: Request, threshold: Optional[int] = 50):
     order by rand()
     limit %s
     """ % (uid, threshold)
-    async with httpx.AsyncClient() as client:
-        response = await core.send(client, query, format='records')
-        if not response:
-            return Response(status_code=status.HTTP_404_NOT_FOUND)
+    return query
 
-        return JSONResponse(status_code=status.HTTP_200_OK, content=response)
+
+course.categories.update({
+    'likes': likes,
+    'popular': popular,
+    'recommendations': recommendations,
+    'latest': latest,
+    'explore': explore
+})
