@@ -10,9 +10,7 @@ class User(Thing):
                  last_name: Optional[str] = None,
                  email: Optional[str] = None,
                  password: Optional[str] = None,
-                 status: Optional[str] = None,
-                 likes: Optional[str] = None,
-                 dislikes: Optional[str] = None):
+                 status: Optional[str] = None):
         super().__init__(base_prefix='ssu:', type='foaf:Person', uri=uri)
         self._predicates.update({
             'id': id,
@@ -20,7 +18,5 @@ class User(Thing):
             'last_name': last_name,
             'email': email,
             'password': password,
-            'status': status,
-            'likes': likes,
-            'dislikes': dislikes
+            'status': status
         })

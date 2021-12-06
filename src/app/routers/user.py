@@ -13,12 +13,13 @@ from ..internals.globals import SSU
 
 async def get(id: str):
     user = User(id=id)
+    user.fill_var()
+
     query = """
     with %s
     select *
     where { %s } 
     """ % (SSU, user.to_rdf())
-
     async with httpx.AsyncClient() as client:
         response = await core.send(client, query, 'dict')
         if response:
