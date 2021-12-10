@@ -6,24 +6,100 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix schema: <http://schema.org/version/6.0/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
-<http://localhost:8890/ontology/likes>
-	rdf:type rdf:Property ;
-	rdfs:domain foaf:Person ;
-	rdfs:range schema:Course .
+<http://localhost:8890/ontology/> a owl:Ontology .
+sso:Thing a rdfs:Class .
+sso:User a rdfs:Class ;
+         rdfs:subClassOf sso:Thing .
+sso:Role a rdfs:Class ;
+          rdfs:subClassOf sso:Thing .
+sso:Member a rdfs:Class ;
+           rdfs:subClassOf sso:Role .
+sso:Guest a rdfs:Class ;
+         rdfs:subClassOf sso:Role .
+sso:Admin  a rdfs:Class ;
+         rdfs:subClassOf sso:Role .
+sso:Degree a rdfs:Class ;
+           rdfs:subClassOf sso:Thing .
+sso:Undergraduate a rdfs:Class ;
+                  rdfs:subClassOf sso:Degree .
+sso:Graduate a rdfs:Class ;
+             rdfs:subClassOf sso:Degree .
+sso:CCE a rdfs:Class ;
+             rdfs:subClassOf sso:Degree .
+sso:GradProSkills a rdfs:Class ;
+             rdfs:subClassOf sso:Degree .
 
-<http://localhost:8890/ontology/dislikes>
-	rdf:type rdf:Property ;
-	rdfs:domain foaf:Person ;
-	rdfs:range schema:Course .
+sso:Course a rdfs:Class ;
+           rdfs:subClassOf sso:Thing .
 
-<http://localhost:8890/ontology/status>
-    rdf:type rdf:Property ;
-    rdfs:domain foaf:Person ;
+sso:Rating a rdfs:Class .
+
+sso:firstName a rdf:Property ;
+              rdfs:domain sso:User ;
+              rdfs:range rdfs:Literal .
+
+sso:lastName a rdf:Property ;
+             rdfs:domain sso:User ;
+             rdfs:range rdfs:Literal .
+
+sso:email a rdf:Property ;
+          rdfs:domain sso:User ;
+          rdfs:range rdfs:Literal .
+
+sso:password a rdf:Property ;
+             rdfs:domain sso:User ;
+             rdfs:range rdfs:Literal .
+
+sso:role a rdf:Property ;
+           rdfs:domain sso:User ;
+           rdfs:range sso:Role .
+
+sso:identifier a rdf:Property ;
+               rdfs:domain sso:Thing ;
+               rdfs:range rdfs:Literal .
+
+sso:owner a rdf:Property ;
+    rdfs:domain sso:Rating ;
+    rdfs:range sso:User .
+
+sso:subject a rdf:Property ;
+    rdfs:domain sso:Rating ;
+    rdfs:range sso:Course .
+
+sso:value a rdf:Property ;
+    rdfs:domain sso:Rating ;
+    rdfs:range xsd:string .
+
+sso:code a rdf:Property ;
+    rdfs:domain sso:Course ;
     rdfs:range rdfs:Literal .
 
-<http://localhost:8890/ontology/hasSession>
-    rdf:type rdf:Property ;
-    rdfs:domain foaf:Person ;
-    rdfs:range sst:Token .
+sso:credits a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range xsd:float .
+
+sso:name a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range rdfs:Literal .
+
+sso:degree a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range sso:Degree .
+
+sso:requisites a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range rdfs:Literal .
+
+sso:provider a rdf:Property ;
+    rdfs:domain sso:Course .
+
+sso:description a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range rdfs:Literal .
+
+sso:like a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range sso:Course .
 
