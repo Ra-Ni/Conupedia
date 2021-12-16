@@ -8,6 +8,11 @@
 @prefix schema: <http://schema.org/version/6.0/#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
+# NOTE: THIS IS NOT INTENDED TO BE USED IN IMPLEMENTATION DETAILS
+# THIS FILE IS FOR DEMONSTRATION PURPOSES AND THE VOCABULARY CONTAINED
+# IN THIS FILE SHOULD BE REPLACED WITH EXISTING VOCABULARIES
+# IN THE SCHEMA.ORG, FOAF, OWL, and RDF(S) ONTOLOGIES.
+
 <http://localhost:8890/ontology/> a owl:Ontology .
 sso:Thing a rdfs:Class .
 sso:User a rdfs:Class ;
@@ -99,7 +104,7 @@ sso:description a rdf:Property ;
     rdfs:domain sso:Course ;
     rdfs:range rdfs:Literal .
 
-sso:like a rdf:Property ;
+sso:seeAlso a rdf:Property ;
     rdfs:domain sso:Course ;
     rdfs:range sso:Course .
 
