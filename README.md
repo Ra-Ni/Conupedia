@@ -10,7 +10,6 @@
 - lxml
 
 
-sudo ss -lptn 'sport = :80'
 
 # Overview
 Conupedia is a software suite that resides on the cloud as
