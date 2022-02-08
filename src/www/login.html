@@ -1,0 +1,92 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link href= " {{ url_for('assets', path='images/favicon.png') }} "  rel="icon" type="image/png">
+
+    <!-- Basic Page Needs
+        ================================================== -->
+    <title>Conupedia</title>
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href= " {{ url_for('assets', path='css/icons.css') }} " >
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href= " {{ url_for('assets', path='css/uikit.css') }} " >
+    <link rel="stylesheet" href= " {{ url_for('assets', path='css/style.css') }} " >
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+    input , .bootstrap-select.btn-group button{
+        background-color: #f3f4f6  !important;
+        height: 44px  !important;
+        box-shadow: none  !important;
+    }
+    </style>
+
+    <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+</head>
+<body>
+
+    <div id="wrapper" class="flex flex-col justify-between h-screen">
+
+        <!-- Content-->
+        <div>
+
+            <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" method="post">
+                    <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Welcome back </h1>
+
+                    <div>
+                        <input name="email" type="text" placeholder="Email" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+                        <div class="err">{{email_feedback}}</div>
+                    </div>
+                    <div>
+                        <input name="password" type="password" placeholder="Password" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+                        <div class="err">{{password_feedback}}</div>
+                    </div>
+                    <div class="err"> {{ general_feedback }}</div>
+
+                    <div>
+                        <button type="submit" class="bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full">
+                        Log In
+                        </button>
+                    </div>
+
+                </form>
+                <div class="uk-heading-line uk-text-center py-5"><span> or </span></div>
+                <div>
+                    <button class="submit-button bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full" id="signup">
+                    Sign Up
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+<!-- Javascript
+================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src= " {{ url_for('assets', path='js/uikit.js') }} " ></script>
+    <script src= " {{ url_for('assets', path='js/tippy.all.min.js') }} " ></script>
+    <script src= " {{ url_for('assets', path='js/simplebar.js') }} " ></script>
+    <script src= " {{ url_for('assets', path='js/custom.js') }} " ></script>
+    <script src= " {{ url_for('assets', path='js/bootstrap-select.min.js') }} " ></script>
+    <script type="text/javascript">
+        document.getElementById("signup").onclick = function () {
+            window.location.replace('/signup');
+        };
+    </script>
+</body>
+
+</html>

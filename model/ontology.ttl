@@ -1,0 +1,110 @@
+@prefix sst: <http://localhost:8890/token/> .
+@prefix sso: <http://localhost:8890/ontology/> .
+@prefix ssu: <http://localhost:8890/user/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/version/6.0/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+# NOTE: THIS IS NOT INTENDED TO BE USED IN IMPLEMENTATION DETAILS
+# THIS FILE IS FOR DEMONSTRATION PURPOSES AND THE VOCABULARY CONTAINED
+# IN THIS FILE SHOULD BE REPLACED WITH EXISTING VOCABULARIES
+# IN THE SCHEMA.ORG, FOAF, OWL, and RDF(S) ONTOLOGIES.
+
+<http://localhost:8890/ontology/> a owl:Ontology .
+sso:Thing a rdfs:Class .
+sso:User a rdfs:Class ;
+         rdfs:subClassOf sso:Thing .
+sso:Role a rdfs:Class ;
+          rdfs:subClassOf sso:Thing .
+sso:Member a rdfs:Class ;
+           rdfs:subClassOf sso:Role .
+sso:Guest a rdfs:Class ;
+         rdfs:subClassOf sso:Role .
+sso:Admin  a rdfs:Class ;
+         rdfs:subClassOf sso:Role .
+sso:Degree a rdfs:Class ;
+           rdfs:subClassOf sso:Thing .
+sso:Undergraduate a rdfs:Class ;
+                  rdfs:subClassOf sso:Degree .
+sso:Graduate a rdfs:Class ;
+             rdfs:subClassOf sso:Degree .
+sso:CCE a rdfs:Class ;
+             rdfs:subClassOf sso:Degree .
+sso:GradProSkills a rdfs:Class ;
+             rdfs:subClassOf sso:Degree .
+
+sso:Course a rdfs:Class ;
+           rdfs:subClassOf sso:Thing .
+
+sso:Rating a rdfs:Class .
+
+sso:firstName a rdf:Property ;
+              rdfs:domain sso:User ;
+              rdfs:range rdfs:Literal .
+
+sso:lastName a rdf:Property ;
+             rdfs:domain sso:User ;
+             rdfs:range rdfs:Literal .
+
+sso:email a rdf:Property ;
+          rdfs:domain sso:User ;
+          rdfs:range rdfs:Literal .
+
+sso:password a rdf:Property ;
+             rdfs:domain sso:User ;
+             rdfs:range rdfs:Literal .
+
+sso:role a rdf:Property ;
+           rdfs:domain sso:User ;
+           rdfs:range sso:Role .
+
+sso:identifier a rdf:Property ;
+               rdfs:domain sso:Thing ;
+               rdfs:range rdfs:Literal .
+
+sso:owner a rdf:Property ;
+    rdfs:domain sso:Rating ;
+    rdfs:range sso:User .
+
+sso:subject a rdf:Property ;
+    rdfs:domain sso:Rating ;
+    rdfs:range sso:Course .
+
+sso:value a rdf:Property ;
+    rdfs:domain sso:Rating ;
+    rdfs:range xsd:string .
+
+sso:code a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range rdfs:Literal .
+
+sso:credits a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range xsd:float .
+
+sso:name a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range rdfs:Literal .
+
+sso:degree a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range sso:Degree .
+
+sso:requisites a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range rdfs:Literal .
+
+sso:provider a rdf:Property ;
+    rdfs:domain sso:Course .
+
+sso:description a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range rdfs:Literal .
+
+sso:seeAlso a rdf:Property ;
+    rdfs:domain sso:Course ;
+    rdfs:range sso:Course .
+
